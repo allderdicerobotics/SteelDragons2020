@@ -13,7 +13,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -26,14 +25,14 @@ public class Intake extends SubsystemBase {
   private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
   private double currentIntakeFoldPosition;
 
-  private final Spark intakeSpinMotor;
+  private final CANSparkMax intakeSpinMotor;
 
   public Intake() {
     intakeFoldMotor = new CANSparkMax(Constants.CAN_FOLD_INTAKE, MotorType.kBrushless);
     intakeFoldMotorPIDController = intakeFoldMotor.getPIDController();
     intakeFoldMotorCANEncoder = intakeFoldMotor.getEncoder();
 
-    intakeSpinMotor = new Spark(Constants.PWM_SPIN_INTAKE);
+    intakeSpinMotor = new CANSparkMax(Constants.CAN_SPIN_INTAKE, MotorType.kBrushless);
 
     kP = 0.0;
     kI = 0.0;

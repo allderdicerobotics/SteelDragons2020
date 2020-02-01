@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -25,11 +26,17 @@ public class Tube extends SubsystemBase {
   private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
   private double currentTubePosition;
 
+  private Spark beltLeft;
+  private Spark beltRight;
+
 
   public Tube() {
     tubeMotor = new CANSparkMax(Constants.CAN_TUBE, MotorType.kBrushless);
     tubeMotorPIDController = tubeMotor.getPIDController();
     tubeMotorCANEncoder = tubeMotor.getEncoder();
+
+    beltLeft = new Spark(Constants.PWM_TUBE_BELT_LEFT);
+    beltRight = new Spark(Constants.PWM_TUBE_BELT_RIGHT);
 
     kP = 0.0;
     kI = 0.0;
@@ -63,6 +70,22 @@ public class Tube extends SubsystemBase {
     // SmartDashboard.putNumber("Tube Set Position", 0);
   }
 
+  //TUBE BELTS
+  public void beltUp() {
+    beltLeft.set(Constants.BELT_SPEED_UP);
+    beltRight.set(-Constants.BELT_SPEED_UP);
+  }
+  public void beltDown() {
+    beltLeft.set(-Constants.BELT_SPEED_UP);
+    beltRight.set(Constants.BELT_SPEED_UP);
+  }
+
+  public void beltStop() {
+    beltLeft.set(0.0);
+    beltRight.set(0.0);
+  }
+
+  //TUBE ACTUATION
   public void up() {
     setPosition(currentTubePosition + Constants.TUBE_MANUAL_CHANGE);
   }
