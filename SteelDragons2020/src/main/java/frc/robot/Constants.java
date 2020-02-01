@@ -22,14 +22,14 @@ public class Constants {
 	public static final int CAN_FOLD_INTAKE = 7;
 
 	//PWM IDs
-    public static final int PWM_SPIN_INTAKE = 1;
+    public static final int PWM_SPIN_INTAKE = 3;
 
 	//SPEEDS
     public static final double DRIVETRAIN_THROTTLE_SCALE = 0.6;
     public static final double DRIVETRAIN_STEER_SCALE = 0.5;
 
-    public static final double INTAKE_SPEED_IN = -0.7;
-	public static final double INTAKE_SPEED_OUT = 0.3;
+    public static final double INTAKE_SPEED_IN = -0.1;
+	public static final double INTAKE_SPEED_OUT = 0.1;
 	
 	//OTHER
     public static final double TUBE_MANUAL_CHANGE = 1.9;
