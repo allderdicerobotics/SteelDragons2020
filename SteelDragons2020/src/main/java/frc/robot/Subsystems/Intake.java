@@ -83,7 +83,20 @@ public class Intake extends SubsystemBase {
     intakeSpinMotor.set(speed);
   }
 
-  //INTAKE POSITION
+  //INTAKE FOLD SPEEDS
+  public void goUp() {
+    intakeFoldMotor.set(0.4);
+  }
+
+  public void goDown() {
+    intakeFoldMotor.set(-0.4);
+  }
+
+  public void stop() {
+    intakeFoldMotor.set(0.0);
+  }
+
+  //INTAKE FOLD POSITIONS
   public void bottom() {
     setPosition(0.0);
   }

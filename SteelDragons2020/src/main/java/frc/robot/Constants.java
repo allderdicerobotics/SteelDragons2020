@@ -10,11 +10,6 @@ package frc.robot;
 
 public class Constants {
 	//CAN IDs
-    public static final int CAN_DRIVETRAIN_FRONTLEFT = 0;
-    public static final int CAN_DRIVETRAIN_BACKLEFT = 1;
-    public static final int CAN_DRIVETRAIN_FRONTRIGHT = 2;
-    public static final int CAN_DRIVETRAIN_BACKRIGHT = 3;
-
     public static final int CAN_TUBE = 4;
     public static final int CAN_SHOOTER_LEFT = 5;
     public static final int CAN_SHOOTER_RIGHT = 6;
@@ -25,6 +20,11 @@ public class Constants {
 	//PWM IDs
 	public static final int PWM_TUBE_BELT_RIGHT = 4;
 	public static final int PWM_TUBE_BELT_LEFT = 5;
+
+	public static final int PWM_DRIVETRAIN_FRONTLEFT = 0;
+    public static final int PWM_DRIVETRAIN_BACKLEFT = 1;
+    public static final int PWM_DRIVETRAIN_FRONTRIGHT = 2;
+    public static final int PWM_DRIVETRAIN_BACKRIGHT = 3;
 
 	//SPEEDS
     public static final double DRIVETRAIN_THROTTLE_SCALE = 0.6;

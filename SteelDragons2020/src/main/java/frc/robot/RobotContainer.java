@@ -76,28 +76,37 @@ public class RobotContainer {
     }
 
     public void configureButtonBindings() {
-        //TUBE
-        new JoystickButton(operator, Constants.kButtonY)
-            .whileActiveContinuous(() -> tube.up());
-        new JoystickButton(operator, Constants.kButtonA)
-            .whileActiveContinuous(() -> tube.down());
+        // //TUBE
+        // new JoystickButton(operator, Constants.kButtonY)
+        //     .whileActiveContinuous(() -> tube.up());
+        // new JoystickButton(operator, Constants.kButtonA)
+        //     .whileActiveContinuous(() -> tube.down());
 
         //INTAKE
-        new JoystickButton(driver, Constants.kButtonX)
+        new JoystickButton(operator, Constants.kButtonX)
             .whenPressed(() -> intake.spinIn())
             .whenReleased(() -> intake.spinStop());
-        new JoystickButton(driver, Constants.kButtonA)
+        new JoystickButton(operator, Constants.kButtonA)
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());
 
-        new JoystickButton(driver, Constants.kButtonB)
-            .whileActiveContinuous(() -> intake.top());
-        new JoystickButton(driver, Constants.kButtonY)
-            .whileActiveContinuous(() -> intake.bottom());
+        new JoystickButton(operator, Constants.kButtonB)
+            .whenPressed(() -> intake.goUp())
+            .whenReleased(() -> intake.stop());
+        new JoystickButton(operator, Constants.kButtonY)
+            .whenPressed(() -> intake.goDown())
+            .whenReleased(() -> intake.stop());
 
-        //SHOOTER
-        new JoystickButton(operator, Constants.kButtonX)
-            .whileActiveContinuous(() -> shooter.maxSpeed())
-            .whenInactive(() -> shooter.stop());
+        new JoystickButton(operator, Constants.kButtonLeftBumper)
+            .whenPressed(() -> tube.beltUp())
+            .whenReleased(() -> tube.beltStop());
+        new JoystickButton(operator, Constants.kButtonRightBumper)
+            .whenPressed(() -> tube.beltDown())
+            .whenReleased(() -> tube.beltStop());
+
+        // //SHOOTER
+        // new JoystickButton(operator, Constants.kButtonX)
+        //     .whileActiveContinuous(() -> shooter.maxSpeed())
+        //     .whenInactive(() -> shooter.stop());
     }
 }

@@ -20,42 +20,42 @@ import frc.robot.Constants;
 
 
 public class Tube extends SubsystemBase {
-  private final CANSparkMax tubeMotor;
-  private CANPIDController tubeMotorPIDController;
-  private CANEncoder tubeMotorCANEncoder;
-  private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
-  private double currentTubePosition;
+  // private final CANSparkMax tubeMotor;
+  // private CANPIDController tubeMotorPIDController;
+  // private CANEncoder tubeMotorCANEncoder;
+  // private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
+  // private double currentTubePosition;
 
   private Spark beltLeft;
   private Spark beltRight;
 
 
   public Tube() {
-    tubeMotor = new CANSparkMax(Constants.CAN_TUBE, MotorType.kBrushless);
-    tubeMotorPIDController = tubeMotor.getPIDController();
-    tubeMotorCANEncoder = tubeMotor.getEncoder();
+    // tubeMotor = new CANSparkMax(Constants.CAN_TUBE, MotorType.kBrushless);
+    // tubeMotorPIDController = tubeMotor.getPIDController();
+    // tubeMotorCANEncoder = tubeMotor.getEncoder();
 
     beltLeft = new Spark(Constants.PWM_TUBE_BELT_LEFT);
     beltRight = new Spark(Constants.PWM_TUBE_BELT_RIGHT);
 
-    kP = 0.0;
-    kI = 0.0;
-    kD = 0.0;
-    kIz = 0.0;
-    kFF = 0.0;
-    kMaxOutput = 0.0;
-    kMinOutput = 0.0;
+    // kP = 0.0;
+    // kI = 0.0;
+    // kD = 0.0;
+    // kIz = 0.0;
+    // kFF = 0.0;
+    // kMaxOutput = 0.0;
+    // kMinOutput = 0.0;
 
-    maxAccel = 0.0;
+    // maxAccel = 0.0;
 
-    tubeMotorPIDController.setP(kP);
-    tubeMotorPIDController.setI(kI);
-    tubeMotorPIDController.setD(kD);
-    tubeMotorPIDController.setIZone(kIz);
-    tubeMotorPIDController.setFF(kFF);
-    tubeMotorPIDController.setOutputRange(kMinOutput, kMaxOutput);
+    // tubeMotorPIDController.setP(kP);
+    // tubeMotorPIDController.setI(kI);
+    // tubeMotorPIDController.setD(kD);
+    // tubeMotorPIDController.setIZone(kIz);
+    // tubeMotorPIDController.setFF(kFF);
+    // tubeMotorPIDController.setOutputRange(kMinOutput, kMaxOutput);
 
-    tubeMotorPIDController.setSmartMotionMaxAccel(maxAccel, 0);
+    // tubeMotorPIDController.setSmartMotionMaxAccel(maxAccel, 0);
 
     // //Use this only for tuning PID values and testing
     // SmartDashboard.putNumber("Tube P", kP);
@@ -85,31 +85,31 @@ public class Tube extends SubsystemBase {
     beltRight.set(0.0);
   }
 
-  //TUBE ACTUATION
-  public void up() {
-    setPosition(currentTubePosition + Constants.TUBE_MANUAL_CHANGE);
-  }
+  // //TUBE ACTUATION
+  // public void up() {
+  //   setPosition(currentTubePosition + Constants.TUBE_MANUAL_CHANGE);
+  // }
 
-  public void down() {
-    setPosition(currentTubePosition - Constants.TUBE_MANUAL_CHANGE);
-  }
+  // public void down() {
+  //   setPosition(currentTubePosition - Constants.TUBE_MANUAL_CHANGE);
+  // }
 
-  public void bottomPosition() {
-    setPosition(0.0);
-  }
+  // public void bottomPosition() {
+  //   setPosition(0.0);
+  // }
 
-  public void topPosition() {
-    setPosition(300.0);
-  }
+  // public void topPosition() {
+  //   setPosition(300.0);
+  // }
 
-  public void setAngle(double angle) {
-    //TODO: convert angle to position
-  }
+  // public void setAngle(double angle) {
+  //   //TODO: convert angle to position
+  // }
 
-  public void setPosition(double position){
-    tubeMotorPIDController.setReference(position, ControlType.kSmartMotion);
-    currentTubePosition = position;
-  }
+  // public void setPosition(double position){
+  //   tubeMotorPIDController.setReference(position, ControlType.kSmartMotion);
+  //   currentTubePosition = position;
+  // }
 
   public void PIDSetup() {
   //   //Use this only for tuning PID values and testing
