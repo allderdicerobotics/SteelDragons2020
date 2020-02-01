@@ -100,6 +100,7 @@ public class RobotContainer {
         new JoystickButton(operator, Constants.kButtonLeftBumper)
             .whenPressed(() -> tube.beltUp())
             .whenReleased(() -> tube.beltStop());
+            
         new JoystickButton(operator, Constants.kButtonRightBumper)
             .whenPressed(() -> tube.beltDown())
             .whenReleased(() -> tube.beltStop());
