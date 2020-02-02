@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -37,33 +38,33 @@ public class Intake extends SubsystemBase {
     kP = 0.0;
     kI = 0.0;
     kD = 0.0;
-    kIz = 0.0;
-    kFF = 0.0;
-    kMaxOutput = 0.0;
-    kMinOutput = 0.0;
+    //kIz = 0.0;
+    //kFF = 0.0;
+    //kMaxOutput = 0.0;
+    //kMinOutput = 0.0;
 
-    maxAccel = 0.0;
+    //maxAccel = 0.0;
 
     intakeFoldMotorPIDController.setP(kP);
     intakeFoldMotorPIDController.setI(kI);
     intakeFoldMotorPIDController.setD(kD);
-    intakeFoldMotorPIDController.setIZone(kIz);
-    intakeFoldMotorPIDController.setFF(kFF);
-    intakeFoldMotorPIDController.setOutputRange(kMinOutput, kMaxOutput);
+    // intakeFoldMotorPIDController.setIZone(kIz);
+    // intakeFoldMotorPIDController.setFF(kFF);
+    // intakeFoldMotorPIDController.setOutputRange(kMinOutput, kMaxOutput);
 
-    intakeFoldMotorPIDController.setSmartMotionMaxAccel(maxAccel, 0);
+    // intakeFoldMotorPIDController.setSmartMotionMaxAccel(maxAccel, 0);
 
     // //Use this only for tuning PID values and testing
-    // SmartDashboard.putNumber("IntakeFold P", kP);
-    // SmartDashboard.putNumber("IntakeFold I", kI);
-    // SmartDashboard.putNumber("IntakeFold D" , kD);
+    SmartDashboard.putNumber("IntakeFold P", kP);
+    SmartDashboard.putNumber("IntakeFold I", kI);
+    SmartDashboard.putNumber("IntakeFold D" , kD);
     // SmartDashboard.putNumber("IntakeFold I Zone", kIz);
     // SmartDashboard.putNumber("IntakeFold Feed Forward", kFF);
-    // SmartDashboard.putNumber("IntakeFold Max Output", kMaxOutput);
-    // SmartDashboard.putNumber("IntakeFold Min Output", kMinOutput);
+     SmartDashboard.putNumber("IntakeFold Max Output", kMaxOutput);
+     SmartDashboard.putNumber("IntakeFold Min Output", kMinOutput);
 
     // SmartDashboard.putNumber("IntakeFold Max Accel", maxAccel);
-    // SmartDashboard.putNumber("IntakeFold Set Position", 0);
+     SmartDashboard.putNumber("IntakeFold Set Position", 0);
   }
 
   //INTAKE SPIN
@@ -85,11 +86,11 @@ public class Intake extends SubsystemBase {
 
   //INTAKE FOLD SPEEDS
   public void goUp() {
-    intakeFoldMotor.set(0.4);
+    intakeFoldMotor.set(0.1);
   }
 
   public void goDown() {
-    intakeFoldMotor.set(-0.4);
+    intakeFoldMotor.set(-0.1);
   }
 
   public void stop() {
@@ -106,46 +107,46 @@ public class Intake extends SubsystemBase {
   }
 
   public void setPosition(double position){
-    intakeFoldMotorPIDController.setReference(position, ControlType.kSmartMotion);
+    intakeFoldMotorPIDController.setReference(position, ControlType.kPosition);
     currentIntakeFoldPosition = position;
   }
 
   public void PIDSetup() {
   //   //Use this only for tuning PID values and testing
-  //   double p = SmartDashboard.getNumber("IntakeFold P", 0);
-  //   double i = SmartDashboard.getNumber("IntakeFold I", 0);
-  //   double d = SmartDashboard.getNumber("IntakeFold D", 0);
-  //   double iz = SmartDashboard.getNumber("IntakeFold I Zone", 0);
-  //   double ff = SmartDashboard.getNumber("IntakeFold Feed Forward", 0);
-  //   double max = SmartDashboard.getNumber("IntakeFold Max Output", 0);
-  //   double min = SmartDashboard.getNumber("IntakeFold Min Output", 0);
+    double p = SmartDashboard.getNumber("IntakeFold P", 0);
+    double i = SmartDashboard.getNumber("IntakeFold I", 0);
+    double d = SmartDashboard.getNumber("IntakeFold D", 0);
+    // double iz = SmartDashboard.getNumber("IntakeFold I Zone", 0);
+    // double ff = SmartDashboard.getNumber("IntakeFold Feed Forward", 0);
+     double max = SmartDashboard.getNumber("IntakeFold Max Output", 0);
+     double min = SmartDashboard.getNumber("IntakeFold Min Output", 0);
 
-  //   double maxA = SmartDashboard.getNumber("IntakeFold Max Accel", 0);
+    // double maxA = SmartDashboard.getNumber("IntakeFold Max Accel", 0);
 
-  //   if(p != kP) { kP = p; intakeFoldMotorPIDController.setP(p); }
-  //   if(i != kI) { kI = i; intakeFoldMotorPIDController.setI(i); }
-  //   if(d != kD) { kD = d; intakeFoldMotorPIDController.setD(d); }
-  //   if(iz != kIz) { kIz = iz; intakeFoldMotorPIDController.setIZone(iz);  }
-  //   if(ff != kFF) { kFF = ff; intakeFoldMotorPIDController.setFF(ff);}
-  //   if(max != kMaxOutput) || (min != kMinOutput) {
-  //    intakeFoldMotorPIDController.setOutputRange(min, max);
-  //    kMaxOutput = max; kMinOutput = min; }
+    if(p != kP) { kP = p; intakeFoldMotorPIDController.setP(p); }
+    if(i != kI) { kI = i; intakeFoldMotorPIDController.setI(i); }
+    if(d != kD) { kD = d; intakeFoldMotorPIDController.setD(d); }
+    // if(iz != kIz) { kIz = iz; intakeFoldMotorPIDController.setIZone(iz);  }
+    // if(ff != kFF) { kFF = ff; intakeFoldMotorPIDController.setFF(ff);}
+     if((max != kMaxOutput) || (min != kMinOutput)) {
+      intakeFoldMotorPIDController.setOutputRange(min, max);
+      kMaxOutput = max; kMinOutput = min; }
 
-  //   if(maxA != maxAccel) { maxAccel = maxA; intakeFoldMotorPIDController.setSmartMotionMaxAccel(maxA, 0);}
+    // if(maxA != maxAccel) { maxAccel = maxA; intakeFoldMotorPIDController.setSmartMotionMaxAccel(maxA, 0);}
 
-  //   double setPoint;
-  //   setPoint = SmartDashboard.getNumber("IntakeFold Set Position", 0);
+    double setPoint;
+    setPoint = SmartDashboard.getNumber("IntakeFold Set Position", 0);
   
-  //   intakeFoldMotorPIDController.setReference(setPoint, ControlType.kSmartMotion);
+    intakeFoldMotorPIDController.setReference(setPoint, ControlType.kPosition);
   
-  //   SmartDashboard.putNumber("Current IntakeFold Position: ", intakeFoldMotorCANEncoder.getPosition());
+    SmartDashboard.putNumber("Current IntakeFold Position: ", intakeFoldMotorCANEncoder.getPosition());
 
-  //   currentIntakeFoldPosition = intakeFoldMotorCANEncoder.getPosition();
+    currentIntakeFoldPosition = intakeFoldMotorCANEncoder.getPosition();
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    PIDSetup();
   }
 }
 

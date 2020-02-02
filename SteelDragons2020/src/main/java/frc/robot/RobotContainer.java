@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,7 +29,7 @@ public class RobotContainer {
     private static final DriveTrain driveTrain = new DriveTrain();
     private static final Tube tube = new Tube();
     private static final Intake intake = new Intake();
-    private static final Shooter shooter = new Shooter();
+    //private static final Shooter shooter = new Shooter();
 
     public static final Joystick driver = new Joystick(0);
     public static final Joystick operator = new Joystick(1);
@@ -83,25 +84,25 @@ public class RobotContainer {
         //     .whileActiveContinuous(() -> tube.down());
 
         //INTAKE
-        new JoystickButton(operator, Constants.kButtonX)
+        new JoystickButton(driver, Button.kA.value)
             .whenPressed(() -> intake.spinIn())
             .whenReleased(() -> intake.spinStop());
-        new JoystickButton(operator, Constants.kButtonA)
+        new JoystickButton(driver, Button.kY.value)
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());
 
-        new JoystickButton(operator, Constants.kButtonB)
+        new JoystickButton(driver, Button.kB.value)
             .whenPressed(() -> intake.goUp())
             .whenReleased(() -> intake.stop());
-        new JoystickButton(operator, Constants.kButtonY)
+        new JoystickButton(driver, Button.kX.value)
             .whenPressed(() -> intake.goDown())
             .whenReleased(() -> intake.stop());
 
-        new JoystickButton(operator, Constants.kButtonLeftBumper)
+        new JoystickButton(driver, Button.kBumperLeft.value)
             .whenPressed(() -> tube.beltUp())
             .whenReleased(() -> tube.beltStop());
             
-        new JoystickButton(operator, Constants.kButtonRightBumper)
+        new JoystickButton(driver, Button.kBumperRight.value)
             .whenPressed(() -> tube.beltDown())
             .whenReleased(() -> tube.beltStop());
 
