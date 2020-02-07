@@ -7,7 +7,9 @@
 
 package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.RobotContainer;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -19,6 +21,18 @@ public class AutoShoot extends SequentialCommandGroup {
   public AutoShoot() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super();
+    //super();
+    addCommands(
+      new ParallelCommandGroup(
+        new AlignDriveTrainWithTarget(),
+        new AlignTubeWithTarget()
+      ),
+      new ParallelCommandGroup(
+        //new AlignDriveTrainWithTarget(),
+        //new AlignTubeWithTarget(),
+        new BeltUp(),
+        new Shoot()
+      )
+    );
   }
 }

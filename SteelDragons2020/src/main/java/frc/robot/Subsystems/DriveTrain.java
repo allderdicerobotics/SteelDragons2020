@@ -85,6 +85,13 @@ public class DriveTrain extends SubsystemBase {
     differentialDrive.tankDrive(0.0, 0.0);
   }
 
+  public double[] getLimeLightValues() {
+    double[] values = new double[4];
+    //TODO
+    //fill array with limelight network table values
+    return values;
+  }
+
   // private void setRotationsLeft(double goalPosition) {
   //   leftMotorsPIDController.setReference(goalPosition, ControlType.kSmartMotion);
   // }

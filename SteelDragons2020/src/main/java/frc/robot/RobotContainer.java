@@ -25,10 +25,10 @@ import frc.robot.Subsystems.Tube;
 
 
 public class RobotContainer {
-    private static final DriveTrain driveTrain = new DriveTrain();
-    private static final Tube tube = new Tube();
-    private static final Intake intake = new Intake();
-    private static final Shooter shooter = new Shooter();
+    public static final DriveTrain driveTrain = new DriveTrain();
+    public static final Tube tube = new Tube();
+    public static final Intake intake = new Intake();
+    public static final Shooter shooter = new Shooter();
 
     public static final Joystick driver = new Joystick(0);
     public static final Joystick operator = new Joystick(1);
