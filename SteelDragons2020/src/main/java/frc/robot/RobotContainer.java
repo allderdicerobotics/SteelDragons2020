@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import frc.robot.Commands.AutoShoot;
 import frc.robot.Commands.TeleopDrive;
 import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.PositionLeft;
@@ -27,7 +27,7 @@ import frc.robot.Subsystems.Tube;
 public class RobotContainer {
     public static final DriveTrain driveTrain = new DriveTrain();
     public static final Tube tube = new Tube();
-    public static final Intake intake = new Intake();
+    //public static final Intake intake = new Intake();
     public static final Shooter shooter = new Shooter();
 
     public static final Joystick driver = new Joystick(0);
@@ -78,26 +78,18 @@ public class RobotContainer {
     public void configureButtonBindings() {
         //TUBE
         new JoystickButton(operator, Constants.kButtonY)
-            .whileActiveContinuous(() -> tube.up());
-        new JoystickButton(operator, Constants.kButtonA)
-            .whileActiveContinuous(() -> tube.down());
-
-        //INTAKE
-        new JoystickButton(driver, Constants.kButtonX)
-            .whenPressed(() -> intake.spinIn())
-            .whenReleased(() -> intake.spinStop());
-        new JoystickButton(driver, Constants.kButtonA)
-            .whenPressed(() -> intake.spinOut())
-            .whenReleased(() -> intake.spinStop());
-
-        new JoystickButton(driver, Constants.kButtonB)
-            .whileActiveContinuous(() -> intake.top());
-        new JoystickButton(driver, Constants.kButtonY)
-            .whileActiveContinuous(() -> intake.bottom());
+            .whenPressed(() -> tube.beltDown())
+            .whenReleased(() -> tube.beltStop());
+        new JoystickButton(operator, Constants.kButtonB)
+            .whenPressed(() -> tube.beltUp())
+            .whenReleased(() -> tube.beltStop());
 
         //SHOOTER
         new JoystickButton(operator, Constants.kButtonX)
-            .whileActiveContinuous(() -> shooter.maxSpeed())
-            .whenInactive(() -> shooter.stop());
+            .whenPressed(() -> shooter.forward())
+            .whenReleased(() -> shooter.stop());
+
+        new JoystickButton(driver, Constants.kButtonA)
+            .whenPressed(new AutoShoot());
     }
 }
