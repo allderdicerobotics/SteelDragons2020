@@ -28,8 +28,6 @@ public class AutoShoot extends SequentialCommandGroup {
         new AlignTubeWithTarget()
       ),
       new ParallelCommandGroup(
-        //new AlignDriveTrainWithTarget(),
-        //new AlignTubeWithTarget(),
         new BeltUp(),
         new Shoot()
       )

@@ -8,6 +8,7 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Tube;
 
@@ -41,6 +42,9 @@ public class BeltUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
+      return true;
+    }
     return false;
   }
 }

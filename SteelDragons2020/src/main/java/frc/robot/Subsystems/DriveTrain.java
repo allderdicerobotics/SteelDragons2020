@@ -13,6 +13,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,6 +35,8 @@ public class DriveTrain extends SubsystemBase {
   private final SpeedControllerGroup rightMotors;
 
   private final DifferentialDrive differentialDrive;
+
+  public PIDController alignDT;
 
   // private CANPIDController leftMotorsPIDController;
   // private CANPIDController rightMotorsPIDController;
@@ -56,6 +62,8 @@ public class DriveTrain extends SubsystemBase {
     rightMotors = new SpeedControllerGroup(frontRight, backRight);
 
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
+
+    alignDT = new PIDController(0.03, 0.000003, 0.003);
 
     // leftMotorsPIDController = backLeft.getPIDController();
     // rightMotorsPIDController = backRight.getPIDController();
@@ -87,8 +95,17 @@ public class DriveTrain extends SubsystemBase {
 
   public double[] getLimeLightValues() {
     double[] values = new double[4];
-    //TODO
-    //fill array with limelight network table values
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry ta = table.getEntry("ta");
+    NetworkTableEntry tv = table.getEntry("tv");
+    
+    //read values periodically
+    values[0] = tv.getDouble(0.0);
+    values[1] = tx.getDouble(0.0);
+    values[2] = ty.getDouble(0.0);
+    values[3] = ta.getDouble(0.0);
     return values;
   }
 

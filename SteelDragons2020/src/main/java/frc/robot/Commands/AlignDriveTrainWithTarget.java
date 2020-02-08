@@ -9,6 +9,7 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.DriveTrain;
 
@@ -36,8 +37,15 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   @Override
   public void execute() {
     limeLightValues = driveTrain.getLimeLightValues();
-    double currentXValue = limeLightValues[0];
+    double currentXValue = limeLightValues[1];
+    boolean valid = limeLightValues[0] == 1;
 
+    if(valid) {
+      double steercmd = this.driveTrain.alignDT.calculate(currentXValue);
+      this.driveTrain.arcadeDrive(0.0, steercmd);
+    } else {
+      this.driveTrain.arcadeDrive(0.0, 0.0);
+    }
     //TODO
     //Use a PID controller to calculate turning values to drive on
     //call arcade drive using those values
@@ -53,6 +61,10 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
+      return true;
+    }
+
     double currentXValue = limeLightValues[0];
 
     //if we're accurate enough and a timer hasn't been started, start a timer.
