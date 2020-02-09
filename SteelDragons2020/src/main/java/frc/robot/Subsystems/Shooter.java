@@ -33,12 +33,12 @@ public class Shooter extends SubsystemBase {
   }
 
   public void forward() {
-    setSpeed(1.0);
+    setSpeed(-0.7);
   }
 
   public void setSpeed(double speed){
     shooterMotorRight.set(speed);
-    shooterMotorRight.set(speed);
+    shooterMotorLeft.set(-speed);
   }
 
   public void PIDSetup() {

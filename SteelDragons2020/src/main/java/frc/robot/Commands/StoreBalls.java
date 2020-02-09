@@ -7,18 +7,25 @@
 
 package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Tube;
 
-public class BeltUp extends CommandBase {
+public class StoreBalls extends CommandBase {
   /**
-   * Creates a new BeltUp.
+   * Creates a new StoreBalls.
    */
-  private Tube tube;
-  public BeltUp() {
+  Tube tube;
+  DigitalInput beamBreakSensor;
+  boolean ball;
+  double startTime = -1.0;
+
+  public StoreBalls() {
     this.tube = RobotContainer.tube;
+    beamBreakSensor = new DigitalInput(5);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tube);
   }
@@ -32,7 +39,21 @@ public class BeltUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.tube.beltUp();
+    if(!beamBreakSensor.get()) {
+      ball = true;
+      this.tube.beltUp();
+      System.out.println("BALLLL");
+    }
+    else {
+      if(ball) {
+        startTime = Timer.getFPGATimestamp();
+      }
+      ball = false;
+      if(Timer.getFPGATimestamp() >= 0.35 + startTime) {
+        this.tube.beltStop();
+      }
+      System.out.println("NO BALLLL");
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -44,6 +65,6 @@ public class BeltUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !RobotContainer.driver.getRawButton(Constants.kButtonA);
-  } 
+    return (!RobotContainer.operator.getRawButton(Constants.kButtonA));
+  }
 }

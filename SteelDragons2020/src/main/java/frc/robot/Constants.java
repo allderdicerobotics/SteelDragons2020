@@ -20,7 +20,7 @@ public class Constants {
     public static final int CAN_SHOOTER_RIGHT = 6;
 
 	public static final int CAN_FOLD_INTAKE = 7;
-	public static final int CAN_SPIN_INTAKE = 3;
+	public static final int CAN_SPIN_INTAKE = 4;
 
 	//PWM IDs
 	public static final int PWM_TUBE_BELT_RIGHT = 6;
@@ -30,8 +30,8 @@ public class Constants {
     public static final double DRIVETRAIN_THROTTLE_SCALE = 0.6;
     public static final double DRIVETRAIN_STEER_SCALE = 0.5;
 
-    public static final double INTAKE_SPEED_IN = -0.1;
-	public static final double INTAKE_SPEED_OUT = 0.1;
+    public static final double INTAKE_SPEED_IN = -0.9;
+	public static final double INTAKE_SPEED_OUT = 0.9;
 
 	public static final double BELT_SPEED_UP = 0.4;
 	public static final double BELT_SPEED_DOWN = 0.4;

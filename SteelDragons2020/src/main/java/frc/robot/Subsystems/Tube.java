@@ -31,11 +31,11 @@ public class Tube extends SubsystemBase {
 
   //TUBE BELTS
   public void beltUp() {
-    beltLeft.set(Constants.BELT_SPEED_UP);
+    beltLeft.set(-Constants.BELT_SPEED_UP);
     beltRight.set(-Constants.BELT_SPEED_UP);
   }
   public void beltDown() {
-    beltLeft.set(-Constants.BELT_SPEED_UP);
+    beltLeft.set(Constants.BELT_SPEED_UP);
     beltRight.set(Constants.BELT_SPEED_UP);
   }
 

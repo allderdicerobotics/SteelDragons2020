@@ -37,14 +37,12 @@ public class Shoot extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    this.shooter.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
-      return true;
-    }
-    return false;
+    return !RobotContainer.driver.getRawButton(Constants.kButtonA);
   }
 }

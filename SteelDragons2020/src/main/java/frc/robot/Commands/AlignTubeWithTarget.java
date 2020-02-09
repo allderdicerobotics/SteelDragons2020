@@ -10,7 +10,6 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Subsystems.Tube;
 
 public class AlignTubeWithTarget extends CommandBase {
@@ -18,22 +17,20 @@ public class AlignTubeWithTarget extends CommandBase {
    * Creates a new AlignTubeWithTarget.
    */
   private Tube tube;
-  private DriveTrain driveTrain;
 
   private double[] limeLightValues;
 
   public AlignTubeWithTarget() {
     this.tube = RobotContainer.tube;
-    this.driveTrain = RobotContainer.driveTrain;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.tube, this.driveTrain);
+    addRequirements(this.tube);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    limeLightValues = driveTrain.getLimeLightValues();
+    limeLightValues = RobotContainer.getLimeLightValues();
     double currentYPosition = limeLightValues[1];
     //TODO
     //do calculations from Y position to figure out what position to set the tube, then set it.

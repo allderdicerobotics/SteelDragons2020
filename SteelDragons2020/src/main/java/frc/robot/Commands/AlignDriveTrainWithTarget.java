@@ -36,16 +36,21 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    limeLightValues = driveTrain.getLimeLightValues();
+    limeLightValues = RobotContainer.getLimeLightValues();
     double currentXValue = limeLightValues[1];
     boolean valid = limeLightValues[0] == 1;
+    System.out.println(valid);
 
     if(valid) {
       double steercmd = this.driveTrain.alignDT.calculate(currentXValue);
-      this.driveTrain.arcadeDrive(0.0, steercmd);
+      if(steercmd > 1.0) { steercmd = 1.0; }
+      if(steercmd < -1.0) { steercmd = -1.0; }
+      this.driveTrain.arcadeDrive(0.0, -steercmd);
+      System.out.println(steercmd);
     } else {
       this.driveTrain.arcadeDrive(0.0, 0.0);
     }
+
     //TODO
     //Use a PID controller to calculate turning values to drive on
     //call arcade drive using those values
@@ -61,23 +66,27 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    limeLightValues = RobotContainer.getLimeLightValues();
     if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
+      System.out.println("A");
       return true;
     }
 
-    double currentXValue = limeLightValues[0];
+    double currentXValue = limeLightValues[1];
+    System.out.println("finsihed x value:" + currentXValue);
 
     //if we're accurate enough and a timer hasn't been started, start a timer.
     //if we're accurate enough and a timer has been started, we're done if 10 ms has passed
-    if(currentXValue <= accuracyConstant || currentXValue >= -accuracyConstant){
+    if(currentXValue <= accuracyConstant && currentXValue >= -accuracyConstant){
       if(startTime == -1.0) {
         startTime = Timer.getFPGATimestamp();
       }
-      if(startTime != -1.0 && Timer.getFPGATimestamp() >= 0.01 + startTime) {
+      if(startTime != -1.0 && Timer.getFPGATimestamp() >= 1.0 + startTime) {
+        System.out.println("done with align");
         return true;
       }
     }
-    if(!(currentXValue <= accuracyConstant || currentXValue >= -accuracyConstant)) {
+    if(!(currentXValue <= accuracyConstant && currentXValue >= -accuracyConstant)) {
       startTime = -1.0;
     }
     return false;

@@ -17,6 +17,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,10 +27,10 @@ import frc.robot.Constants;
 
 
 public class DriveTrain extends SubsystemBase {
-  private final CANSparkMax frontLeft;
-  private final CANSparkMax backLeft;
-  private final CANSparkMax frontRight;
-  private final CANSparkMax backRight;
+  private final Spark frontLeft;
+  private final Spark backLeft;
+  private final Spark frontRight;
+  private final Spark backRight;
 
   private final SpeedControllerGroup leftMotors;
   private final SpeedControllerGroup rightMotors;
@@ -50,10 +51,10 @@ public class DriveTrain extends SubsystemBase {
   // private double currentPositionRight;
 
   public DriveTrain() {
-    frontLeft = new CANSparkMax(Constants.CAN_DRIVETRAIN_FRONTLEFT, MotorType.kBrushless);
-    backLeft = new CANSparkMax(Constants.CAN_DRIVETRAIN_BACKLEFT, MotorType.kBrushless);
-    frontRight = new CANSparkMax(Constants.CAN_DRIVETRAIN_FRONTRIGHT, MotorType.kBrushless);
-    backRight = new CANSparkMax(Constants.CAN_DRIVETRAIN_BACKRIGHT, MotorType.kBrushless);
+    frontLeft = new Spark(Constants.CAN_DRIVETRAIN_FRONTLEFT);
+    backLeft = new Spark(Constants.CAN_DRIVETRAIN_BACKLEFT);
+    frontRight = new Spark(Constants.CAN_DRIVETRAIN_FRONTRIGHT);
+    backRight = new Spark(Constants.CAN_DRIVETRAIN_BACKRIGHT);
 
     // frontLeft.follow(backLeft, false);
     // frontRight.follow(backRight, false);
@@ -63,7 +64,8 @@ public class DriveTrain extends SubsystemBase {
 
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
 
-    alignDT = new PIDController(0.03, 0.000003, 0.003);
+    differentialDrive.setDeadband(0.0);
+    alignDT = new PIDController(0.05, 0.06, 0.009);
 
     // leftMotorsPIDController = backLeft.getPIDController();
     // rightMotorsPIDController = backRight.getPIDController();
@@ -91,22 +93,6 @@ public class DriveTrain extends SubsystemBase {
 
   public void stop() {
     differentialDrive.tankDrive(0.0, 0.0);
-  }
-
-  public double[] getLimeLightValues() {
-    double[] values = new double[4];
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    NetworkTableEntry tx = table.getEntry("tx");
-    NetworkTableEntry ty = table.getEntry("ty");
-    NetworkTableEntry ta = table.getEntry("ta");
-    NetworkTableEntry tv = table.getEntry("tv");
-    
-    //read values periodically
-    values[0] = tv.getDouble(0.0);
-    values[1] = tx.getDouble(0.0);
-    values[2] = ty.getDouble(0.0);
-    values[3] = ta.getDouble(0.0);
-    return values;
   }
 
   // private void setRotationsLeft(double goalPosition) {
