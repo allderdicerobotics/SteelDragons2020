@@ -116,7 +116,7 @@ public class RobotContainer {
         values[1] = tx.getDouble(0.0);
         values[2] = ty.getDouble(0.0);
         values[3] = ta.getDouble(0.0);
-        values[0] = (values[1]==-1)&&(values[2]==-1)?0:1;
+        values[0] = ((values[1]==-1)&&(values[2]==-1))?0:1;
         return values;
       }
       public static double[] getLimeLightValues() {

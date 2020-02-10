@@ -45,7 +45,7 @@ public class GoToBall extends CommandBase {
       double steercmd = this.driveTrain.alignDTRaspberry.calculate(currentXValue);
       if(steercmd > 1.0) { steercmd = 1.0; }
       if(steercmd < -1.0) { steercmd = -1.0; }
-      this.driveTrain.arcadeDrive(0.0, -steercmd);
+      this.driveTrain.arcadeDrive(0.5, -steercmd);
       System.out.println(steercmd);
     } else {
       this.driveTrain.arcadeDrive(0.0, 0.0);
