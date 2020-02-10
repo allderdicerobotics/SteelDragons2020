@@ -10,48 +10,50 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.Intake;
+import frc.robot.Subsystems.DriveTrain;
 
-public class IntakeIn extends CommandBase {
+public class GoToLLTarget extends CommandBase {
   /**
-   * Creates a new IntakeIn.
+   * Creates a new GoToLLTarget.
    */
-  Intake intake;
-  int buttonid;
-  boolean isoperator;
-  public IntakeIn(int buttonid, boolean isoperator) {
-    this.intake = RobotContainer.intake;
-    this.buttonid = buttonid;
-    this.isoperator = isoperator;
+
+  private DriveTrain drivetrain;
+  private double[] limeLightValues;
+  boolean doneall;
+  
+  public GoToLLTarget() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.intake);
+    drivetrain = RobotContainer.driveTrain;
+    addRequirements(this.drivetrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.intake.spinStop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.intake.spinIn();
+    limeLightValues = RobotContainer.getLimeLightValues();
+    doneall = limeLightValues[0] == 1;
+    if (!doneall) {
+      drivetrain.arcadeDrive(0, 0.4);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.intake.spinStop();
+    drivetrain.arcadeDrive(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(this.isoperator) {
-      return (!RobotContainer.operator.getRawButton(this.buttonid));
-    } else {
-      return (!RobotContainer.driver.getRawButton(this.buttonid));
+    if (!(RobotContainer.operator.getRawButton(Constants.kButtonA))) {
+      return true;
     }
+    return doneall;
   }
 }

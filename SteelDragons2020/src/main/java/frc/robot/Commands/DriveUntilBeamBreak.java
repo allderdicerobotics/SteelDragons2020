@@ -7,51 +7,55 @@
 
 package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.Intake;
+import frc.robot.Subsystems.DriveTrain;
 
-public class IntakeIn extends CommandBase {
+public class DriveUntilBeamBreak extends CommandBase {
   /**
-   * Creates a new IntakeIn.
+   * Creates a new DriveUntilBeamBreak.
    */
-  Intake intake;
-  int buttonid;
-  boolean isoperator;
-  public IntakeIn(int buttonid, boolean isoperator) {
-    this.intake = RobotContainer.intake;
-    this.buttonid = buttonid;
-    this.isoperator = isoperator;
+
+  private DriveTrain drivetrain;
+  DigitalInput beamBreakSensor;
+  boolean alldone = false;
+
+  public DriveUntilBeamBreak() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.intake);
+    this.drivetrain = drivetrain;
+    beamBreakSensor = new DigitalInput(5);
+    addRequirements(this.drivetrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.intake.spinStop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.intake.spinIn();
+    if (!(beamBreakSensor.get())) {
+      drivetrain.arcadeDrive(0, 0);
+      alldone = true;
+    } else {
+      drivetrain.arcadeDrive(0.5,0);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.intake.spinStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(this.isoperator) {
-      return (!RobotContainer.operator.getRawButton(this.buttonid));
-    } else {
-      return (!RobotContainer.driver.getRawButton(this.buttonid));
+    if (!(RobotContainer.operator.getRawButton(Constants.kButtonY))) {
+      return true;
     }
+    return alldone;
   }
 }

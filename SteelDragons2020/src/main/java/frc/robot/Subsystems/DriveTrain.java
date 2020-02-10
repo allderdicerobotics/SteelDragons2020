@@ -38,6 +38,7 @@ public class DriveTrain extends SubsystemBase {
   private final DifferentialDrive differentialDrive;
 
   public PIDController alignDT;
+  public PIDController alignDTRaspberry;
 
   // private CANPIDController leftMotorsPIDController;
   // private CANPIDController rightMotorsPIDController;
@@ -65,7 +66,9 @@ public class DriveTrain extends SubsystemBase {
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
 
     differentialDrive.setDeadband(0.0);
+
     alignDT = new PIDController(0.05, 0.06, 0.009);
+    alignDTRaspberry = new PIDController(0, 0, 0);
 
     // leftMotorsPIDController = backLeft.getPIDController();
     // rightMotorsPIDController = backRight.getPIDController();

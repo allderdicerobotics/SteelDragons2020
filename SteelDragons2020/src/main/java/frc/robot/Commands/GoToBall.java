@@ -7,73 +7,68 @@
 
 package frc.robot.Commands;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.Tube;
+import frc.robot.Subsystems.DriveTrain;
 
-public class StoreBalls extends CommandBase {
+public class GoToBall extends CommandBase {
   /**
-   * Creates a new StoreBalls.
+   * Creates a new GoToBall.
    */
-  Tube tube;
-  DigitalInput beamBreakSensor;
-  boolean ball;
-  double startTime = -1.0;
 
-  int buttonid;
-  boolean isoperator;
+  private double[] raspberryValues;
+  private DriveTrain driveTrain;
+  private double radiusthreshold = 50;
 
-  public StoreBalls(int buttonid, boolean isoperator) {
-    this.tube = RobotContainer.tube;
-    this.buttonid = buttonid;
-    this.isoperator = isoperator;
-    beamBreakSensor = new DigitalInput(5);
+  public GoToBall() {
+    driveTrain = RobotContainer.driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.tube);
+    addRequirements(this.driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.tube.beltStop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!beamBreakSensor.get()) {
-      ball = true;
-      this.tube.beltUp();
-      System.out.println("BALL");
-    }
-    else {
-      if(ball) {
-        startTime = Timer.getFPGATimestamp();
-      }
-      ball = false;
-      if(Timer.getFPGATimestamp() >= 0.35 + startTime) {
-        this.tube.beltStop();
-      }
-      System.out.println("NO BALL");
+    raspberryValues = RobotContainer.getRaspberryValues();
+    double currentXValue = raspberryValues[1];
+    boolean valid = raspberryValues[0] == 1;
+    System.out.println(valid);
+
+    if(valid) {
+      double steercmd = this.driveTrain.alignDTRaspberry.calculate(currentXValue);
+      if(steercmd > 1.0) { steercmd = 1.0; }
+      if(steercmd < -1.0) { steercmd = -1.0; }
+      this.driveTrain.arcadeDrive(0.0, -steercmd);
+      System.out.println(steercmd);
+    } else {
+      this.driveTrain.arcadeDrive(0.0, 0.0);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.tube.beltStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(this.isoperator) {
-      return (!RobotContainer.operator.getRawButton(this.buttonid));
-    } else {
-      return (!RobotContainer.driver.getRawButton(this.buttonid));
+    raspberryValues = RobotContainer.getRaspberryValues();
+    if (!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
+      return true;
     }
+
+    double currentRValue = raspberryValues[3];
+    if (currentRValue >= radiusthreshold) {
+      return true;
+    }
+    return false;
   }
 }

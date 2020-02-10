@@ -8,21 +8,27 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class IntakeAndStore extends ParallelCommandGroup {
+public class AutoGetBalls extends SequentialCommandGroup {
   /**
-   * Creates a new IntakeAndStore.
+   * Creates a new AutoGetBalls.
    */
-  public IntakeAndStore() {
+  public AutoGetBalls() {
     // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());super();
+    // super(new FooCommand(), new BarCommand());
+    //super();
     addCommands(
-      new IntakeIn(Constants.kButtonA,true),
-      new StoreBalls(Constants.kButtonA,true)
+      new GoToBall(),
+      new ParallelCommandGroup(
+        new IntakeIn(Constants.kButtonY, true),
+        new DriveUntilBeamBreak()
+      ),
+      new IntakeAndStore()
     );
   }
 }
