@@ -65,7 +65,7 @@ public class GoToBall extends CommandBase {
   @Override
   public boolean isFinished() {
     raspberryValues = RobotContainer.getRaspberryValues();
-    if (!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
+    if (!RobotContainer.driver.getRawButton(Constants.kButtonY)) {
       return true;
     }
 
