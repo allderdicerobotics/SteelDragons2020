@@ -24,7 +24,7 @@ public class DriveUntilBeamBreak extends CommandBase {
 
   public DriveUntilBeamBreak() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.drivetrain = drivetrain;
+    drivetrain = RobotContainer.driveTrain;
     beamBreakSensor = new DigitalInput(5);
     addRequirements(this.drivetrain);
   }
@@ -37,6 +37,7 @@ public class DriveUntilBeamBreak extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //Drive if not beam break goes off
     if (!(beamBreakSensor.get())) {
       drivetrain.arcadeDrive(0, 0);
       alldone = true;
@@ -48,6 +49,7 @@ public class DriveUntilBeamBreak extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    drivetrain.arcadeDrive(0.0, 0.0); //Stop
   }
 
   // Returns true when the command should end.
@@ -56,6 +58,6 @@ public class DriveUntilBeamBreak extends CommandBase {
     if (!(RobotContainer.operator.getRawButton(Constants.kButtonY))) {
       return true;
     }
-    return alldone;
+    return alldone; //Stop when beam break
   }
 }

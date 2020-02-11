@@ -7,7 +7,7 @@
 
 package frc.robot.Commands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 
@@ -24,11 +24,11 @@ public class AutoGetBalls extends SequentialCommandGroup {
     //super();
     addCommands(
       new GoToBall(),
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
         new IntakeIn(Constants.kButtonY, true),
         new DriveUntilBeamBreak()
       ),
-      new IntakeAndStore()
+      new IntakeAndStore(Constants.kButtonY, true)
     );
   }
 }

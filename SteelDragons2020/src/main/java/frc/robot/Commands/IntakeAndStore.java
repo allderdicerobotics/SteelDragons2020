@@ -8,7 +8,6 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.Constants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,12 +16,12 @@ public class IntakeAndStore extends ParallelCommandGroup {
   /**
    * Creates a new IntakeAndStore.
    */
-  public IntakeAndStore() {
+  public IntakeAndStore(int buttonid, boolean isoperator) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
     addCommands(
-      new IntakeIn(Constants.kButtonA,true),
-      new StoreBalls(Constants.kButtonA,true)
+      new IntakeIn(buttonid,isoperator),
+      new StoreBalls(buttonid,isoperator)
     );
   }
 }

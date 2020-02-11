@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.security.KeyStore.TrustedCertificateEntry;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -15,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Commands.AutoGetBalls;
 import frc.robot.Commands.AutoShoot;
 import frc.robot.Commands.IntakeAndStore;
 import frc.robot.Commands.TeleopDrive;
@@ -97,8 +100,11 @@ public class RobotContainer {
             .whenPressed(new AutoShoot());
 
         new JoystickButton(operator, Constants.kButtonA)
-            .whenActive(new IntakeAndStore());
-            //.whe(new IntakeAndStore());
+            .whenActive(new IntakeAndStore(Constants.kButtonA, true));
+            //.whe(new IntakeAndStore()); ignore this
+
+        new JoystickButton(operator, Constants.kButtonY)
+            .whenActive(new AutoGetBalls());
 
         new JoystickButton(driver, Constants.kButtonY)
             .whenPressed(() -> intake.spinIn())
@@ -119,6 +125,7 @@ public class RobotContainer {
         values[0] = ((values[1]==-1)&&(values[2]==-1))?0:1;
         return values;
       }
+
       public static double[] getLimeLightValues() {
         double[] values = new double[4];
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");

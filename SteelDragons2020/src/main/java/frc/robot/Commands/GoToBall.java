@@ -36,25 +36,29 @@ public class GoToBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //get values from pi
     raspberryValues = RobotContainer.getRaspberryValues();
-    double currentXValue = raspberryValues[1];
+    double currentXValue = raspberryValues[1]-80; //get x coord
     boolean valid = raspberryValues[0] == 1;
     System.out.println(valid);
 
+    //If targets exist
     if(valid) {
-      double steercmd = this.driveTrain.alignDTRaspberry.calculate(currentXValue);
+      double steercmd = this.driveTrain.alignDTRaspberry.calculate(currentXValue); //Calc PID
+      //Limit steercmd
       if(steercmd > 1.0) { steercmd = 1.0; }
       if(steercmd < -1.0) { steercmd = -1.0; }
-      this.driveTrain.arcadeDrive(0.5, -steercmd);
+      this.driveTrain.arcadeDrive(0.5, -steercmd); //Drive
       System.out.println(steercmd);
     } else {
-      this.driveTrain.arcadeDrive(0.0, 0.0);
+      this.driveTrain.arcadeDrive(0.0, 0.0); //If no target, stop
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    this.driveTrain.arcadeDrive(0.0, 0.0); //Stop
   }
 
   // Returns true when the command should end.
@@ -65,6 +69,7 @@ public class GoToBall extends CommandBase {
       return true;
     }
 
+    //If close enough to balls, stop and quit 
     double currentRValue = raspberryValues[3];
     if (currentRValue >= radiusthreshold) {
       return true;
