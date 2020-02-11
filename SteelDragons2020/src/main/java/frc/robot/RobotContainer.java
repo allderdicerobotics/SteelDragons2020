@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import java.security.KeyStore.TrustedCertificateEntry;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
