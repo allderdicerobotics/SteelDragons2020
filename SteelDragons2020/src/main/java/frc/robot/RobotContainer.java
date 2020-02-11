@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Commands.AutoGetBalls;
+import frc.robot.Commands.GoToBall;
 import frc.robot.Commands.AutoShoot;
 import frc.robot.Commands.IntakeAndStore;
 import frc.robot.Commands.TeleopDrive;
@@ -103,6 +104,9 @@ public class RobotContainer {
 
         new JoystickButton(operator, Constants.kButtonY)
             .whenActive(new AutoGetBalls());
+
+        new JoystickButton(operator, Constants.kButtonX)
+            .whenActive(new GoToBall(Constants.kButtonX));
 
         new JoystickButton(driver, Constants.kButtonY)
             .whenPressed(() -> intake.spinIn())

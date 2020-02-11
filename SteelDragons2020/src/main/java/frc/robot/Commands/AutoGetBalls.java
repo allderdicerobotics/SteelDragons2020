@@ -23,7 +23,7 @@ public class AutoGetBalls extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     //super();
     addCommands(
-      new GoToBall(),
+      new GoToBall(Constants.kButtonY),
       new ParallelRaceGroup(
         new IntakeIn(Constants.kButtonY, true),
         new DriveUntilBeamBreak()

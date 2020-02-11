@@ -21,11 +21,14 @@ public class GoToBall extends CommandBase {
   private double[] raspberryValues;
   private DriveTrain driveTrain;
   private double radiusthreshold = 50;
+  private int buttonid;
 
-  public GoToBall() {
+  public GoToBall(int buttonid) {
     driveTrain = RobotContainer.driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.driveTrain);
+
+    this.buttonid = buttonid;
   }
 
   // Called when the command is initially scheduled.
@@ -65,7 +68,7 @@ public class GoToBall extends CommandBase {
   @Override
   public boolean isFinished() {
     raspberryValues = RobotContainer.getRaspberryValues();
-    if (!RobotContainer.driver.getRawButton(Constants.kButtonY)) {
+    if (!RobotContainer.operator.getRawButton(this.buttonid)) {
       return true;
     }
 
