@@ -52,7 +52,7 @@ public class GoToBall extends CommandBase {
       if(steercmd > 1.0) { steercmd = 1.0; }
       if(steercmd < -1.0) { steercmd = -1.0; }
       this.driveTrain.arcadeDrive(0.5, -steercmd); //Drive
-      System.out.println(steercmd);
+      System.out.println(currentXValue);
     } else {
       this.driveTrain.arcadeDrive(0.0, 0.0); //If no target, stop
     }
@@ -68,7 +68,7 @@ public class GoToBall extends CommandBase {
   @Override
   public boolean isFinished() {
     raspberryValues = RobotContainer.getRaspberryValues();
-    if (!RobotContainer.operator.getRawButton(this.buttonid)) {
+    if (!RobotContainer.driver.getRawButton(this.buttonid)) {
       return true;
     }
 
