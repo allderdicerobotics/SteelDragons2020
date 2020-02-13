@@ -60,4 +60,20 @@ public class Constants {
 	public static final int kButtonLeftStick = 9;
 	public static final int kButtonRightStick = 10;
 	public static final int kPOVDPad = 0;
+
+	//OPERATOR CONSOLE
+	//k(ROW)(COLUMN)
+	public static final int kTopMiddleLeft = 1;
+
+	public static final int kTopMiddleRightPOV = 2;
+
+	public static final int kTopRight = 3;
+	public static final int kMiddleLeft = 4;
+	public static final int kMiddleMiddleLeft = 5;
+	public static final int kMiddleMiddleRight = 6;
+	public static final int kMiddleRight = 7;
+	public static final int kBottomLeft = 8;
+	public static final int kBottomMiddleLeft = 9;
+	public static final int kBottomMiddleRight = 10;
+	public static final int kBottomRight = 11;
 }
