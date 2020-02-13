@@ -5,11 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands;
+package frc.robot.Commands.Shooting;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.RobotContainer;
+import frc.robot.Commands.BeltUp;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

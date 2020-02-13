@@ -5,53 +5,44 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands;
+package frc.robot.Commands.Intaking;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.DriveTrain;
-import frc.robot.Subsystems.Tube;
+import frc.robot.Subsystems.Intake;
 
-public class AlignTubeWithTarget extends CommandBase {
-  /**
-   * Creates a new AlignTubeWithTarget.
-   */
-  private Tube tube;
-  private DriveTrain driveTrain;
+public class IntakeIn extends CommandBase {
 
-  private double[] limeLightValues;
+  Intake intake;
 
-  public AlignTubeWithTarget() {
-    this.tube = RobotContainer.tube;
-    this.driveTrain = RobotContainer.driveTrain;
-
+  public IntakeIn() {
+    this.intake = RobotContainer.intake;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.tube, this.driveTrain);
+    addRequirements(this.intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    limeLightValues = driveTrain.getLimeLightValues();
-    double currentYPosition = limeLightValues[1];
-    //TODO
-    //do calculations from Y position to figure out what position to set the tube, then set it.
+    this.intake.spinStop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    this.intake.spinIn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    this.intake.spinStop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return (!RobotContainer.operator.getRawButton(Constants.kButtonA));
   }
 }

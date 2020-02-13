@@ -5,39 +5,40 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands;
+package frc.robot.Commands.Shooting;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.TubeBelts;
+import frc.robot.Subsystems.Shooter;
 
-public class BeltUp extends CommandBase {
-
-  private TubeBelts tubeBelts;
-
-  public BeltUp() {
-    this.tubeBelts = RobotContainer.tubeBelts;
+public class Shoot extends CommandBase {
+  /**
+   * Creates a new Shoot.
+   */
+  private Shooter shooter;
+  public Shoot() {
+    this.shooter = RobotContainer.shooter;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.tubeBelts);
+    addRequirements(this.shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.tubeBelts.stop();
+    this.shooter.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.tubeBelts.up();
+    this.shooter.maxSpeed();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.tubeBelts.stop();
+    this.shooter.stop();
   }
 
   // Returns true when the command should end.

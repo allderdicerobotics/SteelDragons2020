@@ -23,7 +23,8 @@ public class Intake extends SubsystemBase {
   private final CANSparkMax intakeFoldMotor;
   private CANPIDController intakeFoldMotorPIDController;
   private CANEncoder intakeFoldMotorCANEncoder;
-  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;  private double currentIntakeFoldPosition;
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
+  private double currentIntakeFoldPosition;
 
   private final CANSparkMax intakeSpinMotor;
 

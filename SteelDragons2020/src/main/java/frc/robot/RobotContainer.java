@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +25,7 @@ import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Subsystems.Intake;
 import frc.robot.Subsystems.Shooter;
 import frc.robot.Subsystems.Tube;
+import frc.robot.Subsystems.TubeBelts;
 
 
 public class RobotContainer {
@@ -29,6 +33,7 @@ public class RobotContainer {
     public static final Tube tube = new Tube();
     public static final Intake intake = new Intake();
     public static final Shooter shooter = new Shooter();
+    public static final TubeBelts tubeBelts = new TubeBelts();
 
     public static final Joystick driver = new Joystick(0);
     public static final Joystick operator = new Joystick(1);
@@ -100,4 +105,20 @@ public class RobotContainer {
             .whileActiveContinuous(() -> shooter.maxSpeed())
             .whenInactive(() -> shooter.stop());
     }
+
+    public static double[] getLimeLightValues() {
+        double[] values = new double[4];
+        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+        NetworkTableEntry tx = table.getEntry("tx");
+        NetworkTableEntry ty = table.getEntry("ty");
+        NetworkTableEntry ta = table.getEntry("ta");
+        NetworkTableEntry tv = table.getEntry("tv");
+        
+        //read values periodically
+        values[0] = tv.getDouble(0.0);
+        values[1] = tx.getDouble(0.0);
+        values[2] = ty.getDouble(0.0);
+        values[3] = ta.getDouble(0.0);
+        return values;
+      }
 }

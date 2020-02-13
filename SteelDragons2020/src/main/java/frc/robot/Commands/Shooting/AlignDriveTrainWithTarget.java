@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands;
+package frc.robot.Commands.Shooting;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -36,26 +36,24 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    limeLightValues = driveTrain.getLimeLightValues();
+    limeLightValues = RobotContainer.getLimeLightValues();
     double currentXValue = limeLightValues[1];
     boolean valid = limeLightValues[0] == 1;
 
     if(valid) {
       double steercmd = this.driveTrain.alignDT.calculate(currentXValue);
+      if(steercmd > 1.0) { steercmd = 1.0; }
+      if(steercmd < -1.0) { steercmd = -1.0; }
       this.driveTrain.arcadeDrive(0.0, steercmd);
     } else {
       this.driveTrain.arcadeDrive(0.0, 0.0);
     }
-    //TODO
-    //Use a PID controller to calculate turning values to drive on
-    //call arcade drive using those values
-
-    //These actions occur once per loop (every 20 ms)
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    this.driveTrain.stop();
   }
 
   // Returns true when the command should end.
@@ -65,19 +63,19 @@ public class AlignDriveTrainWithTarget extends CommandBase {
       return true;
     }
 
-    double currentXValue = limeLightValues[0];
+    double currentXValue = limeLightValues[1];
 
     //if we're accurate enough and a timer hasn't been started, start a timer.
     //if we're accurate enough and a timer has been started, we're done if 10 ms has passed
-    if(currentXValue <= accuracyConstant || currentXValue >= -accuracyConstant){
+    if(currentXValue <= accuracyConstant && currentXValue >= -accuracyConstant){
       if(startTime == -1.0) {
         startTime = Timer.getFPGATimestamp();
       }
-      if(startTime != -1.0 && Timer.getFPGATimestamp() >= 0.01 + startTime) {
+      if(startTime != -1.0 && Timer.getFPGATimestamp() >= 1.0 + startTime) {
         return true;
       }
     }
-    if(!(currentXValue <= accuracyConstant || currentXValue >= -accuracyConstant)) {
+    if(!(currentXValue <= accuracyConstant && currentXValue >= -accuracyConstant)) {
       startTime = -1.0;
     }
     return false;
