@@ -28,6 +28,7 @@ public class Intake extends SubsystemBase {
 
   private final CANSparkMax intakeSpinMotor;
 
+  
   public Intake() {
     intakeFoldMotor = new CANSparkMax(Constants.CAN_FOLD_INTAKE, MotorType.kBrushless);
     intakeFoldMotorPIDController = intakeFoldMotor.getPIDController();
