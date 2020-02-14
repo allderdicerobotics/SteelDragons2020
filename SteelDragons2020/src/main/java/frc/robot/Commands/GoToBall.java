@@ -51,7 +51,7 @@ public class GoToBall extends CommandBase {
       //Limit steercmd
       if(steercmd > 1.0) { steercmd = 1.0; }
       if(steercmd < -1.0) { steercmd = -1.0; }
-      this.driveTrain.arcadeDrive(0.5, -steercmd); //Drive
+      this.driveTrain.arcadeDrive(0.0, -steercmd); //Drive
       System.out.println(currentXValue);
     } else {
       this.driveTrain.arcadeDrive(0.0, 0.0); //If no target, stop
