@@ -23,7 +23,6 @@ public class AutoShoot extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     //super();
     addCommands(
-      new GoToLLTarget(),
       new ParallelCommandGroup(
         new AlignDriveTrainWithTarget(),
         new AlignTubeWithTarget()

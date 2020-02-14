@@ -83,7 +83,6 @@ public class Tube extends SubsystemBase {
   }
 
   public void setAngle(double angle) {
-    //TODO: convert angle to position
   }
 
   public double getDistanceFromTarget() {

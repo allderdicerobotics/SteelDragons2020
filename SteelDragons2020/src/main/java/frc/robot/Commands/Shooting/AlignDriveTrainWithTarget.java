@@ -46,7 +46,7 @@ public class AlignDriveTrainWithTarget extends CommandBase {
       if(steercmd < -1.0) { steercmd = -1.0; }
       this.driveTrain.arcadeDrive(0.0, steercmd);
     } else {
-      this.driveTrain.arcadeDrive(0.0, 0.0);
+      this.driveTrain.arcadeDrive(0.0, 0.2);
     }
   }
 
