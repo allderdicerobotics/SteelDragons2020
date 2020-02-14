@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 
 public class Tube extends SubsystemBase {
@@ -25,6 +26,8 @@ public class Tube extends SubsystemBase {
   private CANEncoder tubeMotorCANEncoder;
   private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
   private double currentTubePosition;
+
+  private double[] limeLightValues;
 
   public Tube() {
     tubeMotor = new CANSparkMax(Constants.CAN_TUBE, MotorType.kBrushless);
@@ -81,6 +84,12 @@ public class Tube extends SubsystemBase {
 
   public void setAngle(double angle) {
     //TODO: convert angle to position
+  }
+
+  public double getDistanceFromTarget() {
+    limeLightValues = RobotContainer.getLimeLightValues();
+    double currentYPosition = limeLightValues[2];
+    return (78.0/Math.tan(Math.toRadians(32.5 + currentYPosition)));
   }
 
   public void setPosition(double position){
