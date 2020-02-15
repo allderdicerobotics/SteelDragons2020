@@ -36,7 +36,7 @@ public class Intake extends SubsystemBase {
 
     intakeSpinMotor = new CANSparkMax(Constants.CAN_SPIN_INTAKE, MotorType.kBrushless);
 
-    kP = 0.00005;
+    kP = 0.000035;
     kI = 0.0;
     kD = 0.0;
     kIz = 0.0;
@@ -100,11 +100,11 @@ public class Intake extends SubsystemBase {
 
   //INTAKE POSITION
   public void bottom() {
-    setPosition(0.0);
+    setPosition(-6.0);
   }
 
   public void top() {
-    setPosition(-17.0);
+    setPosition(-18.0);
   }
 
   public void setPosition(double position){

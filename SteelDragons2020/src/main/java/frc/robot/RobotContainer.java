@@ -101,15 +101,15 @@ public class RobotContainer {
             .whenPressed(() -> tubeBelts.up())
             .whenReleased(() -> tubeBelts.stop());
 
-        new JoystickButton(operatorConsole, Constants.kTopRight)
-            .whenPressed(() -> tube.bottomPosition());
+        // new JoystickButton(operatorConsole, Constants.kTopRight)
+        //     .whenPressed(() -> tube.bottomPosition());
 
-        // new JoystickButton(operatorConsole, Constants.kButtonY)
-        //     .whenPressed(() -> tube.speedDown())
-        //     .whenReleased(() -> tube.speedStop());
-        // new JoystickButton(operatorConsole, Constants.kButtonX)
-        //     .whenPressed(() -> tube.speedUp())
-        //     .whenReleased(() -> tube.speedStop());
+        new JoystickButton(operatorConsole, Constants.kBottomMiddleLeft)
+            .whenPressed(() -> tube.speedDown())
+            .whenReleased(() -> tube.speedStop());
+        new JoystickButton(operatorConsole, Constants.kBottomLeft)
+            .whenPressed(() -> tube.speedUp())
+            .whenReleased(() -> tube.speedStop());
         
         Trigger consoleTriggerYUp = new AxisButton(operatorConsole, Constants.kTopMiddleRightYAxis, true);
         consoleTriggerYUp.whenActive(() -> tube.speedUp());
@@ -120,10 +120,10 @@ public class RobotContainer {
         consoleTriggerYDown.whenInactive(() -> tube.speedStop());
 
 
-        // new JoystickButton(driver, Constants.kButtonB)
-        //     .whileActiveContinuous(() -> intake.top());
-        // new JoystickButton(driver, Constants.kButtonY)
-        //     .whileActiveContinuous(() -> intake.bottom());
+        new JoystickButton(driver, Constants.kButtonB)
+            .whileActiveContinuous(() -> intake.top());
+        new JoystickButton(driver, Constants.kButtonY)
+            .whileActiveContinuous(() -> intake.bottom());
     }
 
     public static double[] getLimeLightValues() {
