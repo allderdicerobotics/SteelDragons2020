@@ -61,6 +61,6 @@ public class StoreBalls extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (!RobotContainer.operator.getRawButton(Constants.kButtonA));  
+    return (!RobotContainer.operatorConsole.getRawButton(Constants.kBottomRight));  
   }
 }

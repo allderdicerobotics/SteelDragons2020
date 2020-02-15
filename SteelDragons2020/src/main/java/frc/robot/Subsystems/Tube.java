@@ -96,6 +96,18 @@ public class Tube extends SubsystemBase {
     currentTubePosition = position;
   }
 
+  public void speedUp() {
+    tubeMotorPIDController.setReference(0.2, ControlType.kDutyCycle);
+  }
+
+  public void speedDown() {
+    tubeMotorPIDController.setReference(-0.2, ControlType.kDutyCycle);
+  }
+
+  public void speedStop() {
+    tubeMotorPIDController.setReference(0.0, ControlType.kDutyCycle);
+  }
+
   public void PIDSetup() {
   //   //Use this only for tuning PID values and testing
   //   double p = SmartDashboard.getNumber("Tube P", 0);

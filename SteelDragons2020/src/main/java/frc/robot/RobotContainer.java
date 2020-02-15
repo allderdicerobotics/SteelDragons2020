@@ -21,9 +21,9 @@ import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.PositionLeft;
 import frc.robot.Commands.Autonomous.PositionMiddle;
 import frc.robot.Commands.Autonomous.PositionRight;
+import frc.robot.Commands.Intaking.IntakeAndStore;
 import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Subsystems.Intake;
-import frc.robot.Subsystems.Shooter;
 import frc.robot.Subsystems.Tube;
 import frc.robot.Subsystems.TubeBelts;
 
@@ -32,11 +32,10 @@ public class RobotContainer {
     public static final DriveTrain driveTrain = new DriveTrain();
     public static final Tube tube = new Tube();
     public static final Intake intake = new Intake();
-    public static final Shooter shooter = new Shooter();
     public static final TubeBelts tubeBelts = new TubeBelts();
 
     public static final Joystick driver = new Joystick(0);
-    public static final Joystick operator = new Joystick(1);
+    public static final Joystick operatorConsole = new Joystick(1);
 
     private static final String kDefaultAuto = "Do Nothing";
     private static final String kPositionLeft = "PositionLeft";
@@ -81,29 +80,37 @@ public class RobotContainer {
     }
 
     public void configureButtonBindings() {
-        //TUBE
-        new JoystickButton(operator, Constants.kButtonY)
-            .whileActiveContinuous(() -> tube.up());
-        new JoystickButton(operator, Constants.kButtonA)
-            .whileActiveContinuous(() -> tube.down());
+        // //TUBE
+        // new JoystickButton(operatorConsole, Constants.kTopMiddleRightPOV)
+        //     .whileActiveContinuous(() -> tube.up());
+        // new JoystickButton(operatorConsole, Constants.kTopMiddleRightPOV)
+        //     .whileActiveContinuous(() -> tube.down());
 
         //INTAKE
-        new JoystickButton(driver, Constants.kButtonX)
-            .whenPressed(() -> intake.spinIn())
-            .whenReleased(() -> intake.spinStop());
-        new JoystickButton(driver, Constants.kButtonA)
+        new JoystickButton(operatorConsole, Constants.kBottomRight)
+            .whenPressed(new IntakeAndStore());
+        new JoystickButton(operatorConsole, Constants.kMiddleRight)
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());
 
-        new JoystickButton(driver, Constants.kButtonB)
-            .whileActiveContinuous(() -> intake.top());
-        new JoystickButton(driver, Constants.kButtonY)
-            .whileActiveContinuous(() -> intake.bottom());
+        new JoystickButton(operatorConsole, Constants.kBottomMiddleRight)
+            .whenPressed(() -> tubeBelts.down())
+            .whenReleased(() -> tubeBelts.stop());
+        new JoystickButton(operatorConsole, Constants.kMiddleMiddleRight)
+            .whenPressed(() -> tubeBelts.up())
+            .whenReleased(() -> tubeBelts.stop());
 
-        //SHOOTER
-        new JoystickButton(operator, Constants.kButtonX)
-            .whileActiveContinuous(() -> shooter.maxSpeed())
-            .whenInactive(() -> shooter.stop());
+        new JoystickButton(operatorConsole, Constants.kBottomMiddleLeft)
+            .whenPressed(() -> tube.speedDown())
+            .whenReleased(() -> tube.speedStop());
+        new JoystickButton(operatorConsole, Constants.kMiddleMiddleLeft)
+            .whenPressed(() -> tube.speedUp())
+            .whenReleased(() -> tube.speedStop());
+
+        // new JoystickButton(driver, Constants.kButtonB)
+        //     .whileActiveContinuous(() -> intake.top());
+        // new JoystickButton(driver, Constants.kButtonY)
+        //     .whileActiveContinuous(() -> intake.bottom());
     }
 
     public static double[] getLimeLightValues() {
