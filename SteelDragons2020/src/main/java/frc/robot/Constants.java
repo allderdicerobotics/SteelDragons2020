@@ -20,6 +20,9 @@ public class Constants {
 	public static final int CAN_FOLD_INTAKE = 11;
 	public static final int CAN_SPIN_INTAKE = 8;
 
+	public static final int CAN_BELT_LEFT = 12;
+	public static final int CAN_BELT_RIGHT = 13;
+
 	//PWM IDs
 	public static final int PWM_TUBE_BELT_RIGHT = 4;
 	public static final int PWM_TUBE_BELT_LEFT = 5;
