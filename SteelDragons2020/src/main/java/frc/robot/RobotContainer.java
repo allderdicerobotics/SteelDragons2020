@@ -90,16 +90,19 @@ public class RobotContainer {
         new JoystickButton(operatorConsole, Constants.kBottomRight)
             .whenPressed(() -> intake.spinIn())
             .whenReleased(() -> intake.spinStop());
-        new JoystickButton(operatorConsole, Constants.kMiddleRight)
+        new JoystickButton(operatorConsole, Constants.kBottomMiddleRight)
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());
 
-        new JoystickButton(operatorConsole, Constants.kBottomMiddleRight)
+        new JoystickButton(operatorConsole, Constants.kMiddleMiddleRight)
             .whenPressed(() -> tubeBelts.down())
             .whenReleased(() -> tubeBelts.stop());
-        new JoystickButton(operatorConsole, Constants.kMiddleMiddleRight)
+        new JoystickButton(operatorConsole, Constants.kMiddleRight)
             .whenPressed(() -> tubeBelts.up())
             .whenReleased(() -> tubeBelts.stop());
+
+        new JoystickButton(operatorConsole, Constants.kTopRight)
+            .whenPressed(() -> tube.bottomPosition());
 
         // new JoystickButton(operatorConsole, Constants.kButtonY)
         //     .whenPressed(() -> tube.speedDown())
