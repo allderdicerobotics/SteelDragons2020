@@ -10,14 +10,12 @@ package frc.robot;
 
 public class Constants {
 	//CAN IDs
-    public static final int CAN_DRIVETRAIN_FRONTLEFT = 0;
+    public static final int CAN_DRIVETRAIN_FRONTLEFT = 2;
     public static final int CAN_DRIVETRAIN_BACKLEFT = 1;
-    public static final int CAN_DRIVETRAIN_FRONTRIGHT = 2;
-    public static final int CAN_DRIVETRAIN_BACKRIGHT = 3;
+    public static final int CAN_DRIVETRAIN_FRONTRIGHT = 6;
+    public static final int CAN_DRIVETRAIN_BACKRIGHT = 1;
 
-    public static final int CAN_TUBE = 4;
-    public static final int CAN_SHOOTER_LEFT = 5;
-    public static final int CAN_SHOOTER_RIGHT = 6;
+    public static final int CAN_TUBE = 5;
 
 	public static final int CAN_FOLD_INTAKE = 7;
 	public static final int CAN_SPIN_INTAKE = 3;

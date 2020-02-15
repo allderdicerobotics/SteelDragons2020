@@ -100,10 +100,10 @@ public class RobotContainer {
             .whenPressed(() -> tubeBelts.up())
             .whenReleased(() -> tubeBelts.stop());
 
-        new JoystickButton(operatorConsole, Constants.kBottomMiddleLeft)
+        new JoystickButton(driver, Constants.kButtonY)
             .whenPressed(() -> tube.speedDown())
             .whenReleased(() -> tube.speedStop());
-        new JoystickButton(operatorConsole, Constants.kMiddleMiddleLeft)
+        new JoystickButton(driver, Constants.kButtonX)
             .whenPressed(() -> tube.speedUp())
             .whenReleased(() -> tube.speedStop());
 

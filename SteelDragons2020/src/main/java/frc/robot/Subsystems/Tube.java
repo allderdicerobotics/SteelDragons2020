@@ -14,6 +14,7 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -53,17 +54,17 @@ public class Tube extends SubsystemBase {
 
     tubeMotorPIDController.setSmartMotionMaxAccel(maxAccel, 0);
 
-    // //Use this only for tuning PID values and testing
-    // SmartDashboard.putNumber("Tube P", kP);
-    // SmartDashboard.putNumber("Tube I", kI);
-    // SmartDashboard.putNumber("Tube D" , kD);
-    // SmartDashboard.putNumber("Tube I Zone", kIz);
-    // SmartDashboard.putNumber("Tube Feed Forward", kFF);
-    // SmartDashboard.putNumber("Tube Max Output", kMaxOutput);
-    // SmartDashboard.putNumber("Tube Min Output", kMinOutput);
+    //Use this only for tuning PID values and testing
+    SmartDashboard.putNumber("Tube P", kP);
+    SmartDashboard.putNumber("Tube I", kI);
+    SmartDashboard.putNumber("Tube D" , kD);
+    SmartDashboard.putNumber("Tube I Zone", kIz);
+    SmartDashboard.putNumber("Tube Feed Forward", kFF);
+    SmartDashboard.putNumber("Tube Max Output", kMaxOutput);
+    SmartDashboard.putNumber("Tube Min Output", kMinOutput);
 
-    // SmartDashboard.putNumber("Tube Max Accel", maxAccel);
-    // SmartDashboard.putNumber("Tube Set Position", 0);
+    SmartDashboard.putNumber("Tube Max Accel", maxAccel);
+    SmartDashboard.putNumber("Tube Set Position", 0);
   }
 
   public void up() {
@@ -92,7 +93,7 @@ public class Tube extends SubsystemBase {
   }
 
   public void setPosition(double position){
-    tubeMotorPIDController.setReference(position, ControlType.kSmartMotion);
+    tubeMotorPIDController.setReference(position, ControlType.kPosition);
     currentTubePosition = position;
   }
 
@@ -109,36 +110,36 @@ public class Tube extends SubsystemBase {
   }
 
   public void PIDSetup() {
-  //   //Use this only for tuning PID values and testing
-  //   double p = SmartDashboard.getNumber("Tube P", 0);
-  //   double i = SmartDashboard.getNumber("Tube I", 0);
-  //   double d = SmartDashboard.getNumber("Tube D", 0);
-  //   double iz = SmartDashboard.getNumber("Tube I Zone", 0);
-  //   double ff = SmartDashboard.getNumber("Tube Feed Forward", 0);
-  //   double max = SmartDashboard.getNumber("Tube Max Output", 0);
-  //   double min = SmartDashboard.getNumber("Tube Min Output", 0);
+    //Use this only for tuning PID values and testing
+    double p = SmartDashboard.getNumber("Tube P", 0);
+    double i = SmartDashboard.getNumber("Tube I", 0);
+    double d = SmartDashboard.getNumber("Tube D", 0);
+    double iz = SmartDashboard.getNumber("Tube I Zone", 0);
+    double ff = SmartDashboard.getNumber("Tube Feed Forward", 0);
+    double max = SmartDashboard.getNumber("Tube Max Output", 0);
+    double min = SmartDashboard.getNumber("Tube Min Output", 0);
 
-  //   double maxA = SmartDashboard.getNumber("Tube Max Accel", 0);
+    double maxA = SmartDashboard.getNumber("Tube Max Accel", 0);
 
-  //   if(p != kP) { kP = p; tubeMotorPIDController.setP(p); }
-  //   if(i != kI) { kI = i; tubeMotorPIDController.setI(i); }
-  //   if(d != kD) { kD = d; tubeMotorPIDController.setD(d); }
-  //   if(iz != kIz) { kIz = iz; tubeMotorPIDController.setIZone(iz);  }
-  //   if(ff != kFF) { kFF = ff; tubeMotorPIDController.setFF(ff);}
-  //   if(max != kMaxOutput) || (min != kMinOutput) {
-  //    tubeMotorPIDController.setOutputRange(min, max);
-  //    kMaxOutput = max; kMinOutput = min; }
+    if(p != kP) { kP = p; tubeMotorPIDController.setP(p); }
+    if(i != kI) { kI = i; tubeMotorPIDController.setI(i); }
+    if(d != kD) { kD = d; tubeMotorPIDController.setD(d); }
+    if(iz != kIz) { kIz = iz; tubeMotorPIDController.setIZone(iz);  }
+    if(ff != kFF) { kFF = ff; tubeMotorPIDController.setFF(ff);}
+    if((max != kMaxOutput) || (min != kMinOutput)) {
+     tubeMotorPIDController.setOutputRange(min, max);
+     kMaxOutput = max; kMinOutput = min; }
 
-  //   if(maxA != maxAccel) { maxAccel = maxA; tubeMotorPIDController.setSmartMotionMaxAccel(maxA, 0);}
+    if(maxA != maxAccel) { maxAccel = maxA; tubeMotorPIDController.setSmartMotionMaxAccel(maxA, 0);}
 
-  //   double setPoint;
-  //   setPoint = SmartDashboard.getNumber("Tube Set Position", 0);
+    double setPoint;
+    setPoint = SmartDashboard.getNumber("Tube Set Position", 0);
   
-  //   tubeMotorPIDController.setReference(setPoint, ControlType.kSmartMotion);
+    tubeMotorPIDController.setReference(setPoint, ControlType.kSmartMotion);
   
-  //   SmartDashboard.putNumber("Current Tube Position: ", tubeMotorCANEncoder.getPosition());
+    SmartDashboard.putNumber("Current Tube Position: ", tubeMotorCANEncoder.getPosition());
 
-  //   currentTubePosition = tubeMotorCANEncoder.getPosition();
+    currentTubePosition = tubeMotorCANEncoder.getPosition();
   }
 
   @Override
