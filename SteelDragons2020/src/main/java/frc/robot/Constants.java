@@ -11,14 +11,14 @@ package frc.robot;
 public class Constants {
 	//CAN IDs
     public static final int CAN_DRIVETRAIN_FRONTLEFT = 2;
-    public static final int CAN_DRIVETRAIN_BACKLEFT = 1;
-    public static final int CAN_DRIVETRAIN_FRONTRIGHT = 6;
+    public static final int CAN_DRIVETRAIN_BACKLEFT = 6;
+    public static final int CAN_DRIVETRAIN_FRONTRIGHT = 5;
     public static final int CAN_DRIVETRAIN_BACKRIGHT = 1;
 
-    public static final int CAN_TUBE = 5;
+    public static final int CAN_TUBE = 9;
 
-	public static final int CAN_FOLD_INTAKE = 7;
-	public static final int CAN_SPIN_INTAKE = 3;
+	public static final int CAN_FOLD_INTAKE = 11;
+	public static final int CAN_SPIN_INTAKE = 8;
 
 	//PWM IDs
 	public static final int PWM_TUBE_BELT_RIGHT = 4;
@@ -63,7 +63,8 @@ public class Constants {
 	//k(ROW)(COLUMN)
 	public static final int kTopMiddleLeft = 6;
 
-	public static final int kTopMiddleRightPOV = 1;
+	public static final int kTopMiddleRightYAxis = 1;
+	public static final int kTopMiddleRightXAxis = 2;
 
 	public static final int kTopRight = 2;
 	public static final int kMiddleLeft = 11;

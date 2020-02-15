@@ -48,7 +48,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double throttle, double steer) {
-    differentialDrive.arcadeDrive(throttle, steer);
+    differentialDrive.arcadeDrive(-throttle, steer);
   }
 
   public void stop() {

@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.TeleopDrive;
 import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.PositionLeft;
@@ -88,7 +88,8 @@ public class RobotContainer {
 
         //INTAKE
         new JoystickButton(operatorConsole, Constants.kBottomRight)
-            .whenPressed(new IntakeAndStore());
+            .whenPressed(() -> intake.spinIn())
+            .whenReleased(() -> intake.spinStop());
         new JoystickButton(operatorConsole, Constants.kMiddleRight)
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());
@@ -100,12 +101,21 @@ public class RobotContainer {
             .whenPressed(() -> tubeBelts.up())
             .whenReleased(() -> tubeBelts.stop());
 
-        new JoystickButton(driver, Constants.kButtonY)
-            .whenPressed(() -> tube.speedDown())
-            .whenReleased(() -> tube.speedStop());
-        new JoystickButton(driver, Constants.kButtonX)
-            .whenPressed(() -> tube.speedUp())
-            .whenReleased(() -> tube.speedStop());
+        // new JoystickButton(operatorConsole, Constants.kButtonY)
+        //     .whenPressed(() -> tube.speedDown())
+        //     .whenReleased(() -> tube.speedStop());
+        // new JoystickButton(operatorConsole, Constants.kButtonX)
+        //     .whenPressed(() -> tube.speedUp())
+        //     .whenReleased(() -> tube.speedStop());
+        
+        Trigger consoleTriggerYUp = new AxisButton(operatorConsole, Constants.kTopMiddleRightYAxis, true);
+        consoleTriggerYUp.whenActive(() -> tube.speedUp());
+        consoleTriggerYUp.whenInactive(() -> tube.speedStop());
+
+        Trigger consoleTriggerYDown = new AxisButton(operatorConsole, Constants.kTopMiddleRightYAxis, false);
+        consoleTriggerYDown.whenActive(() -> tube.speedDown());
+        consoleTriggerYDown.whenInactive(() -> tube.speedStop());
+
 
         // new JoystickButton(driver, Constants.kButtonB)
         //     .whileActiveContinuous(() -> intake.top());
