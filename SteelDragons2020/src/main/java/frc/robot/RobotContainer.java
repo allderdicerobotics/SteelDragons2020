@@ -120,7 +120,7 @@ public class RobotContainer {
         consoleTriggerYDown.whenInactive(() -> tube.speedStop());
 
 
-        new JoystickButton(driver, Constants.kButtonB)
+        new JoystickButton(driver, Constants.kButtonX)
             .whileActiveContinuous(() -> intake.top());
         new JoystickButton(driver, Constants.kButtonY)
             .whileActiveContinuous(() -> intake.bottom());
