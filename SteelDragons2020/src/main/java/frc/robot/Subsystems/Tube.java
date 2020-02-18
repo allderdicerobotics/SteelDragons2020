@@ -88,7 +88,7 @@ public class Tube extends SubsystemBase {
 
   //returns optimal angle in degrees
   public double getOptimalAngle() {
-    xDist = RobotContainer.getDistanceFromTarget();
+    xDist = RobotContainer.getDistanceFromTarget()/12;
     optimalAngle = (0.000009802791 * Math.pow(xDist, 4)) + (-0.001865 * Math.pow(xDist, 3)) + (0.123583 * Math.pow(xDist, 2)) + (-4.051126 * xDist) + 75.484205;
     return optimalAngle;
   }

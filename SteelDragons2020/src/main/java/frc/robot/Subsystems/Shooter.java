@@ -105,7 +105,7 @@ public class Shooter extends SubsystemBase {
 
   //returns the optimal initial velocity of a powercell
   public double getOptimalVelocity() {
-    double xDist = RobotContainer.getDistanceFromTarget();
+    double xDist = RobotContainer.getDistanceFromTarget()/12;
     optimalLinearVelocity = (0.00001215593 * Math.pow(xDist, 4)) + (-0.001258 * Math.pow(xDist, 3)) + (0.050136 * Math.pow(xDist, 2)) + (0.435749 * xDist) +17.446296;
     return optimalLinearVelocity;
   }
