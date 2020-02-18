@@ -11,11 +11,13 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 
 public class Shooter extends SubsystemBase {
@@ -24,10 +26,17 @@ public class Shooter extends SubsystemBase {
   private CANPIDController shooterMotorPIDController;
   private CANEncoder shooterMotorCANEncoder;
   private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
+  private double optimalLinearVelocity;
 
   public Shooter() {
     shooterMotorLeft = new CANSparkMax(Constants.CAN_SHOOTER_LEFT, MotorType.kBrushless);
     shooterMotorRight = new CANSparkMax(Constants.CAN_SHOOTER_RIGHT, MotorType.kBrushless);
+
+    shooterMotorLeft.restoreFactoryDefaults();
+    shooterMotorRight.restoreFactoryDefaults();
+
+    shooterMotorLeft.setIdleMode(IdleMode.kBrake);
+    shooterMotorRight.setIdleMode(IdleMode.kBrake);
 
     shooterMotorRight.follow(shooterMotorLeft, true);
 
@@ -76,6 +85,29 @@ public class Shooter extends SubsystemBase {
 
   public void setSpeed(double speed){
     shooterMotorPIDController.setReference(speed, ControlType.kSmartVelocity);
+  }
+
+  public void DCsetSpeed(double speed) {
+    shooterMotorPIDController.setReference(speed, ControlType.kDutyCycle);
+  }
+
+  public void DCmax() {
+    DCsetSpeed(0.9);
+  }
+
+  public void DCzero() {
+    DCsetSpeed(0.0);
+  }
+
+  public void DCbackwardsMax() {
+    DCsetSpeed(-0.9);
+  }
+
+  //returns the optimal initial velocity of a powercell
+  public double getOptimalVelocity() {
+    double xDist = RobotContainer.getDistanceFromTarget();
+    optimalLinearVelocity = (0.00001215593 * Math.pow(xDist, 4)) + (-0.001258 * Math.pow(xDist, 3)) + (0.050136 * Math.pow(xDist, 2)) + (0.435749 * xDist) +17.446296;
+    return optimalLinearVelocity;
   }
 
   public void PIDSetup() {

@@ -10,17 +10,17 @@ package frc.robot;
 
 public class Constants {
 	//CAN IDs
-    public static final int CAN_DRIVETRAIN_FRONTLEFT = 0;
-    public static final int CAN_DRIVETRAIN_BACKLEFT = 1;
-    public static final int CAN_DRIVETRAIN_FRONTRIGHT = 2;
-    public static final int CAN_DRIVETRAIN_BACKRIGHT = 3;
+    public static final int CAN_DRIVETRAIN_FRONTLEFT = 2;
+    public static final int CAN_DRIVETRAIN_BACKLEFT = 6;
+    public static final int CAN_DRIVETRAIN_FRONTRIGHT = 5;
+    public static final int CAN_DRIVETRAIN_BACKRIGHT = 1;
 
     public static final int CAN_TUBE = 4;
-    public static final int CAN_SHOOTER_LEFT = 5;
-    public static final int CAN_SHOOTER_RIGHT = 6;
+    public static final int CAN_SHOOTER_LEFT = 10;
+    public static final int CAN_SHOOTER_RIGHT = 7;
 
-	public static final int CAN_FOLD_INTAKE = 7;
-	public static final int CAN_SPIN_INTAKE = 3;
+	public static final int CAN_FOLD_INTAKE = 11;
+	public static final int CAN_SPIN_INTAKE = 8;
 
 	//PWM IDs
 	public static final int PWM_TUBE_BELT_RIGHT = 4;
@@ -30,8 +30,8 @@ public class Constants {
     public static final double DRIVETRAIN_THROTTLE_SCALE = 0.6;
     public static final double DRIVETRAIN_STEER_SCALE = 0.5;
 
-    public static final double INTAKE_SPEED_IN = -0.1;
-	public static final double INTAKE_SPEED_OUT = 0.1;
+    public static final double INTAKE_SPEED_IN = -0.9;
+	public static final double INTAKE_SPEED_OUT = 0.9;
 
 	public static final double BELT_SPEED_UP = 0.4;
 	public static final double BELT_SPEED_DOWN = 0.4;

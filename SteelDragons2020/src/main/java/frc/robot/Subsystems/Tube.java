@@ -27,7 +27,8 @@ public class Tube extends SubsystemBase {
   private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
   private double currentTubePosition;
 
-  private double[] limeLightValues;
+  private double xDist;
+  private double optimalAngle;
 
   public Tube() {
     tubeMotor = new CANSparkMax(Constants.CAN_TUBE, MotorType.kBrushless);
@@ -85,10 +86,11 @@ public class Tube extends SubsystemBase {
   public void setAngle(double angle) {
   }
 
-  public double getDistanceFromTarget() {
-    limeLightValues = RobotContainer.getLimeLightValues();
-    double currentYPosition = limeLightValues[2];
-    return (78.0/Math.tan(Math.toRadians(32.5 + currentYPosition)));
+  //returns optimal angle in degrees
+  public double getOptimalAngle() {
+    xDist = RobotContainer.getDistanceFromTarget();
+    optimalAngle = (0.000009802791 * Math.pow(xDist, 4)) + (-0.001865 * Math.pow(xDist, 3)) + (0.123583 * Math.pow(xDist, 2)) + (-4.051126 * xDist) + 75.484205;
+    return optimalAngle;
   }
 
   public void setPosition(double position){
