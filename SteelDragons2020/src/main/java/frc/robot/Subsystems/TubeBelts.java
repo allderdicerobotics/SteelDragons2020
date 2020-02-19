@@ -7,19 +7,20 @@
 
 package frc.robot.Subsystems;
 
-import edu.wpi.first.wpilibj.Spark;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class TubeBelts extends SubsystemBase {
    
-  private Spark beltLeft;
-  private Spark beltRight;
+  private VictorSPX beltLeft;
+  private VictorSPX beltRight;
 
   public TubeBelts() {
-    beltLeft = new Spark(Constants.PWM_TUBE_BELT_LEFT);
-    beltRight = new Spark(Constants.PWM_TUBE_BELT_RIGHT);
-
+    beltLeft = new VictorSPX(Constants.CAN_BELT_LEFT);
+    beltRight = new VictorSPX(Constants.CAN_BELT_RIGHT);
   }
 
   public void up() {
@@ -35,8 +36,8 @@ public class TubeBelts extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    beltLeft.set(speed);
-    beltRight.set(speed);
+    beltLeft.set(ControlMode.PercentOutput, speed);
+    beltRight.set(ControlMode.PercentOutput, speed);
   }
 
   @Override
