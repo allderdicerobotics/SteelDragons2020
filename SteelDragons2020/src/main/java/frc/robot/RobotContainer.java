@@ -95,17 +95,17 @@ public class RobotContainer {
             .whenPressed(() -> shooter.DCbackwardsMax())
             .whenReleased(() -> shooter.DCzero());
 
-        new JoystickButton(driver, Constants.kButtonLeftBumper)
+        new JoystickButton(operator, Constants.kMiddleRight)
             .whenPressed(() -> tubeBelts.up())
             .whenReleased(() -> tubeBelts.stop());
-        new JoystickButton(driver, Constants.kButtonRightBumper)
+        new JoystickButton(operator, Constants.kMiddleMiddleRight)
             .whenPressed(() -> tubeBelts.down())
             .whenReleased(() -> tubeBelts.stop());
 
-        new JoystickButton(driver, Constants.kButtonB)
+        new JoystickButton(operator, Constants.kBottomRight)
             .whenPressed(() -> intake.spinIn())
             .whenReleased(() -> intake.spinStop());
-        new JoystickButton(driver, Constants.kButtonY)
+        new JoystickButton(operator, Constants.kBottomMiddleRight)
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());
 
