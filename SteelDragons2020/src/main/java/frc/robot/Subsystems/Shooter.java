@@ -10,7 +10,6 @@ package frc.robot.Subsystems;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -22,45 +21,40 @@ import frc.robot.RobotContainer;
 
 public class Shooter extends SubsystemBase {
   private final CANSparkMax shooterMotorLeft;
+  private CANPIDController shooterMotorLeftPIDController;
+  private CANEncoder shooterMotorLeftCANEncoder;
+
   private final CANSparkMax shooterMotorRight;
-  private CANPIDController shooterMotorPIDController;
-  private CANEncoder shooterMotorCANEncoder;
+  private CANPIDController shooterMotorRightPIDController;
+  private CANEncoder shooterMotorRightCANEncoder;
+
   private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
   private double optimalLinearVelocity;
 
   public Shooter() {
     shooterMotorLeft = new CANSparkMax(Constants.CAN_SHOOTER_LEFT, MotorType.kBrushless);
-    shooterMotorRight = new CANSparkMax(Constants.CAN_SHOOTER_RIGHT, MotorType.kBrushless);
+    shooterMotorLeftPIDController = shooterMotorLeft.getPIDController();
+    shooterMotorLeftCANEncoder = shooterMotorLeft.getEncoder();
 
-    shooterMotorLeft.restoreFactoryDefaults();
-    shooterMotorRight.restoreFactoryDefaults();
+    shooterMotorRight = new CANSparkMax(Constants.CAN_SHOOTER_RIGHT, MotorType.kBrushless);
+    shooterMotorRightPIDController = shooterMotorRight.getPIDController();
+    shooterMotorRightCANEncoder = shooterMotorRight.getEncoder();
 
     shooterMotorLeft.setIdleMode(IdleMode.kBrake);
     shooterMotorRight.setIdleMode(IdleMode.kBrake);
-
-    shooterMotorRight.follow(shooterMotorLeft, true);
-
-    shooterMotorPIDController = shooterMotorLeft.getPIDController();
-    shooterMotorCANEncoder = shooterMotorLeft.getEncoder();
 
     kP = 0.0;
     kI = 0.0;
     kD = 0.0;
     kIz = 0.0;
     kFF = 0.0;
-    kMaxOutput = 0.0;
-    kMinOutput = 0.0;
+    kMaxOutput = 1.0;
+    kMinOutput = -1.0;
 
     maxAccel = 0.0;
 
-    shooterMotorPIDController.setP(kP);
-    shooterMotorPIDController.setI(kI);
-    shooterMotorPIDController.setD(kD);
-    shooterMotorPIDController.setIZone(kIz);
-    shooterMotorPIDController.setFF(kFF);
-    shooterMotorPIDController.setOutputRange(kMinOutput, kMaxOutput);
-
-    shooterMotorPIDController.setSmartMotionMaxAccel(maxAccel, 0);
+    motorPIDSetup(shooterMotorRightPIDController);
+    motorPIDSetup(shooterMotorLeftPIDController);
 
     // //Use this only for tuning PID values and testing
     // SmartDashboard.putNumber("Shooter P", kP);
@@ -75,33 +69,44 @@ public class Shooter extends SubsystemBase {
     // SmartDashboard.putNumber("Shooter Set Velocity", 0);
   }
 
-  public void stop() {
-    setSpeed(0.0);
+  public void motorPIDSetup(CANPIDController controller) {
+    controller.setP(kP);
+    controller.setI(kI);
+    controller.setD(kD);
+    controller.setIZone(kIz);
+    controller.setFF(kFF);
+    controller.setOutputRange(kMinOutput, kMaxOutput);
   }
 
-  public void maxSpeed() {
-    setSpeed(1000);
+  public void colorWheelRotate() {
+    DCSetSpeed(0.03, -0.03);
   }
 
-  public void setSpeed(double speed){
-    shooterMotorPIDController.setReference(speed, ControlType.kSmartVelocity);
-  }
+  // //REGULAR
+  // public void stop() {
+  //   setSpeed(0.0);
+  // }
+
+  // public void maxSpeed() {
+  //   setSpeed(1000);
+  // }
+
+  // public void setSpeed(double speed){
+  //   shooterMotorLeftPIDController.setReference(speed, ControlType.kSmartVelocity);
+  // }
 
   //DC Speed
-  public void DCSetForward() {
-    DCSetSpeed(Constants.SHOOTER_SPEED);
+  public void DCShootOut() {
+    DCSetSpeed(Constants.SHOOTER_SPEED, Constants.SHOOTER_SPEED);
   }
-
-  public void DCSetBackwards() {
-    DCSetSpeed(-Constants.SHOOTER_SPEED);
-  }  
 
   public void DCSetZero() {
-    DCSetSpeed(0.0);
+    DCSetSpeed(0.0, 0.0);
   }
 
-  public void DCSetSpeed(double speed) {
-    shooterMotorPIDController.setReference(speed, ControlType.kDutyCycle);
+  public void DCSetSpeed(double leftSpeed, double rightSpeed) {
+    shooterMotorRight.set(rightSpeed);
+    shooterMotorLeft.set(leftSpeed);
   }
 
   public double getOptimalVelocity() {

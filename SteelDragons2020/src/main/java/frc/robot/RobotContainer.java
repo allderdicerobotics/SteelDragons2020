@@ -21,6 +21,7 @@ import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.PositionLeft;
 import frc.robot.Commands.Autonomous.PositionMiddle;
 import frc.robot.Commands.Autonomous.PositionRight;
+import frc.robot.Commands.ColorWheel.Rotate;
 import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Subsystems.Intake;
 import frc.robot.Subsystems.Shooter;
@@ -112,9 +113,13 @@ public class RobotContainer {
             .whenPressed(() -> tubeBelts.down())
             .whenReleased(() -> tubeBelts.stop());
 
+        new JoystickButton(driver, Constants.kButtonB)
+            .whenPressed(() -> shooter.colorWheelRotate())
+            .whenReleased(() -> shooter.DCSetZero());
+
         //BELTS
         new JoystickButton(operator, Constants.kBottomMiddleLeft)
-            .whenPressed(() -> shooter.DCSetForward())
+            .whenPressed(() -> shooter.DCShootOut())
             .whenReleased(() -> shooter.DCSetZero());
         
         new JoystickButton(driver, Constants.kButtonY)

@@ -5,19 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands.Shooting;
+package frc.robot.Commands.ColorWheel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Shooter;
 
-public class Shoot extends CommandBase {
+public class Rotate extends CommandBase {
   /**
-   * Creates a new Shoot.
+   * Creates a new Rotate.
    */
-  private Shooter shooter;
-  public Shoot() {
+  Shooter shooter;
+  public Rotate() {
     this.shooter = RobotContainer.shooter;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.shooter);
@@ -32,22 +31,18 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.shooter.DCShootOut();
+    this.shooter.colorWheelRotate();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     this.shooter.DCSetZero();
-    RobotContainer.getRidOfAllBalls();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
-      return true;
-    }
     return false;
   }
 }
