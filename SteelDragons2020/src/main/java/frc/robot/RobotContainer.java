@@ -144,4 +144,9 @@ public class RobotContainer {
         values[3] = ta.getDouble(0.0);
         return values;
       }
+    
+    public static double getDistanceFromTarget() {
+        double currentYPosition = getLimeLightValues()[2];
+        return (78.0/Math.tan(Math.toRadians(32.5 + currentYPosition)));
+    }
 }

@@ -24,7 +24,6 @@ public class Intake extends SubsystemBase {
   private CANPIDController intakeFoldMotorPIDController;
   private CANEncoder intakeFoldMotorCANEncoder;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
-  private double currentIntakeFoldPosition;
 
   private final CANSparkMax intakeSpinMotor;
 
@@ -100,16 +99,15 @@ public class Intake extends SubsystemBase {
 
   //INTAKE POSITION
   public void bottom() {
-    setPosition(0.0);
+    setPosition(-17.0);
   }
 
   public void top() {
-    setPosition(-17.0);
+    setPosition(0.0);
   }
 
   public void setPosition(double position){
     intakeFoldMotorPIDController.setReference(position, ControlType.kSmartMotion);
-    currentIntakeFoldPosition = position;
   }
 
   public void PIDSetup() {

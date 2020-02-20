@@ -27,6 +27,9 @@ public class Tube extends SubsystemBase {
   private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
   private double currentTubePosition;
 
+  private double xDist;
+  private double optimalAngle;
+
   private double[] limeLightValues;
 
   public Tube() {
@@ -75,20 +78,20 @@ public class Tube extends SubsystemBase {
   }
 
   public void bottomPosition() {
-    setPosition(0.0);
+    setPosition(-1.0);
   }
 
   public void topPosition() {
-    setPosition(300.0);
+    setPosition(0.0);
   }
 
   public void setAngle(double angle) {
   }
 
-  public double getDistanceFromTarget() {
-    limeLightValues = RobotContainer.getLimeLightValues();
-    double currentYPosition = limeLightValues[2];
-    return (78.0/Math.tan(Math.toRadians(32.5 + currentYPosition)));
+  public double getOptimalAngle() {
+    xDist = RobotContainer.getDistanceFromTarget()/12;
+    optimalAngle = (0.000009802791 * Math.pow(xDist, 4)) + (-0.001865 * Math.pow(xDist, 3)) + (0.123583 * Math.pow(xDist, 2)) + (-4.051126 * xDist) + 75.484205;
+    return optimalAngle;
   }
 
   public void setPosition(double position){
