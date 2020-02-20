@@ -17,8 +17,8 @@ public class TubeBelts extends SubsystemBase {
   private Spark beltRight;
 
   public TubeBelts() {
-    beltLeft = new Spark(Constants.PWM_TUBE_BELT_LEFT);
-    beltRight = new Spark(Constants.PWM_TUBE_BELT_RIGHT);
+    beltLeft = new Spark(Constants.CAN_BELT_LEFT);
+    beltRight = new Spark(Constants.CAN_BELT_RIGHT);
 
   }
 

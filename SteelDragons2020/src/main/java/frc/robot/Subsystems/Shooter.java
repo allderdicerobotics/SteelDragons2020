@@ -78,6 +78,23 @@ public class Shooter extends SubsystemBase {
     shooterMotorPIDController.setReference(speed, ControlType.kSmartVelocity);
   }
 
+  //DC Speed
+  public void DCSetForward() {
+    DCSetSpeed(Constants.SHOOTER_SPEED);
+  }
+
+  public void DCSetBackwards() {
+    DCSetSpeed(-Constants.SHOOTER_SPEED);
+  }  
+
+  public void DCSetZero() {
+    DCSetSpeed(0.0);
+  }
+
+  public void DCSetSpeed(double speed) {
+    shooterMotorPIDController.setReference(speed, ControlType.kDutyCycle);
+  }
+
   public void PIDSetup() {
   //   //Use this only for tuning PID values and testing
   //   double p = SmartDashboard.getNumber("Shooter P", 0);

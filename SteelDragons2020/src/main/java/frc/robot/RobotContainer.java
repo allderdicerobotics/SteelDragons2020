@@ -81,29 +81,45 @@ public class RobotContainer {
     }
 
     public void configureButtonBindings() {
-        //TUBE
-        new JoystickButton(operator, Constants.kButtonY)
-            .whileActiveContinuous(() -> tube.up());
-        new JoystickButton(operator, Constants.kButtonA)
-            .whileActiveContinuous(() -> tube.down());
+        // //TUBE
+        // new JoystickButton(operator, Constants.kButtonY)
+        //     .whileActiveContinuous(() -> tube.up());
+        // new JoystickButton(operator, Constants.kButtonA)
+        //     .whileActiveContinuous(() -> tube.down());
 
         //INTAKE
-        new JoystickButton(driver, Constants.kButtonX)
+        new JoystickButton(operator, Constants.kBottomRight)
             .whenPressed(() -> intake.spinIn())
             .whenReleased(() -> intake.spinStop());
-        new JoystickButton(driver, Constants.kButtonA)
+        new JoystickButton(operator, Constants.kBottomMiddleRight)
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());
 
-        new JoystickButton(driver, Constants.kButtonB)
-            .whileActiveContinuous(() -> intake.top());
-        new JoystickButton(driver, Constants.kButtonY)
-            .whileActiveContinuous(() -> intake.bottom());
+        //BELTS
+        new JoystickButton(operator, Constants.kMiddleRight)
+            .whenPressed(() -> tubeBelts.up())
+            .whenReleased(() -> tubeBelts.stop());
+        new JoystickButton(operator, Constants.kMiddleMiddleRight)
+            .whenPressed(() -> tubeBelts.down())
+            .whenReleased(() -> tubeBelts.stop());
 
-        //SHOOTER
-        new JoystickButton(operator, Constants.kButtonX)
-            .whileActiveContinuous(() -> shooter.maxSpeed())
-            .whenInactive(() -> shooter.stop());
+        //BELTS
+        new JoystickButton(operator, Constants.kBottomMiddleLeft)
+            .whenPressed(() -> shooter.DCSetForward())
+            .whenReleased(() -> shooter.DCSetZero());
+        // new JoystickButton(operator, Constants.kMiddleMiddleRight)
+        //     .whenPressed(() -> shooter.DCSetBackwards())
+        //     .whenReleased(() -> shooter.DCSetZero());
+
+        // new JoystickButton(driver, Constants.kButtonB)
+        //     .whileActiveContinuous(() -> intake.top());
+        // new JoystickButton(driver, Constants.kButtonY)
+        //     .whileActiveContinuous(() -> intake.bottom());
+
+        // //SHOOTER
+        // new JoystickButton(operator, Constants.kButtonX)
+        //     .whileActiveContinuous(() -> shooter.maxSpeed())
+        //     .whenInactive(() -> shooter.stop());
     }
 
     public static double[] getLimeLightValues() {
