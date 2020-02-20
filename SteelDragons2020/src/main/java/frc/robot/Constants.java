@@ -26,8 +26,8 @@ public class Constants {
 	public static final int CAN_BELT_RIGHT = 14;
 
 	//SPEEDS
-    public static final double DRIVETRAIN_THROTTLE_SCALE = 0.6;
-    public static final double DRIVETRAIN_STEER_SCALE = 0.5;
+    public static final double DRIVETRAIN_THROTTLE_SCALE = 0.8;
+    public static final double DRIVETRAIN_STEER_SCALE = 0.6;
 
     public static final double INTAKE_SPEED_IN = -0.8;
 	public static final double INTAKE_SPEED_OUT = 0.8;
@@ -40,10 +40,10 @@ public class Constants {
 	public static final double TUBE_SPEED_UP = 0.5;
 	public static final double TUBE_SPEED_DOWN = 0.3;
 
-
-	
 	//OTHER
-    public static final double TUBE_MANUAL_CHANGE = 1.9;
+	public static final double TUBE_MANUAL_CHANGE = 1.9;
+	
+	public static final double AUTO_INTAKING_EXTRA_BELT_RUN_TIME = 0.35;
 
     //Logitech f310
 	/* axis mappings */

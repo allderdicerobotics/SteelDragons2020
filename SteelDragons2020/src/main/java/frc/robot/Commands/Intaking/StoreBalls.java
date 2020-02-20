@@ -44,9 +44,10 @@ public class StoreBalls extends CommandBase {
     else {
       if(ball) {
         startTime = Timer.getFPGATimestamp();
+        RobotContainer.addOneBall();
       }
       ball = false;
-      if(Timer.getFPGATimestamp() >= 0.35 + startTime) {
+      if(Timer.getFPGATimestamp() >= Constants.AUTO_INTAKING_EXTRA_BELT_RUN_TIME + startTime) {
         this.tubeBelts.stop();
       }
     }

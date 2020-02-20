@@ -32,7 +32,8 @@ public class TeleopDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveTrain.arcadeDrive(RobotContainer.driver.getRawAxis(Constants.kLeftStickY), RobotContainer.driver.getRawAxis(Constants.kRightStickX));
+    driveTrain.arcadeDrive(Constants.DRIVETRAIN_THROTTLE_SCALE * RobotContainer.driver.getRawAxis(Constants.kLeftStickY), 
+                           Constants.DRIVETRAIN_STEER_SCALE * RobotContainer.driver.getRawAxis(Constants.kRightStickX));
   }
 
   // Called once the command ends or is interrupted.

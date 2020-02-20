@@ -43,6 +43,8 @@ public class RobotContainer {
     private static final String kPositionMiddle = "PositionMiddle";
     private static final String kPositionRight = "PositionRight";
 
+    public static int currentBallCount = 3;
+
     private String autoSelected;
     private final SendableChooser<String> autoChooser = new SendableChooser<>();
 
@@ -78,6 +80,8 @@ public class RobotContainer {
         autoChooser.addOption("PositionMiddle", kPositionMiddle);
         autoChooser.addOption("PositionRight", kPositionRight);
         SmartDashboard.putData("Auto Chooser", autoChooser);
+
+        SmartDashboard.putNumber("Ball Count", currentBallCount);
     }
 
     public void configureButtonBindings() {
@@ -148,5 +152,17 @@ public class RobotContainer {
     public static double getDistanceFromTarget() {
         double currentYPosition = getLimeLightValues()[2];
         return (78.0/Math.tan(Math.toRadians(32.5 + currentYPosition)));
+    }
+
+    public static void addOneBall() {
+        currentBallCount++;
+    }
+
+    public static void getRidOfAllBalls() {
+        currentBallCount = 0;
+    }
+
+    public static int getBallCount() {
+        return currentBallCount;
     }
 }
