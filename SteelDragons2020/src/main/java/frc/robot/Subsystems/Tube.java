@@ -96,6 +96,24 @@ public class Tube extends SubsystemBase {
     currentTubePosition = position;
   }
 
+  
+  //DC Speed
+  public void DCSetUp() {
+    DCSetSpeed(Constants.TUBE_SPEED_UP);
+  }
+
+  public void DCSetDown() {
+    DCSetSpeed(-Constants.TUBE_SPEED_DOWN);
+  }  
+
+  public void DCSetZero() {
+    DCSetSpeed(0.0);
+  }
+
+  public void DCSetSpeed(double speed) {
+    tubeMotorPIDController.setReference(speed, ControlType.kDutyCycle);
+  }
+
   public void PIDSetup() {
   //   //Use this only for tuning PID values and testing
   //   double p = SmartDashboard.getNumber("Tube P", 0);

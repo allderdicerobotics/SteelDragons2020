@@ -95,6 +95,13 @@ public class RobotContainer {
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());
 
+        new JoystickButton(operator, Constants.kBottomLeft)
+            .whenPressed(() -> tube.DCSetUp())
+            .whenReleased(() -> tube.DCSetZero());
+        new JoystickButton(operator, Constants.kMiddleLeft)
+            .whenPressed(() -> tube.DCSetDown())
+            .whenReleased(() -> tube.DCSetZero());
+
         //BELTS
         new JoystickButton(operator, Constants.kMiddleRight)
             .whenPressed(() -> tubeBelts.up())
