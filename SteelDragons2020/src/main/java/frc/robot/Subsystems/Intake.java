@@ -13,7 +13,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -44,8 +43,8 @@ public class Intake extends SubsystemBase {
     kMinOutput = -1.0;
     maxRPM = 5700;
 
-    maxVel = 10000;
-    maxAcc = 25000;
+    maxVel = 5000;
+    maxAcc = 10000;
 
     intakeFoldMotorPIDController.setP(kP);
     intakeFoldMotorPIDController.setI(kI);
@@ -99,7 +98,7 @@ public class Intake extends SubsystemBase {
 
   //INTAKE POSITION
   public void bottom() {
-    setPosition(-17.0);
+    setPosition(-15.0);
   }
 
   public void top() {

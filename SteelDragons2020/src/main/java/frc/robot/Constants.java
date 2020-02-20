@@ -35,10 +35,10 @@ public class Constants {
 	public static final double BELT_SPEED_UP = 0.8;
 	public static final double BELT_SPEED_DOWN = 0.8;
 
-	public static final double SHOOTER_SPEED = 0.8;
+	public static final double SHOOTER_SPEED = 1.0;
 
-	public static final double TUBE_SPEED_UP = 0.5;
-	public static final double TUBE_SPEED_DOWN = 0.3;
+	public static final double TUBE_SPEED_UP = 0.9;
+	public static final double TUBE_SPEED_DOWN = 0.4;
 
 	//OTHER
 	public static final double TUBE_MANUAL_CHANGE = 1.9;

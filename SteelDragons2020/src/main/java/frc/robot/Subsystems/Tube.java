@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -21,7 +22,7 @@ public class Tube extends SubsystemBase {
   private final CANSparkMax tubeMotor;
   private CANPIDController tubeMotorPIDController;
   private CANEncoder tubeMotorCANEncoder;
-  private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
   private double currentTubePosition;
 
   public Tube() {
@@ -29,15 +30,17 @@ public class Tube extends SubsystemBase {
     tubeMotorPIDController = tubeMotor.getPIDController();
     tubeMotorCANEncoder = tubeMotor.getEncoder();
 
-    kP = 0.0;
+    kP = 0.0001;
     kI = 0.0;
     kD = 0.0;
     kIz = 0.0;
-    kFF = 0.0;
-    kMaxOutput = 0.0;
-    kMinOutput = 0.0;
+    kFF = 0.0001;
+    kMaxOutput = 1.0;
+    kMinOutput = -1.0;
+    maxRPM = 5700;
 
-    maxAccel = 0.0;
+    maxVel = 10000;
+    maxAcc = 25000;
 
     tubeMotorPIDController.setP(kP);
     tubeMotorPIDController.setI(kI);
@@ -46,19 +49,30 @@ public class Tube extends SubsystemBase {
     tubeMotorPIDController.setFF(kFF);
     tubeMotorPIDController.setOutputRange(kMinOutput, kMaxOutput);
 
-    tubeMotorPIDController.setSmartMotionMaxAccel(maxAccel, 0);
+    int smartMotionSlot = 0;
+    tubeMotorPIDController.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
+    tubeMotorPIDController.setSmartMotionMinOutputVelocity(minVel, smartMotionSlot);
+    tubeMotorPIDController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
+    tubeMotorPIDController.setSmartMotionAllowedClosedLoopError(allowedErr, smartMotionSlot);
 
     // //Use this only for tuning PID values and testing
-    // SmartDashboard.putNumber("Tube P", kP);
-    // SmartDashboard.putNumber("Tube I", kI);
-    // SmartDashboard.putNumber("Tube D" , kD);
+    // SmartDashboard.putNumber("Tube P Gain", kP);
+    // SmartDashboard.putNumber("Tube I Gain", kI);
+    // SmartDashboard.putNumber("Tube D Gain" , kD);
     // SmartDashboard.putNumber("Tube I Zone", kIz);
     // SmartDashboard.putNumber("Tube Feed Forward", kFF);
     // SmartDashboard.putNumber("Tube Max Output", kMaxOutput);
     // SmartDashboard.putNumber("Tube Min Output", kMinOutput);
 
-    // SmartDashboard.putNumber("Tube Max Accel", maxAccel);
+    // SmartDashboard.putNumber("Tube Max Velocity", maxVel);
+    // SmartDashboard.putNumber("Tube Min Velocity", minVel);
+    // SmartDashboard.putNumber("Tube Max Acceleration", maxAcc);
+    // SmartDashboard.putNumber("Tube Allowed Closed Loop Error", allowedErr);
     // SmartDashboard.putNumber("Tube Set Position", 0);
+    // SmartDashboard.putNumber("Tube Set Velocity", 0);
+
+    // button to toggle between velocity and smart motion modes
+    SmartDashboard.putBoolean("Tube Mode", true);
   }
 
   public void up() {
@@ -70,14 +84,13 @@ public class Tube extends SubsystemBase {
   }
 
   public void bottomPosition() {
-    setPosition(-1.0);
+    setPosition(163.0);
+    System.out.println("bottom");
   }
 
   public void topPosition() {
     setPosition(0.0);
-  }
-
-  public void setAngle(double angle) {
+    System.out.println("top");
   }
 
   public void setPosition(double position){
@@ -86,58 +99,76 @@ public class Tube extends SubsystemBase {
   }
 
   
-  //DC Speed
-  public void DCSetUp() {
-    DCSetSpeed(Constants.TUBE_SPEED_UP);
-  }
+  // //DC Speed
+  // public void DCSetUp() {
+  //   DCSetSpeed(Constants.TUBE_SPEED_UP);
+  // }
 
-  public void DCSetDown() {
-    DCSetSpeed(-Constants.TUBE_SPEED_DOWN);
-  }  
+  // public void DCSetDown() {
+  //   DCSetSpeed(-Constants.TUBE_SPEED_DOWN);
+  // }  
 
-  public void DCSetZero() {
-    DCSetSpeed(0.0);
-  }
+  // public void DCSetZero() {
+  //   DCSetSpeed(0.0);
+  // }
 
-  public void DCSetSpeed(double speed) {
-    tubeMotorPIDController.setReference(speed, ControlType.kDutyCycle);
-  }
+  // public void DCSetSpeed(double speed) {
+  //   tubeMotorPIDController.setReference(speed, ControlType.kDutyCycle);
+  // }
 
   public void PIDSetup() {
-  //   //Use this only for tuning PID values and testing
-  //   double p = SmartDashboard.getNumber("Tube P", 0);
-  //   double i = SmartDashboard.getNumber("Tube I", 0);
-  //   double d = SmartDashboard.getNumber("Tube D", 0);
-  //   double iz = SmartDashboard.getNumber("Tube I Zone", 0);
-  //   double ff = SmartDashboard.getNumber("Tube Feed Forward", 0);
-  //   double max = SmartDashboard.getNumber("Tube Max Output", 0);
-  //   double min = SmartDashboard.getNumber("Tube Min Output", 0);
+    //read PID coefficients from SmartDashboard
+    // double p = SmartDashboard.getNumber("Tube P Gain", 0);
+    // double i = SmartDashboard.getNumber("Tube I Gain", 0);
+    // double d = SmartDashboard.getNumber("Tube D Gain", 0);
+    // double iz = SmartDashboard.getNumber("Tube I Zone", 0);
+    // double ff = SmartDashboard.getNumber("Tube Feed Forward", 0);
+    // double max = SmartDashboard.getNumber("Tube Max Output", 0);
+    // double min = SmartDashboard.getNumber("Tube Min Output", 0);
+    // double maxV = SmartDashboard.getNumber("Tube Max Velocity", 0);
+    // double minV = SmartDashboard.getNumber("Tube Min Velocity", 0);
+    // double maxA = SmartDashboard.getNumber("Tube Max Acceleration", 0);
+    // double allE = SmartDashboard.getNumber("Tube Allowed Closed Loop Error", 0);
 
-  //   double maxA = SmartDashboard.getNumber("Tube Max Accel", 0);
+    // // if PID coefficients on SmartDashboard have changed, write new values to controller
+    // if((p != kP)) { tubeMotorPIDController.setP(p); kP = p; }
+    // if((i != kI)) { tubeMotorPIDController.setI(i); kI = i; }
+    // if((d != kD)) { tubeMotorPIDController.setD(d); kD = d; }
+    // if((iz != kIz)) { tubeMotorPIDController.setIZone(iz); kIz = iz; }
+    // if((ff != kFF)) { tubeMotorPIDController.setFF(ff); kFF = ff; }
+    // if((max != kMaxOutput) || (min != kMinOutput)) { 
+    //   tubeMotorPIDController.setOutputRange(min, max); 
+    //   kMinOutput = min; kMaxOutput = max; 
+    // }
+    // if((maxV != maxVel)) { tubeMotorPIDController.setSmartMotionMaxVelocity(maxV,0); maxVel = maxV; }
+    // if((minV != minVel)) { tubeMotorPIDController.setSmartMotionMinOutputVelocity(minV,0); minVel = minV; }
+    // if((maxA != maxAcc)) { tubeMotorPIDController.setSmartMotionMaxAccel(maxA,0); maxAcc = maxA; }
+    // if((allE != allowedErr)) { tubeMotorPIDController.setSmartMotionAllowedClosedLoopError(allE,0); allowedErr = allE; }
 
-  //   if(p != kP) { kP = p; tubeMotorPIDController.setP(p); }
-  //   if(i != kI) { kI = i; tubeMotorPIDController.setI(i); }
-  //   if(d != kD) { kD = d; tubeMotorPIDController.setD(d); }
-  //   if(iz != kIz) { kIz = iz; tubeMotorPIDController.setIZone(iz);  }
-  //   if(ff != kFF) { kFF = ff; tubeMotorPIDController.setFF(ff);}
-  //   if(max != kMaxOutput) || (min != kMinOutput) {
-  //    tubeMotorPIDController.setOutputRange(min, max);
-  //    kMaxOutput = max; kMinOutput = min; }
+    // double setPoint, processVariable;
+    // boolean mode = SmartDashboard.getBoolean("Tube Mode", false);
+    // if(mode) {
+    //   setPoint = SmartDashboard.getNumber("Tube Set Velocity", 0);
+    //   tubeMotorPIDController.setReference(setPoint, ControlType.kVelocity);
+    //   processVariable = tubeMotorCANEncoder.getVelocity();
+    // } else {
+    //   setPoint = SmartDashboard.getNumber("Tube Set Position", 0);
+    //   /**
+    //    * As with other PID modes, Smart Motion is set by calling the
+    //    * setReference method on an existing pid object and setting
+    //    * the control type to kSmartMotion
+    //    */
+    //   tubeMotorPIDController.setReference(setPoint, ControlType.kSmartMotion);
+    //   processVariable = tubeMotorCANEncoder.getPosition();
+    // }
 
-  //   if(maxA != maxAccel) { maxAccel = maxA; tubeMotorPIDController.setSmartMotionMaxAccel(maxA, 0);}
-
-  //   double setPoint;
-  //   setPoint = SmartDashboard.getNumber("Tube Set Position", 0);
-  
-  //   tubeMotorPIDController.setReference(setPoint, ControlType.kSmartMotion);
-  
-  //   SmartDashboard.putNumber("Current Tube Position: ", tubeMotorCANEncoder.getPosition());
-
-  //   currentTubePosition = tubeMotorCANEncoder.getPosition();
+    // SmartDashboard.putNumber("Tube SetPoint", setPoint);
+    // SmartDashboard.putNumber("Tube Process Variable", processVariable);
+    // SmartDashboard.putNumber("Tube Output", tubeMotor.getAppliedOutput());
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // PIDSetup();
   }
 }

@@ -38,6 +38,11 @@ public class DriveTrain extends SubsystemBase {
     frontRight = new CANSparkMax(Constants.CAN_DRIVETRAIN_FRONTRIGHT, MotorType.kBrushless);
     backRight = new CANSparkMax(Constants.CAN_DRIVETRAIN_BACKRIGHT, MotorType.kBrushless);
 
+    frontLeft.setOpenLoopRampRate(0.4);
+    backLeft.setOpenLoopRampRate(0.4);
+    frontRight.setOpenLoopRampRate(0.4);
+    backRight.setOpenLoopRampRate(0.4);
+
     leftMotors = new SpeedControllerGroup(frontLeft, backLeft);
     rightMotors = new SpeedControllerGroup(frontRight, backRight);
 

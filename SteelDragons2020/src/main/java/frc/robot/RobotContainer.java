@@ -99,12 +99,10 @@ public class RobotContainer {
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());
 
-        new JoystickButton(operator, Constants.kBottomLeft)
-            .whenPressed(() -> tube.DCSetUp())
-            .whenReleased(() -> tube.DCSetZero());
-        new JoystickButton(operator, Constants.kMiddleLeft)
-            .whenPressed(() -> tube.DCSetDown())
-            .whenReleased(() -> tube.DCSetZero());
+        new JoystickButton(driver, Constants.kButtonLeftBumper)
+            .whenPressed(() -> tube.bottomPosition());
+        new JoystickButton(driver, Constants.kButtonRightBumper)
+            .whenPressed(() -> tube.topPosition());
 
         //BELTS
         new JoystickButton(operator, Constants.kMiddleRight)
@@ -118,6 +116,12 @@ public class RobotContainer {
         new JoystickButton(operator, Constants.kBottomMiddleLeft)
             .whenPressed(() -> shooter.DCSetForward())
             .whenReleased(() -> shooter.DCSetZero());
+        
+        new JoystickButton(driver, Constants.kButtonY)
+            .whenPressed(() -> intake.bottom());
+
+        new JoystickButton(driver, Constants.kButtonX)
+            .whenPressed(() -> intake.top());
         // new JoystickButton(operator, Constants.kMiddleMiddleRight)
         //     .whenPressed(() -> shooter.DCSetBackwards())
         //     .whenReleased(() -> shooter.DCSetZero());
