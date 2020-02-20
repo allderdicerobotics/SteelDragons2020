@@ -31,6 +31,7 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    this.driveTrain.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,7 +39,7 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   public void execute() {
     limeLightValues = RobotContainer.getLimeLightValues();
     double currentXValue = limeLightValues[1];
-    boolean valid = limeLightValues[0] == 1;
+    boolean valid = (limeLightValues[0] == 1);
 
     if(valid) {
       double steercmd = this.driveTrain.alignDT.calculate(currentXValue);

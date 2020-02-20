@@ -13,12 +13,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
-
 
 public class Tube extends SubsystemBase {
   private final CANSparkMax tubeMotor;
@@ -26,11 +23,6 @@ public class Tube extends SubsystemBase {
   private CANEncoder tubeMotorCANEncoder;
   private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
   private double currentTubePosition;
-
-  private double xDist;
-  private double optimalAngle;
-
-  private double[] limeLightValues;
 
   public Tube() {
     tubeMotor = new CANSparkMax(Constants.CAN_TUBE, MotorType.kBrushless);
@@ -86,12 +78,6 @@ public class Tube extends SubsystemBase {
   }
 
   public void setAngle(double angle) {
-  }
-
-  public double getOptimalAngle() {
-    xDist = RobotContainer.getDistanceFromTarget()/12;
-    optimalAngle = (0.000009802791 * Math.pow(xDist, 4)) + (-0.001865 * Math.pow(xDist, 3)) + (0.123583 * Math.pow(xDist, 2)) + (-4.051126 * xDist) + 75.484205;
-    return optimalAngle;
   }
 
   public void setPosition(double position){
