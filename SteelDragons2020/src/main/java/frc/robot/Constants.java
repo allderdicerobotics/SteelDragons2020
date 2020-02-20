@@ -15,7 +15,7 @@ public class Constants {
     public static final int CAN_DRIVETRAIN_FRONTRIGHT = 5;
     public static final int CAN_DRIVETRAIN_BACKRIGHT = 1;
 
-    public static final int CAN_TUBE = 4;
+    public static final int CAN_TUBE = 9;
     public static final int CAN_SHOOTER_LEFT = 10;
     public static final int CAN_SHOOTER_RIGHT = 7;
 
@@ -64,17 +64,18 @@ public class Constants {
 
 	//OPERATOR CONSOLE
 	//k(ROW)(COLUMN)
-	public static final int kTopMiddleLeft = 1;
+	public static final int kTopMiddleLeft = 6;
 
-	public static final int kTopMiddleRightPOV = 2;
+	public static final int kTopMiddleRightYAxis = 1;
+	public static final int kTopMiddleRightXAxis = 2;
 
-	public static final int kTopRight = 3;
-	public static final int kMiddleLeft = 4;
+	public static final int kTopRight = 2;
+	public static final int kMiddleLeft = 11;
 	public static final int kMiddleMiddleLeft = 5;
-	public static final int kMiddleMiddleRight = 6;
-	public static final int kMiddleRight = 7;
-	public static final int kBottomLeft = 8;
-	public static final int kBottomMiddleLeft = 9;
-	public static final int kBottomMiddleRight = 10;
-	public static final int kBottomRight = 11;
+	public static final int kMiddleMiddleRight = 4;
+	public static final int kMiddleRight = 3;
+	public static final int kBottomLeft = 12;
+	public static final int kBottomMiddleLeft = 8;
+	public static final int kBottomMiddleRight = 7;
+	public static final int kBottomRight = 1;
 }
