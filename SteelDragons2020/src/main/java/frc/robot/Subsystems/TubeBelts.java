@@ -36,7 +36,7 @@ public class TubeBelts extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    beltLeft.set(ControlMode.PercentOutput, speed);
+    beltLeft.set(ControlMode.PercentOutput, -speed);
     beltRight.set(ControlMode.PercentOutput, speed);
   }
 

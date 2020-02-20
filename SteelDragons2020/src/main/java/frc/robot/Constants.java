@@ -23,8 +23,8 @@ public class Constants {
 	public static final int CAN_SPIN_INTAKE = 8;
 
 	//PWM IDs
-	public static final int CAN_BELT_LEFT = 4;
-	public static final int CAN_BELT_RIGHT = 5;
+	public static final int CAN_BELT_LEFT = 12;
+	public static final int CAN_BELT_RIGHT = 14;
 
 	//SPEEDS
     public static final double DRIVETRAIN_THROTTLE_SCALE = 0.6;
