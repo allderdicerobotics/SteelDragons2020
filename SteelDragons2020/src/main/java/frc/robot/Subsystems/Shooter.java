@@ -33,12 +33,12 @@ public class Shooter extends SubsystemBase {
 
   public Shooter() {
     shooterMotorLeft = new CANSparkMax(Constants.CAN_SHOOTER_LEFT, MotorType.kBrushless);
-    shooterMotorLeftPIDController = shooterMotorLeft.getPIDController();
-    shooterMotorLeftCANEncoder = shooterMotorLeft.getEncoder();
+    // shooterMotorLeftPIDController = shooterMotorLeft.getPIDController();
+    // shooterMotorLeftCANEncoder = shooterMotorLeft.getEncoder();
 
     shooterMotorRight = new CANSparkMax(Constants.CAN_SHOOTER_RIGHT, MotorType.kBrushless);
-    shooterMotorRightPIDController = shooterMotorRight.getPIDController();
-    shooterMotorRightCANEncoder = shooterMotorRight.getEncoder();
+    // shooterMotorRightPIDController = shooterMotorRight.getPIDController();
+    // shooterMotorRightCANEncoder = shooterMotorRight.getEncoder();
 
     shooterMotorLeft.setIdleMode(IdleMode.kBrake);
     shooterMotorRight.setIdleMode(IdleMode.kBrake);
@@ -53,8 +53,8 @@ public class Shooter extends SubsystemBase {
 
     maxAccel = 0.0;
 
-    motorPIDSetup(shooterMotorRightPIDController);
-    motorPIDSetup(shooterMotorLeftPIDController);
+    // motorPIDSetup(shooterMotorRightPIDController);
+    // motorPIDSetup(shooterMotorLeftPIDController);
 
     // //Use this only for tuning PID values and testing
     // SmartDashboard.putNumber("Shooter P", kP);

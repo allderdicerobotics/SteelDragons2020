@@ -21,7 +21,6 @@ import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.PositionLeft;
 import frc.robot.Commands.Autonomous.PositionMiddle;
 import frc.robot.Commands.Autonomous.PositionRight;
-import frc.robot.Commands.ColorWheel.Rotate;
 import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Subsystems.Intake;
 import frc.robot.Subsystems.Shooter;
