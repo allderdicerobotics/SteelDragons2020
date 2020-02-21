@@ -107,7 +107,7 @@ public class RobotContainer {
             .whenReleased(() -> tubeBelts.stop());
 
         new JoystickButton(driver, Constants.kButtonB)
-            .whenPressed(() -> shooter.colorWheelRotate())
+            .whenPressed(() -> shooter.setToSpeed())
             .whenReleased(() -> shooter.DCSetZero());
 
         //BELTS

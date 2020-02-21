@@ -72,7 +72,8 @@ public class Tube extends SubsystemBase {
     // SmartDashboard.putNumber("Tube Set Velocity", 0);
 
     // button to toggle between velocity and smart motion modes
-    SmartDashboard.putBoolean("Tube Mode", true);
+    //SmartDashboard.putBoolean("Tube Mode", true);
+
   }
 
   public void up() {
@@ -84,7 +85,7 @@ public class Tube extends SubsystemBase {
   }
 
   public void bottomPosition() {
-    setPosition(175.0);
+    setPosition(162.0);
     System.out.println("bottom");
   }
 
@@ -95,7 +96,7 @@ public class Tube extends SubsystemBase {
 
   public void setPosition(double position){
     double setPosition = position;
-    if(setPosition > 175) { setPosition = 175; }
+    if(setPosition > 162) { setPosition = 162; }
     if(setPosition < 0) { setPosition = 0; }
     tubeMotorPIDController.setReference(setPosition, ControlType.kSmartMotion);
     currentTubePosition = setPosition;
@@ -120,6 +121,7 @@ public class Tube extends SubsystemBase {
   // }
 
   public void PIDSetup() {
+    SmartDashboard.putNumber("Tube Position", tubeMotorCANEncoder.getPosition());
     //read PID coefficients from SmartDashboard
     // double p = SmartDashboard.getNumber("Tube P Gain", 0);
     // double i = SmartDashboard.getNumber("Tube I Gain", 0);
@@ -172,6 +174,6 @@ public class Tube extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // PIDSetup();
+    PIDSetup();
   }
 }
