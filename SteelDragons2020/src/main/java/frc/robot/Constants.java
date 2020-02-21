@@ -41,7 +41,7 @@ public class Constants {
 	public static final double TUBE_SPEED_DOWN = 0.4;
 
 	//OTHER
-	public static final double TUBE_MANUAL_CHANGE = 1.9;
+	public static final double TUBE_MANUAL_CHANGE = 0.8;
 	
 	public static final double AUTO_INTAKING_EXTRA_BELT_RUN_TIME = 0.35;
 

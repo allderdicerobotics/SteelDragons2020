@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.TeleopDrive;
 import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.PositionLeft;
@@ -85,12 +85,6 @@ public class RobotContainer {
     }
 
     public void configureButtonBindings() {
-        // //TUBE
-        // new JoystickButton(operator, Constants.kButtonY)
-        //     .whileActiveContinuous(() -> tube.up());
-        // new JoystickButton(operator, Constants.kButtonA)
-        //     .whileActiveContinuous(() -> tube.down());
-
         //INTAKE
         new JoystickButton(operator, Constants.kBottomRight)
             .whenPressed(() -> intake.spinIn())
@@ -126,19 +120,12 @@ public class RobotContainer {
 
         new JoystickButton(driver, Constants.kButtonX)
             .whenPressed(() -> intake.top());
-        // new JoystickButton(operator, Constants.kMiddleMiddleRight)
-        //     .whenPressed(() -> shooter.DCSetBackwards())
-        //     .whenReleased(() -> shooter.DCSetZero());
 
-        // new JoystickButton(driver, Constants.kButtonB)
-        //     .whileActiveContinuous(() -> intake.top());
-        // new JoystickButton(driver, Constants.kButtonY)
-        //     .whileActiveContinuous(() -> intake.bottom());
+        Trigger consoleTriggerYUp = new AxisButton(operator, Constants.kTopMiddleRightYAxis, true);
+            consoleTriggerYUp.whileActiveContinuous(() -> tube.up());
 
-        // //SHOOTER
-        // new JoystickButton(operator, Constants.kButtonX)
-        //     .whileActiveContinuous(() -> shooter.maxSpeed())
-        //     .whenInactive(() -> shooter.stop());
+        Trigger consoleTriggerYDown = new AxisButton(operator, Constants.kTopMiddleRightYAxis, false);
+            consoleTriggerYDown.whileActiveContinuous(() -> tube.down());
     }
 
     public static double[] getLimeLightValues() {
