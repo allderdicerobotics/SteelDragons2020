@@ -26,19 +26,20 @@ public class Shoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.shooter.DCSetZero();
+    this.shooter.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.shooter.DCShootOut();
+    //CALCULATIONS TO DETERMINE SPEED
+    this.shooter.setToSpeed();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.shooter.DCSetZero();
+    this.shooter.stop();
     RobotContainer.getRidOfAllBalls();
   }
 

@@ -21,6 +21,7 @@ import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.PositionLeft;
 import frc.robot.Commands.Autonomous.PositionMiddle;
 import frc.robot.Commands.Autonomous.PositionRight;
+import frc.robot.Commands.Shooting.AutoShoot;
 import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Subsystems.Intake;
 import frc.robot.Subsystems.Shooter;
@@ -85,18 +86,17 @@ public class RobotContainer {
     }
 
     public void configureButtonBindings() {
-        //INTAKE
-        new JoystickButton(operator, Constants.kBottomRight)
-            .whenPressed(() -> intake.spinIn())
-            .whenReleased(() -> intake.spinStop());
-        new JoystickButton(operator, Constants.kBottomMiddleRight)
-            .whenPressed(() -> intake.spinOut())
-            .whenReleased(() -> intake.spinStop());
-
         new JoystickButton(driver, Constants.kButtonLeftBumper)
             .whenPressed(() -> tube.bottomPosition());
         new JoystickButton(driver, Constants.kButtonRightBumper)
             .whenPressed(() -> tube.topPosition());
+
+        new JoystickButton(driver, Constants.kButtonA)
+            .whenPressed(new AutoShoot());
+
+        new JoystickButton(driver, Constants.kButtonX)
+            .whenPressed(() -> shooter.setColorWheelSpeed())
+            .whenReleased(() -> shooter.stop());
 
         //BELTS
         new JoystickButton(operator, Constants.kMiddleRight)
@@ -106,21 +106,25 @@ public class RobotContainer {
             .whenPressed(() -> tubeBelts.down())
             .whenReleased(() -> tubeBelts.stop());
 
-        new JoystickButton(driver, Constants.kButtonB)
-            .whenPressed(() -> shooter.setToSpeed())
-            .whenReleased(() -> shooter.DCSetZero());
-
-        //BELTS
+        //SHOOTER SET TO DASHBOARD SPEED
         new JoystickButton(operator, Constants.kBottomMiddleLeft)
-            .whenPressed(() -> shooter.DCShootOut())
-            .whenReleased(() -> shooter.DCSetZero());
-        
-        new JoystickButton(driver, Constants.kButtonY)
+            .whenPressed(() -> shooter.setToSpeed())
+            .whenReleased(() -> shooter.stop());
+
+        //INTAKE SPIN
+        new JoystickButton(operator, Constants.kBottomRight)
+            .whenPressed(() -> intake.spinIn())
+            .whenReleased(() -> intake.spinStop());
+        new JoystickButton(operator, Constants.kBottomMiddleRight)
+            .whenPressed(() -> intake.spinOut())
+            .whenReleased(() -> intake.spinStop());
+        //INTAKE POSITION
+        new JoystickButton(operator, Constants.kMiddleMiddleLeft)
             .whenPressed(() -> intake.bottom());
-
-        new JoystickButton(driver, Constants.kButtonX)
+        new JoystickButton(operator, Constants.kTopMiddleLeft)
             .whenPressed(() -> intake.top());
-
+ 
+        //TUBE MANUAL
         Trigger consoleTriggerYUp = new AxisButton(operator, Constants.kTopMiddleRightYAxis, true);
             consoleTriggerYUp.whileActiveContinuous(() -> tube.up());
 

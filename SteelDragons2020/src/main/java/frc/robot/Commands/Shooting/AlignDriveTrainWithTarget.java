@@ -19,8 +19,12 @@ public class AlignDriveTrainWithTarget extends CommandBase {
    */
   private double startTime = -1.0;
   private double[] limeLightValues;
-  private double accuracyConstant = 1.0;
+  private double accuracyConstant = 0.4;
+  private double PIDInitializeConstant = 11;
   private DriveTrain driveTrain;
+
+  private double area_min = 0.2;
+  private double area_max = 3.5;
 
   public AlignDriveTrainWithTarget() {
     driveTrain = RobotContainer.driveTrain;
@@ -40,14 +44,21 @@ public class AlignDriveTrainWithTarget extends CommandBase {
     limeLightValues = RobotContainer.getLimeLightValues();
     double currentXValue = limeLightValues[1];
     boolean valid = (limeLightValues[0] == 1);
+    //double areaScalar = (Math.abs(((limeLightValues[3]-area_min)/(area_max-area_min))-1))+1;
 
     if(valid) {
-      double steercmd = this.driveTrain.alignDT.calculate(currentXValue);
-      if(steercmd > 1.0) { steercmd = 1.0; }
-      if(steercmd < -1.0) { steercmd = -1.0; }
-      this.driveTrain.arcadeDrive(0.0, steercmd);
+      if((Math.abs(currentXValue) <= PIDInitializeConstant)) {
+        double steercmd = this.driveTrain.alignDT.calculate(currentXValue);
+        if(steercmd > 1.0) { steercmd = 1.0; }
+        if(steercmd < -1.0) { steercmd = -1.0; }
+        this.driveTrain.arcadeDrive(0.0, -(steercmd));
+      }
+      else {
+        if(currentXValue < 0.0) { this.driveTrain.arcadeDrive(0.0, -0.3); }
+        if(currentXValue > 0.0) {  this.driveTrain.arcadeDrive(0.0, 0.3); }
+      }
     } else {
-      this.driveTrain.arcadeDrive(0.0, 0.2);
+      this.driveTrain.arcadeDrive(0.0, 0.45);
     }
   }
 
@@ -60,6 +71,7 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    boolean valid = (limeLightValues[0] == 1);
     if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
       return true;
     }
@@ -68,11 +80,11 @@ public class AlignDriveTrainWithTarget extends CommandBase {
 
     //if we're accurate enough and a timer hasn't been started, start a timer.
     //if we're accurate enough and a timer has been started, we're done if 10 ms has passed
-    if(currentXValue <= accuracyConstant && currentXValue >= -accuracyConstant){
+    if((currentXValue <= accuracyConstant && currentXValue >= -accuracyConstant) && valid){
       if(startTime == -1.0) {
         startTime = Timer.getFPGATimestamp();
       }
-      if(startTime != -1.0 && Timer.getFPGATimestamp() >= 1.0 + startTime) {
+      if(startTime != -1.0 && Timer.getFPGATimestamp() >= 0.3 + startTime) {
         return true;
       }
     }

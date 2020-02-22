@@ -27,9 +27,11 @@ public class Constants {
 
 	//SPEEDS
     public static final double DRIVETRAIN_THROTTLE_SCALE = 0.8;
-    public static final double DRIVETRAIN_STEER_SCALE = 0.6;
+	public static final double DRIVETRAIN_STEER_SCALE = 0.5;
+	
+	public static final int SHOOTER_MAX_RPM = 5676;
 
-    public static final double INTAKE_SPEED_IN = -0.8;
+    public static final double INTAKE_SPEED_IN = -1.0;
 	public static final double INTAKE_SPEED_OUT = 0.8;
 
 	public static final double BELT_SPEED_UP = 0.8;

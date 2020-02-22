@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -31,8 +32,17 @@ public class DriveTrain extends SubsystemBase {
 
   public PIDController alignDT;
 
+  double p, i, d;
+
 
   public DriveTrain() {
+    p = 0.029;
+    i = 0.07;
+    d = 0.003;
+    SmartDashboard.putNumber("P", p);
+    SmartDashboard.putNumber("I", i);
+    SmartDashboard.putNumber("D", d);
+
     frontLeft = new CANSparkMax(Constants.CAN_DRIVETRAIN_FRONTLEFT, MotorType.kBrushless);
     backLeft = new CANSparkMax(Constants.CAN_DRIVETRAIN_BACKLEFT, MotorType.kBrushless);
     frontRight = new CANSparkMax(Constants.CAN_DRIVETRAIN_FRONTRIGHT, MotorType.kBrushless);
@@ -48,8 +58,7 @@ public class DriveTrain extends SubsystemBase {
 
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
 
-    alignDT = new PIDController(0.03, 0.000003, 0.003);
-
+    alignDT = new PIDController(p, i, d);
   }
 
   public void arcadeDrive(double throttle, double steer) {
@@ -62,6 +71,16 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
+    double newP = SmartDashboard.getNumber("P", 0);
+    double newI = SmartDashboard.getNumber("I", 0);
+    double newD = SmartDashboard.getNumber("D", 0);
+
+    if(newP != p) { p = newP; }
+    if(newI != i) { i = newI; }
+    if(newD != d) { d = newD; }
+    alignDT.setPID(p, i, d);
+
+
     // This method will be called once per scheduler run
   }
 }
