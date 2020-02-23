@@ -58,7 +58,7 @@ public class AlignDriveTrainWithTarget extends CommandBase {
         if(currentXValue > 0.0) {  this.driveTrain.arcadeDrive(0.0, 0.3); }
       }
     } else {
-      this.driveTrain.arcadeDrive(0.0, 0.45);
+      this.driveTrain.arcadeDrive(0.0, 0.5);
     }
   }
 

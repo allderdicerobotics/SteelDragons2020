@@ -85,7 +85,7 @@ public class Tube extends SubsystemBase {
   }
 
   public void bottomPosition() {
-    setPosition(162.0);
+    setPosition(163.0);
     System.out.println("bottom");
   }
 
@@ -96,7 +96,7 @@ public class Tube extends SubsystemBase {
 
   public void setPosition(double position){
     double setPosition = position;
-    if(setPosition > 162) { setPosition = 162; }
+    if(setPosition > 163) { setPosition = 163; }
     if(setPosition < 0) { setPosition = 0; }
     tubeMotorPIDController.setReference(setPosition, ControlType.kSmartMotion);
     currentTubePosition = setPosition;

@@ -94,8 +94,12 @@ public class RobotContainer {
         new JoystickButton(driver, Constants.kButtonA)
             .whenPressed(new AutoShoot());
 
-        new JoystickButton(driver, Constants.kButtonX)
-            .whenPressed(() -> shooter.setColorWheelSpeed())
+        new JoystickButton(driver, Constants.kButtonBack)
+            .whenPressed(() -> shooter.setColorWheelFastSpeed())
+            .whenReleased(() -> shooter.stop());
+
+        new JoystickButton(driver, Constants.kButtonStart)
+            .whenPressed(() -> shooter.setColorWheelSlowSpeed())
             .whenReleased(() -> shooter.stop());
 
         //BELTS

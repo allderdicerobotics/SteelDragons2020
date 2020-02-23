@@ -65,16 +65,16 @@ public class Shooter extends SubsystemBase {
 
 
     //Use this only for tuning PID values and testing
-    // SmartDashboard.putNumber("Shooter P", kP);
-    // SmartDashboard.putNumber("Shooter I", kI);
-    // SmartDashboard.putNumber("Shooter D" , kD);
-    // SmartDashboard.putNumber("Shooter I Zone", kIz);
-    // SmartDashboard.putNumber("Shooter Feed Forward", kFF);
-    // SmartDashboard.putNumber("Shooter Max Output", kMaxOutput);
-    // SmartDashboard.putNumber("Shooter Min Output", kMinOutput);
+    SmartDashboard.putNumber("Shooter P", kP);
+    SmartDashboard.putNumber("Shooter I", kI);
+    SmartDashboard.putNumber("Shooter D" , kD);
+    SmartDashboard.putNumber("Shooter I Zone", kIz);
+    SmartDashboard.putNumber("Shooter Feed Forward", kFF);
+    SmartDashboard.putNumber("Shooter Max Output", kMaxOutput);
+    SmartDashboard.putNumber("Shooter Min Output", kMinOutput);
 
-    // SmartDashboard.putNumber("Shooter Max Accel", maxAccel);
-    // SmartDashboard.putNumber("Shooter Set Velocity", 0);
+    SmartDashboard.putNumber("Shooter Max Accel", maxAccel);
+    SmartDashboard.putNumber("Shooter Set Velocity", 0);
   }
 
   public void motorPIDSetup(CANPIDController controller) {
@@ -110,9 +110,14 @@ public class Shooter extends SubsystemBase {
     shooterMotorRightPIDController.setReference(-speed, ControlType.kVelocity);
   }
 
-  public void setColorWheelSpeed() {
-    shooterMotorLeftPIDController.setReference(500, ControlType.kVelocity);
-    shooterMotorRightPIDController.setReference(500, ControlType.kVelocity);
+  public void setColorWheelFastSpeed() {
+    shooterMotorLeftPIDController.setReference(Constants.COLOR_WHEEL_FAST_SPEED, ControlType.kVelocity);
+    shooterMotorRightPIDController.setReference(Constants.COLOR_WHEEL_FAST_SPEED, ControlType.kVelocity);
+  }
+  
+  public void setColorWheelSlowSpeed() {
+    shooterMotorLeftPIDController.setReference(-Constants.COLOR_WHEEL_SLOW_SPEED, ControlType.kVelocity);
+    shooterMotorRightPIDController.setReference(-Constants.COLOR_WHEEL_SLOW_SPEED, ControlType.kVelocity);
   }
 
   // //DC Speed
@@ -171,14 +176,14 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-     double newSpeed = SmartDashboard.getNumber("Speed", 0);
-     if(newSpeed != speed) {
-       speed = newSpeed;
-     }
+    //  double newSpeed = SmartDashboard.getNumber("Speed", 0);
+    //  if(newSpeed != speed) {
+    //    speed = newSpeed;
+    //  }
 
-     SmartDashboard.putNumber("Current Shooter Velocity Left: ", shooterMotorLeftCANEncoder.getVelocity());
-     SmartDashboard.putNumber("Current Shooter Velocity Right: ", shooterMotorRightCANEncoder.getVelocity());
-    //  PIDSetup();
+    //  SmartDashboard.putNumber("Current Shooter Velocity Left: ", shooterMotorLeftCANEncoder.getVelocity());
+    //  SmartDashboard.putNumber("Current Shooter Velocity Right: ", shooterMotorRightCANEncoder.getVelocity());
+    PIDSetup();
   }
 }
 

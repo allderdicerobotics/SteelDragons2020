@@ -39,9 +39,9 @@ public class DriveTrain extends SubsystemBase {
     p = 0.029;
     i = 0.07;
     d = 0.003;
-    SmartDashboard.putNumber("P", p);
-    SmartDashboard.putNumber("I", i);
-    SmartDashboard.putNumber("D", d);
+    SmartDashboard.putNumber("DriveTrain P", p);
+    SmartDashboard.putNumber("DriveTrain I", i);
+    SmartDashboard.putNumber("DriveTrain D", d);
 
     frontLeft = new CANSparkMax(Constants.CAN_DRIVETRAIN_FRONTLEFT, MotorType.kBrushless);
     backLeft = new CANSparkMax(Constants.CAN_DRIVETRAIN_BACKLEFT, MotorType.kBrushless);
@@ -71,9 +71,9 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    double newP = SmartDashboard.getNumber("P", 0);
-    double newI = SmartDashboard.getNumber("I", 0);
-    double newD = SmartDashboard.getNumber("D", 0);
+    double newP = SmartDashboard.getNumber("DriveTrain P", 0);
+    double newI = SmartDashboard.getNumber("DriveTrain I", 0);
+    double newD = SmartDashboard.getNumber("DriveTrain D", 0);
 
     if(newP != p) { p = newP; }
     if(newI != i) { i = newI; }
