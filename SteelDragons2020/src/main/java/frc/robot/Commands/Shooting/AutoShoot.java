@@ -8,6 +8,7 @@
 package frc.robot.Commands.Shooting;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Commands.Shooting.BeltUp;
 
@@ -18,17 +19,20 @@ public class AutoShoot extends SequentialCommandGroup {
   /**
    * Creates a new AutoShoot.
    */
-  public AutoShoot() {
+  private boolean isAuto;
+  public AutoShoot(boolean isAuto) {
+    this.isAuto = isAuto;
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     //super();
+
     addCommands(
       new ParallelCommandGroup(
-        new AlignDriveTrainWithTarget(),
+        new AlignDriveTrainWithTarget(this.isAuto),
         new AlignTubeWithTarget()
       ),
-      new ParallelCommandGroup(
-        new BeltUp(),
+      new ParallelRaceGroup(
+        new BeltUp(this.isAuto),
         new Shoot()
       )
     );

@@ -50,9 +50,6 @@ public class Shoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
-      return true;
-    }
     return false;
   }
 }

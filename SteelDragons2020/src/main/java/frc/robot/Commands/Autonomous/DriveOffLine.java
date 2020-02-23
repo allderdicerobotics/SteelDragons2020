@@ -5,58 +5,50 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands.Shooting;
+package frc.robot.Commands.Autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.TubeBelts;
+import frc.robot.Subsystems.DriveTrain;
 
-public class BeltUp extends CommandBase {
-
-  private TubeBelts tubeBelts;
-  private boolean isAuto;
-  private double startTime;
-
-  public BeltUp(boolean isAuto) {
-    this.tubeBelts = RobotContainer.tubeBelts;
-    this.isAuto = isAuto;
+public class DriveOffLine extends CommandBase {
+  /**
+   * Creates a new DriveOffLine.
+   */
+  double startTime;
+  double driveTime = 2.0;
+  DriveTrain driveTrain;
+  public DriveOffLine() {
+    this.driveTrain = RobotContainer.driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.tubeBelts);
+    addRequirements(this.driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.tubeBelts.stop();
+    this.driveTrain.stop();
     startTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.tubeBelts.up();
+    if(Timer.getFPGATimestamp() > startTime + driveTime) {
+      this.driveTrain.arcadeDrive(-0.4, 0.0);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.tubeBelts.stop();
+    this.driveTrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(!isAuto) {
-      if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
-        return true;
-      }
-    } else {
-      if (Timer.getFPGATimestamp() >= startTime + 2.0) {
-        return true;
-      }
-    }
     return false;
   }
 }

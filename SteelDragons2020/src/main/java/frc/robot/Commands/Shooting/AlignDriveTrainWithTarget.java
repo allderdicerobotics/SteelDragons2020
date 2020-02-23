@@ -28,8 +28,11 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   private double area_min = 0.2;
   private double area_max = 3.5;
 
-  public AlignDriveTrainWithTarget() {
+  private boolean isAuto;
+
+  public AlignDriveTrainWithTarget(boolean isAuto) {
     driveTrain = RobotContainer.driveTrain;
+    this.isAuto = isAuto;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.driveTrain);
   }
@@ -77,8 +80,11 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   @Override
   public boolean isFinished() {
     boolean valid = (limeLightValues[0] == 1);
-    if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
-      return true;
+
+    if(!isAuto) {
+      if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
+        return true;
+      }
     }
 
     double currentXValue = limeLightValues[1];

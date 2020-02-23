@@ -8,6 +8,7 @@
 package frc.robot.Commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Commands.Shooting.AutoShoot;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -19,6 +20,8 @@ public class PositionMiddle extends SequentialCommandGroup {
   public PositionMiddle() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super();
+    addCommands(
+      new AutoShoot(true)
+    );
   }
 }

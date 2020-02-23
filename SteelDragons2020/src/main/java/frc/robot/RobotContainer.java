@@ -93,7 +93,7 @@ public class RobotContainer {
             .whenPressed(() -> tube.topPosition());
 
         new JoystickButton(driver, Constants.kButtonA)
-            .whenPressed(new AutoShoot());
+            .whenPressed(new AutoShoot(false));
 
         new JoystickButton(driver, Constants.kButtonBack)
             .whenPressed(() -> shooter.setColorWheelFastSpeed())
