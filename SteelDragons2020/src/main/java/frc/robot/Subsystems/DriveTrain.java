@@ -37,7 +37,7 @@ public class DriveTrain extends SubsystemBase {
 
   public DriveTrain() {
     p = 0.029;
-    i = 0.07;
+    i = 0.09;
     d = 0.003;
     SmartDashboard.putNumber("DriveTrain P", p);
     SmartDashboard.putNumber("DriveTrain I", i);
