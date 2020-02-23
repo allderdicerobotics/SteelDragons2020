@@ -29,6 +29,7 @@ public class AlignTubeWithTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    this.tube.topPosition();
     double angle = getOptimalAngle();
     //TODO
     //do calculations from Y position to figure out what position to set the tube, then set it.

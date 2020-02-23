@@ -47,8 +47,8 @@ public class Shooter extends SubsystemBase {
     shooterMotorLeft.restoreFactoryDefaults();
     shooterMotorRight.restoreFactoryDefaults();
 
-    shooterMotorLeft.setIdleMode(IdleMode.kBrake);
-    shooterMotorRight.setIdleMode(IdleMode.kBrake);
+    shooterMotorLeft.setIdleMode(IdleMode.kCoast);
+    shooterMotorRight.setIdleMode(IdleMode.kCoast);
 
     kP = 0.00009;
     kI = 0.000001;

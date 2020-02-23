@@ -23,6 +23,8 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   private double PIDInitializeConstant = 11;
   private DriveTrain driveTrain;
 
+  private double commandStartTime = -1.0;
+
   private double area_min = 0.2;
   private double area_max = 3.5;
 
@@ -35,30 +37,33 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    commandStartTime = Timer.getFPGATimestamp();
     this.driveTrain.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    limeLightValues = RobotContainer.getLimeLightValues();
-    double currentXValue = limeLightValues[1];
-    boolean valid = (limeLightValues[0] == 1);
-    //double areaScalar = (Math.abs(((limeLightValues[3]-area_min)/(area_max-area_min))-1))+1;
-
-    if(valid) {
-      if((Math.abs(currentXValue) <= PIDInitializeConstant)) {
-        double steercmd = this.driveTrain.alignDT.calculate(currentXValue);
-        if(steercmd > 1.0) { steercmd = 1.0; }
-        if(steercmd < -1.0) { steercmd = -1.0; }
-        this.driveTrain.arcadeDrive(0.0, -(steercmd));
+    if(Timer.getFPGATimestamp() >= commandStartTime + Constants.AUTO_ALIGN_START_TIME_DELAY) {
+      limeLightValues = RobotContainer.getLimeLightValues();
+      double currentXValue = limeLightValues[1];
+      boolean valid = (limeLightValues[0] == 1);
+      //double areaScalar = (Math.abs(((limeLightValues[3]-area_min)/(area_max-area_min))-1))+1;
+  
+      if(valid) {
+        if((Math.abs(currentXValue) <= PIDInitializeConstant)) {
+          double steercmd = this.driveTrain.alignDT.calculate(currentXValue);
+          if(steercmd > 1.0) { steercmd = 1.0; }
+          if(steercmd < -1.0) { steercmd = -1.0; }
+          this.driveTrain.arcadeDrive(0.0, -(steercmd));
+        }
+        else {
+          if(currentXValue < 0.0) { this.driveTrain.arcadeDrive(0.0, -0.3); }
+          if(currentXValue > 0.0) {  this.driveTrain.arcadeDrive(0.0, 0.3); }
+        }
+      } else {
+        this.driveTrain.arcadeDrive(0.0, 0.5);
       }
-      else {
-        if(currentXValue < 0.0) { this.driveTrain.arcadeDrive(0.0, -0.3); }
-        if(currentXValue > 0.0) {  this.driveTrain.arcadeDrive(0.0, 0.3); }
-      }
-    } else {
-      this.driveTrain.arcadeDrive(0.0, 0.5);
     }
   }
 

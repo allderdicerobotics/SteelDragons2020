@@ -21,6 +21,7 @@ import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.PositionLeft;
 import frc.robot.Commands.Autonomous.PositionMiddle;
 import frc.robot.Commands.Autonomous.PositionRight;
+import frc.robot.Commands.Intaking.IntakeAndStore;
 import frc.robot.Commands.Shooting.AutoShoot;
 import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Subsystems.Intake;
@@ -117,8 +118,7 @@ public class RobotContainer {
 
         //INTAKE SPIN
         new JoystickButton(operator, Constants.kBottomRight)
-            .whenPressed(() -> intake.spinIn())
-            .whenReleased(() -> intake.spinStop());
+            .whenPressed(new IntakeAndStore());
         new JoystickButton(operator, Constants.kBottomMiddleRight)
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());

@@ -34,11 +34,11 @@ public class Constants {
 
 	public static final int SHOOTER_MAX_RPM = 5676;
 
-    public static final double INTAKE_SPEED_IN = -1.0;
+    public static final double INTAKE_SPEED_IN = -0.6;
 	public static final double INTAKE_SPEED_OUT = 0.8;
 
-	public static final double BELT_SPEED_UP = 0.8;
-	public static final double BELT_SPEED_DOWN = 0.8;
+	public static final double BELT_SPEED_UP = 0.5;
+	public static final double BELT_SPEED_DOWN = 0.5;
 
 	public static final double SHOOTER_SPEED = 1.0;
 
@@ -48,7 +48,8 @@ public class Constants {
 	//OTHER
 	public static final double TUBE_MANUAL_CHANGE = 0.8;
 	
-	public static final double AUTO_INTAKING_EXTRA_BELT_RUN_TIME = 0.35;
+	public static final double AUTO_INTAKING_EXTRA_BELT_RUN_TIME = 0.0;
+	public static final double AUTO_ALIGN_START_TIME_DELAY = 0.2;
 
     //Logitech f310
 	/* axis mappings */
