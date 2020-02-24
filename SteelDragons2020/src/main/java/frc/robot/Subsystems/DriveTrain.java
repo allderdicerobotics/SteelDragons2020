@@ -33,16 +33,16 @@ public class DriveTrain extends SubsystemBase {
   public PIDController alignDT;
   public PIDController alignDTRaspberry;
 
-  double p, i, d;
+  double kPLL, kILL, kDLL;
 
 
   public DriveTrain() {
-    p = 0.029;
-    i = 0.09;
-    d = 0.003;
-    SmartDashboard.putNumber("DriveTrain P", p);
-    SmartDashboard.putNumber("DriveTrain I", i);
-    SmartDashboard.putNumber("DriveTrain D", d);
+    kPLL = 0.06;
+    kILL = 0.08;
+    kDLL = 0.006;
+    // SmartDashboard.putNumber("DriveTrain P", p);
+    // SmartDashboard.putNumber("DriveTrain I", i);
+    // SmartDashboard.putNumber("DriveTrain D", d);
 
     frontLeft = new CANSparkMax(Constants.CAN_DRIVETRAIN_FRONTLEFT, MotorType.kBrushless);
     backLeft = new CANSparkMax(Constants.CAN_DRIVETRAIN_BACKLEFT, MotorType.kBrushless);
@@ -59,7 +59,7 @@ public class DriveTrain extends SubsystemBase {
 
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
 
-    alignDT = new PIDController(p, i, d);
+    alignDT = new PIDController(kPLL, kILL, kDLL);
     alignDTRaspberry = new PIDController(0.006, 0, 0);
   }
 
@@ -73,15 +73,14 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    double newP = SmartDashboard.getNumber("DriveTrain P", 0);
-    double newI = SmartDashboard.getNumber("DriveTrain I", 0);
-    double newD = SmartDashboard.getNumber("DriveTrain D", 0);
+    // double newP = SmartDashboard.getNumber("DriveTrain P", 0);
+    // double newI = SmartDashboard.getNumber("DriveTrain I", 0);
+    // double newD = SmartDashboard.getNumber("DriveTrain D", 0);
 
-    if(newP != p) { p = newP; }
-    if(newI != i) { i = newI; }
-    if(newD != d) { d = newD; }
-    alignDT.setPID(p, i, d);
-
+    // if(newP != p) { p = newP; }
+    // if(newI != i) { i = newI; }
+    // if(newD != d) { d = newD; }
+    // alignDT.setPID(p, i, d);
 
     // This method will be called once per scheduler run
   }

@@ -86,12 +86,14 @@ public class Tube extends SubsystemBase {
 
   public void bottomPosition() {
     setPosition(163.0);
-    System.out.println("bottom");
   }
 
   public void topPosition() {
     setPosition(0.0);
-    System.out.println("top");
+  }
+
+  public void colorWheelHeight() {
+    setPosition(117.0);
   }
 
   public void setPosition(double position){
@@ -102,26 +104,7 @@ public class Tube extends SubsystemBase {
     currentTubePosition = setPosition;
   }
 
-  
-  // //DC Speed
-  // public void DCSetUp() {
-  //   DCSetSpeed(Constants.TUBE_SPEED_UP);
-  // }
-
-  // public void DCSetDown() {
-  //   DCSetSpeed(-Constants.TUBE_SPEED_DOWN);
-  // }  
-
-  // public void DCSetZero() {
-  //   DCSetSpeed(0.0);
-  // }
-
-  // public void DCSetSpeed(double speed) {
-  //   tubeMotorPIDController.setReference(speed, ControlType.kDutyCycle);
-  // }
-
   public void PIDSetup() {
-    SmartDashboard.putNumber("Tube Position", tubeMotorCANEncoder.getPosition());
     //read PID coefficients from SmartDashboard
     // double p = SmartDashboard.getNumber("Tube P Gain", 0);
     // double i = SmartDashboard.getNumber("Tube I Gain", 0);
@@ -174,6 +157,7 @@ public class Tube extends SubsystemBase {
 
   @Override
   public void periodic() {
-    PIDSetup();
+    SmartDashboard.putNumber("Tube Position", tubeMotorCANEncoder.getPosition());
+    // PIDSetup();
   }
 }

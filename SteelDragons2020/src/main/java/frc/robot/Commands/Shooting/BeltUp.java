@@ -52,10 +52,9 @@ public class BeltUp extends CommandBase {
       if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
         return true;
       }
-    } else {
-      if (Timer.getFPGATimestamp() >= startTime + 2.0) {
-        return true;
-      }
+    }
+    if(isAuto) {
+      return (Timer.getFPGATimestamp() >= startTime + 3.0);
     }
     return false;
   }

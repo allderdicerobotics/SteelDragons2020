@@ -8,7 +8,6 @@
 package frc.robot.Commands.Shooting;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Shooter;
 import frc.robot.Subsystems.Tube;
@@ -36,7 +35,7 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
     //CALCULATIONS TO DETERMINE SPEED
-    this.shooter.setToSpeed();
+    this.shooter.maxSpeed();
   }
 
   // Called once the command ends or is interrupted.

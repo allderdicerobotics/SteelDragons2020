@@ -113,7 +113,7 @@ public class RobotContainer {
 
         //SHOOTER SET TO DASHBOARD SPEED
         new JoystickButton(operator, Constants.kBottomMiddleLeft)
-            .whenPressed(() -> shooter.setToSpeed())
+            .whenPressed(() -> shooter.maxSpeed())
             .whenReleased(() -> shooter.stop());
 
         //INTAKE SPIN

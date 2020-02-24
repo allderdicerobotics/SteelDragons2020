@@ -16,6 +16,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 
 public class Intake extends SubsystemBase {
@@ -81,7 +82,7 @@ public class Intake extends SubsystemBase {
 
   //INTAKE SPIN
   public void spinIn() {
-    setSpinSpeed(Constants.INTAKE_SPEED_IN);
+    setSpinSpeed(-Constants.INTAKE_SPEED_IN);
   }
 
   public void spinOut() {
@@ -90,6 +91,11 @@ public class Intake extends SubsystemBase {
 
   public void spinStop() {
     setSpinSpeed(0.0);
+  }
+
+  public void spinOnDriveSpeed() {
+    setSpinSpeed(-0.6 - (0.4 *
+                 Math.abs(RobotContainer.driver.getRawAxis(Constants.kLeftStickY))));
   }
 
   public void setSpinSpeed(double speed) {

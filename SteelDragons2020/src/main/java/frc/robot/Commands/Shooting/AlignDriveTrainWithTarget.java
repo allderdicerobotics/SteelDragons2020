@@ -40,6 +40,7 @@ public class AlignDriveTrainWithTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    limeLightValues = RobotContainer.getLimeLightValues();
     commandStartTime = Timer.getFPGATimestamp();
     this.driveTrain.stop();
   }
@@ -58,7 +59,7 @@ public class AlignDriveTrainWithTarget extends CommandBase {
           double steercmd = this.driveTrain.alignDT.calculate(currentXValue);
           if(steercmd > 1.0) { steercmd = 1.0; }
           if(steercmd < -1.0) { steercmd = -1.0; }
-          this.driveTrain.arcadeDrive(0.0, -(steercmd));
+          this.driveTrain.arcadeDrive(0.0, -steercmd);
         }
         else {
           if(currentXValue < 0.0) { this.driveTrain.arcadeDrive(0.0, -0.3); }
@@ -95,7 +96,7 @@ public class AlignDriveTrainWithTarget extends CommandBase {
       if(startTime == -1.0) {
         startTime = Timer.getFPGATimestamp();
       }
-      if(startTime != -1.0 && Timer.getFPGATimestamp() >= 0.3 + startTime) {
+      if(startTime != -1.0 && Timer.getFPGATimestamp() >= 0.2 + startTime) {
         return true;
       }
     }

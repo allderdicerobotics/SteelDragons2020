@@ -17,8 +17,6 @@ public class IntakeAndStore extends ParallelCommandGroup {
    * Creates a new IntakeAndStore.
    */
   public IntakeAndStore() {
-    // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());super();
     addCommands(
       new IntakeIn(),
       new StoreBalls()

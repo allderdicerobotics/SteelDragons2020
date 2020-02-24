@@ -34,7 +34,7 @@ public class Constants {
 
 	public static final int SHOOTER_MAX_RPM = 5676;
 
-    public static final double INTAKE_SPEED_IN = -0.6;
+    public static final double INTAKE_SPEED_IN = 0.8;
 	public static final double INTAKE_SPEED_OUT = 0.8;
 
 	public static final double BELT_SPEED_UP = 0.5;

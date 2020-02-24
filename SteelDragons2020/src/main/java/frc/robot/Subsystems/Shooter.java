@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 
 public class Shooter extends SubsystemBase {
@@ -30,8 +29,7 @@ public class Shooter extends SubsystemBase {
   private CANPIDController shooterMotorRightPIDController;
   private CANEncoder shooterMotorRightCANEncoder;
 
-  private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxAccel;
-  private double optimalLinearVelocity;
+  private double kP, kI, kD, kFF, kIz, kMaxOutput, kMinOutput, maxAccel;
 
   double speed;
 
@@ -50,95 +48,63 @@ public class Shooter extends SubsystemBase {
     shooterMotorLeft.setIdleMode(IdleMode.kCoast);
     shooterMotorRight.setIdleMode(IdleMode.kCoast);
 
-    kP = 0.00009;
-    kI = 0.000001;
+    kP = 0.0002;
+    kFF = 0.0002;
+
+    kI = 0.0;
     kD = 0.0;
     kMaxOutput = 1.0;
     kMinOutput = -1.0;
-
+    kIz = 0.0;
     speed = 0.0;
+    maxAccel = 0.0;
 
     motorPIDSetup(shooterMotorRightPIDController);
     motorPIDSetup(shooterMotorLeftPIDController);
 
-    SmartDashboard.putNumber("Speed", speed);
+    // SmartDashboard.putNumber("Speed", speed);
 
 
-    //Use this only for tuning PID values and testing
-    SmartDashboard.putNumber("Shooter P", kP);
-    SmartDashboard.putNumber("Shooter I", kI);
-    SmartDashboard.putNumber("Shooter D" , kD);
-    SmartDashboard.putNumber("Shooter I Zone", kIz);
-    SmartDashboard.putNumber("Shooter Feed Forward", kFF);
-    SmartDashboard.putNumber("Shooter Max Output", kMaxOutput);
-    SmartDashboard.putNumber("Shooter Min Output", kMinOutput);
+    // //Use this only for tuning PID values and testing
+    // SmartDashboard.putNumber("Shooter P", kP);
+    // SmartDashboard.putNumber("Shooter I", kI);
+    // SmartDashboard.putNumber("Shooter D" , kD);
+    // SmartDashboard.putNumber("Shooter I Zone", kIz);
+    // SmartDashboard.putNumber("Shooter Feed Forward", kFF);
+    // SmartDashboard.putNumber("Shooter Max Output", kMaxOutput);
+    // SmartDashboard.putNumber("Shooter Min Output", kMinOutput);
 
-    SmartDashboard.putNumber("Shooter Max Accel", maxAccel);
-    SmartDashboard.putNumber("Shooter Set Velocity", 0);
+    // SmartDashboard.putNumber("Shooter Max Accel", maxAccel);
+    // SmartDashboard.putNumber("Shooter Set Velocity", 0);
   }
 
   public void motorPIDSetup(CANPIDController controller) {
     controller.setP(kP);
     controller.setI(kI);
     controller.setD(kD);
-    controller.setOutputRange(kMinOutput, kMaxOutput);
+    controller.setFF(kFF);
   }
 
-  // public void colorWheelRotate() {
-  //   DCSetSpeed(0.05, 0.05);
-  // }
-
-  // public void setToSpeed() {
-  //   DCSetSpeed(speed, -speed);
-  // }
-
-  //REGULAR
   public void stop() {
-    setSpeed(0);
+    setSpeed(0.0, 0.0);
   }
 
   public void maxSpeed() {
-    setSpeed(Constants.SHOOTER_MAX_RPM);
+    setSpeed(Constants.SHOOTER_MAX_RPM, -Constants.SHOOTER_MAX_RPM);
   }
 
-  public void setToSpeed() {
-    setSpeed(speed);
-  }
-
-  public void setSpeed(double speed){
+  public void setSpeed(double leftSpeed, double rightSpeed){
     shooterMotorLeftPIDController.setReference(speed, ControlType.kVelocity);
     shooterMotorRightPIDController.setReference(-speed, ControlType.kVelocity);
   }
 
   public void setColorWheelFastSpeed() {
-    shooterMotorLeftPIDController.setReference(Constants.COLOR_WHEEL_FAST_SPEED, ControlType.kVelocity);
-    shooterMotorRightPIDController.setReference(Constants.COLOR_WHEEL_FAST_SPEED, ControlType.kVelocity);
+    setSpeed(Constants.COLOR_WHEEL_FAST_SPEED, Constants.COLOR_WHEEL_FAST_SPEED);
   }
   
   public void setColorWheelSlowSpeed() {
-    shooterMotorLeftPIDController.setReference(-Constants.COLOR_WHEEL_SLOW_SPEED, ControlType.kVelocity);
-    shooterMotorRightPIDController.setReference(-Constants.COLOR_WHEEL_SLOW_SPEED, ControlType.kVelocity);
+    setSpeed(-Constants.COLOR_WHEEL_SLOW_SPEED, -Constants.COLOR_WHEEL_SLOW_SPEED);
   }
-
-  // //DC Speed
-  // public void DCShootOut() {
-  //   DCSetSpeed(Constants.SHOOTER_SPEED, -Constants.SHOOTER_SPEED);
-  // }
-
-  // public void DCSetZero() {
-  //   DCSetSpeed(0.0, 0.0);
-  // }
-
-  // public void DCSetSpeed(double leftSpeed, double rightSpeed) {
-  //   shooterMotorRight.set(rightSpeed);
-  //   shooterMotorLeft.set(leftSpeed);
-  // }
-
-  // public double getOptimalVelocity() {
-  //   double xDist = RobotContainer.getDistanceFromTarget()/12;
-  //   optimalLinearVelocity = (0.00001215593 * Math.pow(xDist, 4)) + (-0.001258 * Math.pow(xDist, 3)) + (0.050136 * Math.pow(xDist, 2)) + (0.435749 * xDist) +17.446296;
-  //   return optimalLinearVelocity;
-  // }
 
   public void PIDSetup() {
     //Use this only for tuning PID values and testing
@@ -171,7 +137,6 @@ public class Shooter extends SubsystemBase {
   
     SmartDashboard.putNumber("Current Shooter Velocity Left: ", shooterMotorLeftCANEncoder.getVelocity());
     SmartDashboard.putNumber("Current Shooter Velocity Right: ", shooterMotorRightCANEncoder.getVelocity());
-
   }
 
   @Override
@@ -183,7 +148,7 @@ public class Shooter extends SubsystemBase {
 
     //  SmartDashboard.putNumber("Current Shooter Velocity Left: ", shooterMotorLeftCANEncoder.getVelocity());
     //  SmartDashboard.putNumber("Current Shooter Velocity Right: ", shooterMotorRightCANEncoder.getVelocity());
-    PIDSetup();
+    //  PIDSetup();
   }
 }
 
