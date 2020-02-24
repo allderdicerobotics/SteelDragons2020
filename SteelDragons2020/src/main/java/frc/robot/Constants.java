@@ -48,8 +48,9 @@ public class Constants {
 	//OTHER
 	public static final double TUBE_MANUAL_CHANGE = 0.8;
 	
-	public static final double AUTO_INTAKING_EXTRA_BELT_RUN_TIME = 0.0;
+	public static final double AUTO_INTAKING_EXTRA_BELT_RUN_TIME = 0.1;
 	public static final double AUTO_ALIGN_START_TIME_DELAY = 0.2;
+	public static final double AUTO_TUBE_BELTS_DOWN_UNTIL_BEAMBREAK_WAIT_TIME = 0.2;
 
     //Logitech f310
 	/* axis mappings */
