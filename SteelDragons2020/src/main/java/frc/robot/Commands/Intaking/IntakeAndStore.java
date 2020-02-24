@@ -24,7 +24,7 @@ public class IntakeAndStore extends ParallelCommandGroup {
     // super(new FooCommand(), new BarCommand());super();
     addCommands(
       new IntakeIn(isAuto),
-      new StoreBalls()
+      new StoreBalls(isAuto)
     );
   }
 }
