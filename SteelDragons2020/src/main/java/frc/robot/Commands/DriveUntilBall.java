@@ -55,9 +55,6 @@ public class DriveUntilBeamBreak extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (!(RobotContainer.operator.getRawButton(Constants.kButtonY))) {
-      return true;
-    }
     return alldone; //Stop when beam break
   }
 }
