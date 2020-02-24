@@ -15,8 +15,9 @@ import frc.robot.Subsystems.Intake;
 public class IntakeIn extends CommandBase {
 
   Intake intake;
+  boolean isAuto;
 
-  public IntakeIn() {
+  public IntakeIn(boolean isAuto) {
     this.intake = RobotContainer.intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.intake);
@@ -43,6 +44,7 @@ public class IntakeIn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (isAuto) {return false;}
     return (!RobotContainer.operator.getRawButton(Constants.kBottomRight));
   }
 }
