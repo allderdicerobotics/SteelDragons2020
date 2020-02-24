@@ -16,11 +16,14 @@ public class IntakeAndStore extends ParallelCommandGroup {
   /**
    * Creates a new IntakeAndStore.
    */
-  public IntakeAndStore() {
+
+  boolean isAuto;
+
+  public IntakeAndStore(boolean isAuto) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
     addCommands(
-      new IntakeIn(),
+      new IntakeIn(isAuto),
       new StoreBalls()
     );
   }
