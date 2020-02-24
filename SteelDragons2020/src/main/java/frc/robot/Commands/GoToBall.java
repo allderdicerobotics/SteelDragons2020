@@ -17,9 +17,10 @@ public class GoToBall extends CommandBase {
   private double[] raspberryValues;
   private DriveTrain driveTrain;
   private double radiusthreshold = 50;
-
-  public GoToBall() {
+  boolean isAuto;
+  public GoToBall(boolean isAuto) {
     driveTrain = RobotContainer.driveTrain;
+    this.isAuto = isAuto;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.driveTrain);
   }
@@ -48,7 +49,7 @@ public class GoToBall extends CommandBase {
       this.driveTrain.arcadeDrive(0.0, -steercmd); //Drive
       //System.out.println(currentXValue);
     } else {
-      this.driveTrain.arcadeDrive(0.0, 0.3); //If no target, stop
+      this.driveTrain.arcadeDrive(0.0, 0.3); //If no target, turn
     }
   }
 
@@ -62,8 +63,10 @@ public class GoToBall extends CommandBase {
   @Override
   public boolean isFinished() {
     raspberryValues = RobotContainer.getRaspberryValues();
-    if (!RobotContainer.driver.getRawButton(Constants.kButtonX)) {
-      return true;
+    if (!this.isAuto) {
+      if (!RobotContainer.driver.getRawButton(Constants.kButtonX)) {
+        return true;
+      }
     }
 
     //If close enough to balls, stop and quit 
