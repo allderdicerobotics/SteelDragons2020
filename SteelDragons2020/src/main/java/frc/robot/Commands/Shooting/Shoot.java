@@ -35,7 +35,7 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
     //CALCULATIONS TO DETERMINE SPEED
-    this.shooter.maxSpeed();
+    this.shooter.normalSpeed();
   }
 
   // Called once the command ends or is interrupted.

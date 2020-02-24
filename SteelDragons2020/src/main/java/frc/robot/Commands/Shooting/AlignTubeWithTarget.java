@@ -29,10 +29,10 @@ public class AlignTubeWithTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.tube.colorWheelHeight();
-    double angle = getOptimalAngle();
-    //TODO
-    //do calculations from Y position to figure out what position to set the tube, then set it.
+    limeLightValues = RobotContainer.getLimeLightValues();
+    double yPosition = limeLightValues[2];
+    double setPosition = (-1.619075925 * yPosition) + 135.4030406;
+    this.tube.setPosition(setPosition);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,11 +49,5 @@ public class AlignTubeWithTarget extends CommandBase {
   @Override
   public boolean isFinished() {
     return true;
-  }
-
-  public double getOptimalAngle() {
-    xDist = RobotContainer.getDistanceFromTarget()/12;
-    optimalAngle = (0.000009802791 * Math.pow(xDist, 4)) + (-0.001865 * Math.pow(xDist, 3)) + (0.123583 * Math.pow(xDist, 2)) + (-4.051126 * xDist) + 75.484205;
-    return optimalAngle;
   }
 }

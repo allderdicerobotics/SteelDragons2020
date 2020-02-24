@@ -93,6 +93,10 @@ public class Shooter extends SubsystemBase {
     setSpeed(Constants.SHOOTER_MAX_RPM, -Constants.SHOOTER_MAX_RPM);
   }
 
+  public void normalSpeed() {
+    setSpeed(Constants.SHOOTER_NORMAL_SPEED, -Constants.SHOOTER_NORMAL_SPEED);
+  }
+
   public void setSpeed(double leftSpeed, double rightSpeed){
     shooterMotorLeftPIDController.setReference(speed, ControlType.kVelocity);
     shooterMotorRightPIDController.setReference(-speed, ControlType.kVelocity);
