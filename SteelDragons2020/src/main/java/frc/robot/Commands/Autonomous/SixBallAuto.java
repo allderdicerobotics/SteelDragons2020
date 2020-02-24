@@ -12,14 +12,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.DriveTrain;
 
-public class DriveOffLine extends CommandBase {
+public class SixBallAuto extends CommandBase {
   /**
-   * Creates a new DriveOffLine.
+   * Creates a new SixBallAuto
    */
   double startTime;
   double driveTime = 2.0;
   DriveTrain driveTrain;
-  public DriveOffLine() {
+  boolean alldone = false;
+
+  public SixBallAuto() {
     this.driveTrain = RobotContainer.driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.driveTrain);
@@ -37,18 +39,24 @@ public class DriveOffLine extends CommandBase {
   public void execute() {
     if(Timer.getFPGATimestamp() > startTime + driveTime) {
       this.driveTrain.arcadeDrive(-0.4, 0.0);
-    }
+    } else {alldone = true;}
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     this.driveTrain.stop();
+    AutoShoot();
+    AutoGetBalls();
+    AutoGetBalls();
+    AutoGetBalls();
+    AutoShoot();
+    this.driveTrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return alldone;
   }
 }
