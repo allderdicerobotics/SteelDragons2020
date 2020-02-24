@@ -20,10 +20,12 @@ public class StoreBalls extends CommandBase {
   DigitalInput beamBreakSensor;
   boolean ball;
   double startTime = -1.0;
+  boolean isAuto;
 
-  public StoreBalls() {
+  public StoreBalls(boolean isAuto) {
     this.tubeBelts = RobotContainer.tubeBelts;
     beamBreakSensor = new DigitalInput(5);
+    this.isAuto = isAuto;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tubeBelts);
   }
@@ -62,6 +64,7 @@ public class StoreBalls extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (this.isAuto) {return false;}
     return (!RobotContainer.operator.getRawButton(Constants.kBottomRight));  
   }
 }
