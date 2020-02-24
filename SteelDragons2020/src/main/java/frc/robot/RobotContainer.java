@@ -118,7 +118,7 @@ public class RobotContainer {
 
         //INTAKE SPIN
         new JoystickButton(operator, Constants.kBottomRight)
-            .whenPressed(new IntakeAndStore());
+            .whenPressed(new IntakeAndStore(false));
         new JoystickButton(operator, Constants.kBottomMiddleRight)
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());
