@@ -10,17 +10,16 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 import frc.robot.Commands.TeleopDrive;
 import frc.robot.Commands.Autonomous.DoNothing;
-import frc.robot.Commands.Autonomous.PositionLeft;
-import frc.robot.Commands.Autonomous.PositionMiddle;
-import frc.robot.Commands.Autonomous.PositionRight;
 import frc.robot.Commands.Intaking.IntakeAndStore;
 import frc.robot.Commands.Shooting.AutoShoot;
 import frc.robot.Subsystems.ClimbingElevators;
@@ -41,9 +40,9 @@ public class RobotContainer {
     public static final ClimbingElevators climbingElevators = new ClimbingElevators();
     public static final ClimbingWinch climbingWinch = new ClimbingWinch();
 
-
     public static final Joystick driver = new Joystick(0);
     public static final Joystick operator = new Joystick(1);
+    public static final Joystick climber = new Joystick(2);
 
     private static final String kDefaultAuto = "Do Nothing";
     private static final String kPositionLeft = "PositionLeft";
@@ -51,6 +50,7 @@ public class RobotContainer {
     private static final String kPositionRight = "PositionRight";
 
     public static int currentBallCount = 3;
+    public static DigitalInput beamBreakSensor = new DigitalInput(Constants.BEAM_BREAK_DIO_PORT);
 
     private String autoSelected;
     private final SendableChooser<String> autoChooser = new SendableChooser<>();
@@ -61,15 +61,6 @@ public class RobotContainer {
         System.out.println("Auto selected: " + autoSelected);
         Command returnCommand;
         switch(autoSelected) {
-            case "PositionLeft":
-                returnCommand = (new PositionLeft());
-                break;
-            case "PositionMiddle":
-                returnCommand = (new PositionMiddle());
-                break;
-            case "PositionRight":
-                returnCommand = (new PositionRight());
-                break;
             default:
                 returnCommand = (new DoNothing());
                 break;
@@ -88,7 +79,7 @@ public class RobotContainer {
         autoChooser.addOption("PositionRight", kPositionRight);
         SmartDashboard.putData("Auto Chooser", autoChooser);
 
-        SmartDashboard.putNumber("Ball Count", currentBallCount);
+        SmartDashboard.putNumber("", currentBallCount);
     }
 
     public void configureButtonBindings() {
@@ -124,10 +115,10 @@ public class RobotContainer {
             .whenReleased(() -> intake.spinStop());
 
         //INTAKE POSITION
-        // new JoystickButton(operator, Constants.kMiddleMiddleLeft)
-        //     .whenPressed(() -> intake.bottom());
-        // new JoystickButton(operator, Constants.kTopMiddleLeft)
-        //     .whenPressed(() -> intake.top());
+        new JoystickButton(operator, Constants.kMiddleMiddleLeft)
+            .whenPressed(() -> intake.bottom());
+        new JoystickButton(operator, Constants.kTopMiddleLeft)
+            .whenPressed(() -> intake.top());
  
         //TUBE MANUAL
         Trigger consoleTriggerYUp = new AxisButton(operator, Constants.kTopMiddleRightYAxis, true);
@@ -137,11 +128,25 @@ public class RobotContainer {
             consoleTriggerYDown.whileActiveContinuous(() -> tube.down());
 
         //CLIMBER
-        new JoystickButton(operator, Constants.kMiddleMiddleLeft)
-            .whenPressed(() -> climbingElevators.goUp())
-            .whenReleased(() -> climbingElevators.stop());
-        new JoystickButton(operator, Constants.kTopMiddleLeft)
+        Trigger climberLeftUp = new AxisButton(climber, Constants.kLeftStickY, false);
+            climberLeftUp.whileActiveContinuous(() -> climbingElevators.goUpLeft());
+            climberLeftUp.whenInactive((() -> climbingElevators.stopLeft()));
+        Trigger climberLeftDown = new AxisButton(climber, Constants.kLeftStickY, true);
+            climberLeftDown.whileActiveContinuous(() -> climbingElevators.goDownLeft());
+            climberLeftDown.whenInactive((() -> climbingElevators.stopLeft()));
+        Trigger climberRightUp = new AxisButton(climber, Constants.kRightStickY, false);
+            climberRightUp.whileActiveContinuous(() -> climbingElevators.goUpRight());
+            climberRightUp.whenInactive((() -> climbingElevators.stopRight()));
+        Trigger climberRightDown = new AxisButton(climber, Constants.kRightStickY, true);
+            climberRightDown.whileActiveContinuous(() -> climbingElevators.goDownRight());
+            climberRightDown.whenInactive((() -> climbingElevators.stopRight()));
+
+        new JoystickButton(climber, Constants.kButtonA)
             .whenPressed(() -> climbingWinch.winchDown())
+            .whenReleased(() -> climbingWinch.stop());
+
+        new JoystickButton(climber, Constants.kButtonY)
+            .whenPressed(() -> climbingWinch.letLoose())
             .whenReleased(() -> climbingWinch.stop());
     }
 
@@ -178,6 +183,10 @@ public class RobotContainer {
         return currentBallCount;
     }
 
+    public static void putBallCounter() {
+        SmartDashboard.putNumber("", currentBallCount);
+    }
+
     public static double[] getRaspberryValues() {
         double[] values = new double[4];
         NetworkTable table = NetworkTableInstance.getDefault().getTable("FRCvisionpc");
@@ -191,5 +200,9 @@ public class RobotContainer {
         values[3] = ta.getDouble(0.0);
         values[0] = ((values[1]==-1)&&(values[2]==-1))?0:1;
         return values;
+      }
+
+      public static boolean getBeamBreak() {
+          return (!beamBreakSensor.get());
       }
 }

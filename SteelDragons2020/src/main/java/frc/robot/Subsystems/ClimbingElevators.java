@@ -35,18 +35,40 @@ public class ClimbingElevators extends SubsystemBase {
     elevatorRight.set(ControlMode.PercentOutput, speed);
   }
 
-  public void goUp() {
-    setSpeed(0.3);
+  //LEFT
+  public void setSpeedLeft(double speed) {
+    elevatorLeft.set(ControlMode.PercentOutput, speed);
   }
 
-  public void goDown() {
-    setSpeed(-0.5);
+  public void stopLeft() {
+    setSpeedLeft(0.0);
   }
 
-  public void stop() {
-    setSpeed(0.0);
+  public void goUpLeft() {
+    setSpeedLeft(0.4);
   }
 
+  public void goDownLeft() {
+    setSpeedLeft(-0.1);
+  }
+
+
+  //RIGHT
+  public void setSpeedRight(double speed) {
+    elevatorRight.set(ControlMode.PercentOutput, speed);
+  }
+
+  public void stopRight() {
+    setSpeedRight(0.0);
+  }
+
+  public void goUpRight() {
+    setSpeedRight(0.3);
+  }
+
+  public void goDownRight() {
+    setSpeedRight(-0.1);
+  }
 
   @Override
   public void periodic() {

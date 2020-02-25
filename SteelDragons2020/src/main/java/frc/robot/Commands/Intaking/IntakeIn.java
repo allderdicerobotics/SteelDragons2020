@@ -26,12 +26,17 @@ public class IntakeIn extends CommandBase {
   @Override
   public void initialize() {
     this.intake.spinStop();
+    this.intake.bottom();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.intake.spinOnDriveSpeed(this.isAuto);
+    if(isAuto) {
+      this.intake.spinOnDriveSpeed();
+    } else {
+      this.intake.spinIn();
+    }
   }
 
   // Called once the command ends or is interrupted.

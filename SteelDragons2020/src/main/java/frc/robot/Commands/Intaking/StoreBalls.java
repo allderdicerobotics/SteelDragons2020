@@ -7,7 +7,6 @@
 
 package frc.robot.Commands.Intaking;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -17,7 +16,6 @@ import frc.robot.Subsystems.TubeBelts;
 public class StoreBalls extends CommandBase {
 
   TubeBelts tubeBelts;
-  DigitalInput beamBreakSensor;
   boolean ball;
   double startTime = -1.0;
   boolean isAuto;
@@ -25,7 +23,6 @@ public class StoreBalls extends CommandBase {
 
   public StoreBalls(boolean isAuto) {
     this.tubeBelts = RobotContainer.tubeBelts;
-    // beamBreakSensor = new DigitalInput(5);
     this.isAuto = isAuto;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tubeBelts);
@@ -40,21 +37,21 @@ public class StoreBalls extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
    public void execute() {
-  //   if(!beamBreakSensor.get()) {
-  //     ball = true;
-  //     this.tubeBelts.up();
-  //   }
-  //   else {
-  //     if(ball) {
-  //       startTime = Timer.getFPGATimestamp();
-  //       RobotContainer.addOneBall();
-  //     }
-  //     ball = false;
-  //     if(Timer.getFPGATimestamp() >= Constants.AUTO_INTAKING_EXTRA_BELT_RUN_TIME + startTime) {
-  //       this.tubeBelts.stop();
-  //       autoDone = true;
-       
-    
+    if(RobotContainer.getBeamBreak()) {
+      ball = true;
+      this.tubeBelts.up();
+    }
+    else {
+      if(ball) {
+        startTime = Timer.getFPGATimestamp();
+        RobotContainer.addOneBall();
+      }
+      ball = false;
+      if(Timer.getFPGATimestamp() >= Constants.AUTO_INTAKING_EXTRA_BELT_RUN_TIME + startTime) {
+        this.tubeBelts.stop();
+        autoDone = true;
+      }
+    }
   }
 
   // Called once the command ends or is interrupted.

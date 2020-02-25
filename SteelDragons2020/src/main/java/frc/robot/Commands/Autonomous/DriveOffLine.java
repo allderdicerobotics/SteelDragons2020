@@ -19,6 +19,8 @@ public class DriveOffLine extends CommandBase {
   double startTime;
   double driveTime = 2.0;
   DriveTrain driveTrain;
+  boolean done = false;
+
   public DriveOffLine() {
     this.driveTrain = RobotContainer.driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -37,6 +39,8 @@ public class DriveOffLine extends CommandBase {
   public void execute() {
     if(Timer.getFPGATimestamp() > startTime + driveTime) {
       this.driveTrain.arcadeDrive(-0.4, 0.0);
+    } else {
+      done = true;
     }
   }
 
@@ -49,6 +53,6 @@ public class DriveOffLine extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done;
   }
 }
