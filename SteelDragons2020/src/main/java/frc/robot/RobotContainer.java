@@ -23,6 +23,8 @@ import frc.robot.Commands.Autonomous.PositionMiddle;
 import frc.robot.Commands.Autonomous.PositionRight;
 import frc.robot.Commands.Intaking.IntakeAndStore;
 import frc.robot.Commands.Shooting.AutoShoot;
+import frc.robot.Subsystems.ClimbingElevators;
+import frc.robot.Subsystems.ClimbingWinch;
 import frc.robot.Subsystems.DriveTrain;
 import frc.robot.Subsystems.Intake;
 import frc.robot.Subsystems.Shooter;
@@ -36,6 +38,9 @@ public class RobotContainer {
     public static final Intake intake = new Intake();
     public static final Shooter shooter = new Shooter();
     public static final TubeBelts tubeBelts = new TubeBelts();
+    public static final ClimbingElevators climbingElevators = new ClimbingElevators();
+    public static final ClimbingWinch climbingWinch = new ClimbingWinch();
+
 
     public static final Joystick driver = new Joystick(0);
     public static final Joystick operator = new Joystick(1);
@@ -87,11 +92,6 @@ public class RobotContainer {
     }
 
     public void configureButtonBindings() {
-        new JoystickButton(driver, Constants.kButtonLeftBumper)
-            .whenPressed(() -> tube.bottomPosition());
-        new JoystickButton(driver, Constants.kButtonRightBumper)
-            .whenPressed(() -> tube.topPosition());
-
         new JoystickButton(driver, Constants.kButtonA)
             .whenPressed(new AutoShoot(false));
 
@@ -111,9 +111,9 @@ public class RobotContainer {
             .whenPressed(() -> tubeBelts.down())
             .whenReleased(() -> tubeBelts.stop());
 
-        //SHOOTER SET TO DASHBOARD SPEED
+        //SHOOTER
         new JoystickButton(operator, Constants.kBottomMiddleLeft)
-            .whenPressed(() -> shooter.maxSpeed())
+            .whenPressed(() -> shooter.normalSpeed())
             .whenReleased(() -> shooter.stop());
 
         //INTAKE SPIN
@@ -122,11 +122,12 @@ public class RobotContainer {
         new JoystickButton(operator, Constants.kBottomMiddleRight)
             .whenPressed(() -> intake.spinOut())
             .whenReleased(() -> intake.spinStop());
+
         //INTAKE POSITION
-        new JoystickButton(operator, Constants.kMiddleMiddleLeft)
-            .whenPressed(() -> intake.bottom());
-        new JoystickButton(operator, Constants.kTopMiddleLeft)
-            .whenPressed(() -> intake.top());
+        // new JoystickButton(operator, Constants.kMiddleMiddleLeft)
+        //     .whenPressed(() -> intake.bottom());
+        // new JoystickButton(operator, Constants.kTopMiddleLeft)
+        //     .whenPressed(() -> intake.top());
  
         //TUBE MANUAL
         Trigger consoleTriggerYUp = new AxisButton(operator, Constants.kTopMiddleRightYAxis, true);
@@ -134,6 +135,14 @@ public class RobotContainer {
 
         Trigger consoleTriggerYDown = new AxisButton(operator, Constants.kTopMiddleRightYAxis, false);
             consoleTriggerYDown.whileActiveContinuous(() -> tube.down());
+
+        //CLIMBER
+        new JoystickButton(operator, Constants.kMiddleMiddleLeft)
+            .whenPressed(() -> climbingElevators.goUp())
+            .whenReleased(() -> climbingElevators.stop());
+        new JoystickButton(operator, Constants.kTopMiddleLeft)
+            .whenPressed(() -> climbingWinch.winchDown())
+            .whenReleased(() -> climbingWinch.stop());
     }
 
     public static double[] getLimeLightValues() {
