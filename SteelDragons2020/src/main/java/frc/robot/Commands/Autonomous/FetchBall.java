@@ -5,22 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands.Intaking;
+package frc.robot.Commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Commands.GoToBall;
+import frc.robot.Commands.Intaking.IntakeAndStore;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class IntakeAndStore extends ParallelRaceGroup {
+public class FetchBall extends SequentialCommandGroup {
   /**
-   * Creates a new IntakeAndStore.
+   * Creates a new FetchBall.
    */
-  boolean isAuto = false;
-  public IntakeAndStore(boolean isAuto) {
+  public FetchBall() {
+    // Add your commands in the super() call, e.g.
+    // super(new FooCommand(), new BarCommand());
     addCommands(
-      new IntakeIn(isAuto),
-      new StoreBalls(isAuto)
+      new GoToBall(),
+      new ParallelRaceGroup(
+        new IntakeAndStore(true),
+        new AutoDrive()
+      )
     );
+
   }
 }

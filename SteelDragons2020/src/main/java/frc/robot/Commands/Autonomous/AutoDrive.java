@@ -5,39 +5,39 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands.Intaking;
+package frc.robot.Commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.Intake;
+import frc.robot.Subsystems.DriveTrain;
 
-public class IntakeIn extends CommandBase {
-
-  Intake intake;
-  boolean isAuto = false;
-  public IntakeIn(boolean isAuto) {
-    this.intake = RobotContainer.intake;
-    this.isAuto = isAuto;
+public class AutoDrive extends CommandBase {
+  /**
+   * Creates a new AutoDrive.
+   */
+  DriveTrain driveTrain;
+  public AutoDrive() {
+    this.driveTrain = RobotContainer.driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.intake);
+    addRequirements(this.driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.intake.spinStop();
+    this.driveTrain.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.intake.spinOnDriveSpeed(this.isAuto);
+    this.driveTrain.arcadeDrive(0.4, 0.0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.intake.spinStop();
+    this.driveTrain.stop();
   }
 
   // Returns true when the command should end.

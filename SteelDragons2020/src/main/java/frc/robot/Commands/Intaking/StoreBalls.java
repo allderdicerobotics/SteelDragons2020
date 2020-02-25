@@ -21,6 +21,7 @@ public class StoreBalls extends CommandBase {
   boolean ball;
   double startTime = -1.0;
   boolean isAuto;
+  boolean autoDone = false;
 
   public StoreBalls(boolean isAuto) {
     this.tubeBelts = RobotContainer.tubeBelts;
@@ -51,6 +52,7 @@ public class StoreBalls extends CommandBase {
       ball = false;
       if(Timer.getFPGATimestamp() >= Constants.AUTO_INTAKING_EXTRA_BELT_RUN_TIME + startTime) {
         this.tubeBelts.stop();
+        autoDone = true;
       }
     }
   }
@@ -65,7 +67,7 @@ public class StoreBalls extends CommandBase {
   @Override
   public boolean isFinished() {
     if(isAuto) {
-      return false;
+      return autoDone;
     }
     return (!RobotContainer.operator.getRawButton(Constants.kBottomRight));  
   }
