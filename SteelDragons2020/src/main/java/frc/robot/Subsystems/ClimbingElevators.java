@@ -31,8 +31,8 @@ public class ClimbingElevators extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    elevatorLeft.set(ControlMode.Current, speed);
-    elevatorRight.set(ControlMode.Current, speed);
+    elevatorLeft.set(ControlMode.PercentOutput, speed);
+    elevatorRight.set(ControlMode.PercentOutput, speed);
   }
 
   public void goUp() {

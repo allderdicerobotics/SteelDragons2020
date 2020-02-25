@@ -25,7 +25,7 @@ public class StoreBalls extends CommandBase {
 
   public StoreBalls(boolean isAuto) {
     this.tubeBelts = RobotContainer.tubeBelts;
-    beamBreakSensor = new DigitalInput(5);
+    // beamBreakSensor = new DigitalInput(5);
     this.isAuto = isAuto;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tubeBelts);
@@ -39,22 +39,22 @@ public class StoreBalls extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    if(!beamBreakSensor.get()) {
-      ball = true;
-      this.tubeBelts.up();
-    }
-    else {
-      if(ball) {
-        startTime = Timer.getFPGATimestamp();
-        RobotContainer.addOneBall();
-      }
-      ball = false;
-      if(Timer.getFPGATimestamp() >= Constants.AUTO_INTAKING_EXTRA_BELT_RUN_TIME + startTime) {
-        this.tubeBelts.stop();
-        autoDone = true;
-      }
-    }
+   public void execute() {
+  //   if(!beamBreakSensor.get()) {
+  //     ball = true;
+  //     this.tubeBelts.up();
+  //   }
+  //   else {
+  //     if(ball) {
+  //       startTime = Timer.getFPGATimestamp();
+  //       RobotContainer.addOneBall();
+  //     }
+  //     ball = false;
+  //     if(Timer.getFPGATimestamp() >= Constants.AUTO_INTAKING_EXTRA_BELT_RUN_TIME + startTime) {
+  //       this.tubeBelts.stop();
+  //       autoDone = true;
+       
+    
   }
 
   // Called once the command ends or is interrupted.

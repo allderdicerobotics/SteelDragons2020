@@ -24,7 +24,7 @@ public class BeltDownUntilBeambreak extends CommandBase {
   boolean ball = false;
   public BeltDownUntilBeambreak() {
     this.tubeBelts = RobotContainer.tubeBelts;
-    beamBreakSensor = new DigitalInput(5);
+    //beamBreakSensor = new DigitalInput(5);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tubeBelts);
   }
@@ -50,13 +50,13 @@ public class BeltDownUntilBeambreak extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(!beamBreakSensor.get() && !ball) {
-      ball = true;
-      startTime = Timer.getFPGATimestamp();
-    }
-    else if(startTime != -1.0 && Timer.getFPGATimestamp() >= Constants.AUTO_TUBE_BELTS_DOWN_UNTIL_BEAMBREAK_WAIT_TIME + startTime) {
-      return true;
-    }
+    // if(!beamBreakSensor.get() && !ball) {
+    //   ball = true;
+    //   startTime = Timer.getFPGATimestamp();
+    // }
+    // else if(startTime != -1.0 && Timer.getFPGATimestamp() >= Constants.AUTO_TUBE_BELTS_DOWN_UNTIL_BEAMBREAK_WAIT_TIME + startTime) {
+    //   return true;
+    // }
     return false;
   }
 }
