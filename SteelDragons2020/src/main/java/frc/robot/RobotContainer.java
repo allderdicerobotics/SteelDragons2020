@@ -203,6 +203,7 @@ public class RobotContainer {
       }
 
       public static boolean getBeamBreak() {
-          return (!beamBreakSensor.get());
+        System.out.println(!beamBreakSensor.get());
+        return (!beamBreakSensor.get());
       }
 }

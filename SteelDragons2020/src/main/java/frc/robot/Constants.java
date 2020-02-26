@@ -53,7 +53,7 @@ public class Constants {
 	public static final double AUTO_ALIGN_START_TIME_DELAY = 0.2;
 	public static final double AUTO_TUBE_BELTS_DOWN_UNTIL_BEAMBREAK_WAIT_TIME = 0.2;
 
-	public static final int BEAM_BREAK_DIO_PORT = 5;
+	public static final int BEAM_BREAK_DIO_PORT = 4;
 
     //Logitech f310
 	/* axis mappings */
