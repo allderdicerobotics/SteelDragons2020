@@ -38,20 +38,15 @@ public class Constants {
     public static final double INTAKE_SPEED_IN = 0.8;
 	public static final double INTAKE_SPEED_OUT = 0.8;
 
-	public static final double BELT_SPEED_UP = 0.5;
-	public static final double BELT_SPEED_DOWN = 0.5;
-
-	public static final double SHOOTER_SPEED = 1.0;
-
-	public static final double TUBE_SPEED_UP = 0.9;
-	public static final double TUBE_SPEED_DOWN = 0.4;
+	public static final double BELT_SPEED_UP = 0.4;
+	public static final double BELT_SPEED_DOWN = 0.4;
 
 	//OTHER
 	public static final double TUBE_MANUAL_CHANGE = 0.8;
 	
 	public static final double AUTO_INTAKING_EXTRA_BELT_RUN_TIME = 0.1;
 	public static final double AUTO_ALIGN_START_TIME_DELAY = 0.2;
-	public static final double AUTO_TUBE_BELTS_DOWN_UNTIL_BEAMBREAK_WAIT_TIME = 0.2;
+	public static final double AUTO_TUBE_BELTS_DOWN_WAIT_TIME = 0.2;
 
 	public static final int BEAM_BREAK_DIO_PORT = 5;
 

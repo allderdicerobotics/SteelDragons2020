@@ -30,7 +30,7 @@ public class AutoShoot extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new AlignDriveTrainWithTarget(this.isAuto),
         new AlignTubeWithTarget(),
-        new BeltDownUntilBeambreak()
+        new BeltDownForTime()
       ),
       new ParallelRaceGroup(
         new BeltUp(this.isAuto),

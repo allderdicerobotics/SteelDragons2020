@@ -7,47 +7,47 @@
 
 package frc.robot.Commands.Shooting;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.Shooter;
-import frc.robot.Subsystems.Tube;
+import frc.robot.Subsystems.TubeBelts;
 
-public class Shoot extends CommandBase {
+public class BeltDownForTime extends CommandBase {
   /**
-   * Creates a new Shoot.
+   * Creates a new BeltDownForTime.
    */
-  private Shooter shooter;
-  private Tube tube;
-  public Shoot() {
-    this.shooter = RobotContainer.shooter;
-    this.tube = RobotContainer.tube;
+  TubeBelts tubeBelts;
+  private double startTime = -1.0;
+
+  public BeltDownForTime() {
+    this.tubeBelts = RobotContainer.tubeBelts;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.shooter, this.tube);
+    addRequirements(this.tubeBelts);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.shooter.stop();
+    startTime = Timer.getFPGATimestamp();
+    this.tubeBelts.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.shooter.normalSpeed();
+    this.tubeBelts.down();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.shooter.stop();
-    RobotContainer.getRidOfAllBalls();
-    this.tube.bottomPosition();
+    this.tubeBelts.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (startTime != -1.0 && (Timer.getFPGATimestamp() >= Constants.AUTO_TUBE_BELTS_DOWN_WAIT_TIME + startTime));
   }
 }
