@@ -26,7 +26,7 @@ public class Constants {
 	public static final int CAN_BELT_RIGHT = 14;
 
 	//SPEEDS
-    public static final double DRIVETRAIN_THROTTLE_SCALE = 0.8;
+    public static final double DRIVETRAIN_THROTTLE_SCALE = 0.95;
 	public static final double DRIVETRAIN_STEER_SCALE = 0.5;
 
 	public static final double COLOR_WHEEL_FAST_SPEED = 400;
@@ -38,13 +38,13 @@ public class Constants {
     public static final double INTAKE_SPEED_IN = 0.8;
 	public static final double INTAKE_SPEED_OUT = 0.8;
 
-	public static final double BELT_SPEED_UP = 0.4;
+	public static final double BELT_SPEED_UP = 0.5;
 	public static final double BELT_SPEED_DOWN = 0.4;
 
 	//OTHER
 	public static final double TUBE_MANUAL_CHANGE = 0.8;
 	
-	public static final double AUTO_INTAKING_EXTRA_BELT_RUN_TIME = 0.1;
+	public static final double AUTO_INTAKING_EXTRA_BELT_RUN_TIME = 0.05;
 	public static final double AUTO_ALIGN_START_TIME_DELAY = 0.2;
 	public static final double AUTO_TUBE_BELTS_DOWN_WAIT_TIME = 0.2;
 

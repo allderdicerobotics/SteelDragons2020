@@ -7,6 +7,7 @@
 
 package frc.robot.Commands.Shooting;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -21,6 +22,7 @@ public class Shoot extends CommandBase {
   private Tube tube;
   private boolean isAuto;
   private int buttonID;
+  private double startTime;
 
   public Shoot(boolean isAuto, int buttonID) {
     this.shooter = RobotContainer.shooter;
@@ -35,6 +37,7 @@ public class Shoot extends CommandBase {
   @Override
   public void initialize() {
     this.shooter.stop();
+    startTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -59,6 +62,9 @@ public class Shoot extends CommandBase {
       if (!RobotContainer.driver.getRawButton(this.buttonID)) {
         return true;
       }
+    }
+    if(isAuto) {
+      return (Timer.getFPGATimestamp() >= startTime + 3.50);
     }
     return false;
   }

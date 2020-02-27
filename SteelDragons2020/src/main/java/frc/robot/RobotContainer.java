@@ -182,17 +182,19 @@ public class RobotContainer {
 
     public static double[] getLimeLightValues() {
         double[] values = new double[4];
-        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-dragons");
         NetworkTableEntry tx = table.getEntry("tx");
         NetworkTableEntry ty = table.getEntry("ty");
         NetworkTableEntry ta = table.getEntry("ta");
         NetworkTableEntry tv = table.getEntry("tv");
+
         
         //read values periodically
         values[0] = tv.getDouble(0.0);
         values[1] = tx.getDouble(0.0);
         values[2] = ty.getDouble(0.0);
         values[3] = ta.getDouble(0.0);
+        System.out.println(values[0]);
         return values;
       }
     

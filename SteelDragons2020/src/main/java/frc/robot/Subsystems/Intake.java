@@ -103,7 +103,7 @@ public class Intake extends SubsystemBase {
 
   //INTAKE POSITION
   public void bottom() {
-    setPosition(-15.0);
+    setPosition(-15.5);
   }
 
   public void top() {
