@@ -23,7 +23,6 @@ public class AlignTubeWithTarget extends CommandBase {
 
   public AlignTubeWithTarget() {
     this.tube = RobotContainer.tube;
-
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tube);
   }

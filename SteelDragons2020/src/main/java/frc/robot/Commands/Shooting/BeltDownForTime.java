@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.Subsystems.Shooter;
 import frc.robot.Subsystems.TubeBelts;
 
 public class BeltDownForTime extends CommandBase {
@@ -19,9 +20,11 @@ public class BeltDownForTime extends CommandBase {
    */
   TubeBelts tubeBelts;
   private double startTime = -1.0;
+  private Shooter shooter;
 
   public BeltDownForTime() {
     this.tubeBelts = RobotContainer.tubeBelts;
+    this.shooter = RobotContainer.shooter;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tubeBelts);
   }
@@ -43,11 +46,12 @@ public class BeltDownForTime extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     this.tubeBelts.stop();
+    this.shooter.normalSpeed();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (startTime != -1.0 && (Timer.getFPGATimestamp() >= Constants.AUTO_TUBE_BELTS_DOWN_WAIT_TIME + startTime));
+    return (Timer.getFPGATimestamp() >= Constants.AUTO_TUBE_BELTS_DOWN_WAIT_TIME + startTime);
   }
 }

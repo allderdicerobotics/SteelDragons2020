@@ -22,6 +22,7 @@ import frc.robot.Commands.TeleopDrive;
 import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Intaking.IntakeAndStore;
 import frc.robot.Commands.Shooting.AutoShoot;
+import frc.robot.Commands.Shooting.TriangleAutoShoot;
 import frc.robot.Subsystems.ClimbingElevators;
 import frc.robot.Subsystems.ClimbingWinch;
 import frc.robot.Subsystems.DriveTrain;
@@ -85,6 +86,9 @@ public class RobotContainer {
     public void configureButtonBindings() {
         new JoystickButton(driver, Constants.kButtonA)
             .whenPressed(new AutoShoot(false));
+
+        new JoystickButton(driver, Constants.kButtonB)
+            .whenPressed(new TriangleAutoShoot());
 
         new JoystickButton(driver, Constants.kButtonBack)
             .whenPressed(() -> shooter.setColorWheelFastSpeed())
