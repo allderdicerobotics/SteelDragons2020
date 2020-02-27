@@ -119,7 +119,17 @@ public class RobotContainer {
             .whenPressed(() -> intake.bottom());
         new JoystickButton(operator, Constants.kTopMiddleLeft)
             .whenPressed(() -> intake.top());
- 
+
+        new JoystickButton(operator, Constants.kMiddleLeft)
+            .whenPressed(() -> tube.colorWheelHeight());
+        
+        new JoystickButton(operator, Constants.kTopRight)
+            .whenPressed(() -> tube.bottomPosition());
+
+        new JoystickButton(operator, Constants.kBottomLeft)
+            .whenPressed(() -> intake.spinIn())
+            .whenReleased(() -> intake.spinStop());
+        
         //TUBE MANUAL
         Trigger consoleTriggerYUp = new AxisButton(operator, Constants.kTopMiddleRightYAxis, true);
             consoleTriggerYUp.whileActiveContinuous(() -> tube.up());
@@ -203,7 +213,6 @@ public class RobotContainer {
       }
 
       public static boolean getBeamBreak() {
-        System.out.println(!beamBreakSensor.get());
         return (!beamBreakSensor.get());
       }
 }

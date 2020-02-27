@@ -25,9 +25,6 @@ public class AlignDriveTrainWithTarget extends CommandBase {
 
   private double commandStartTime = -1.0;
 
-  private double area_min = 0.2;
-  private double area_max = 3.5;
-
   private boolean isAuto;
 
   public AlignDriveTrainWithTarget(boolean isAuto) {

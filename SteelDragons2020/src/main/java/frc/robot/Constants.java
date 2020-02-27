@@ -53,7 +53,10 @@ public class Constants {
 	public static final double AUTO_ALIGN_START_TIME_DELAY = 0.2;
 	public static final double AUTO_TUBE_BELTS_DOWN_UNTIL_BEAMBREAK_WAIT_TIME = 0.2;
 
-	public static final int BEAM_BREAK_DIO_PORT = 4;
+	public static final int BEAM_BREAK_DIO_PORT = 5;
+
+	public static final double TUBE_BOTTOM_POSITION = 165.0;
+	public static final double TUBE_COLOR_WHEEL_HEIGHT = 117.5;
 
     //Logitech f310
 	/* axis mappings */

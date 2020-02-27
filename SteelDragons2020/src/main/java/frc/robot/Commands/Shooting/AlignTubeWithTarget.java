@@ -13,11 +13,9 @@ import frc.robot.Subsystems.Tube;
 
 public class AlignTubeWithTarget extends CommandBase {
 
-  private double xDist;
-  private double optimalAngle;
-
   private Tube tube;
   private double[] limeLightValues;
+  private boolean done;
 
   public AlignTubeWithTarget() {
     this.tube = RobotContainer.tube;
@@ -29,15 +27,19 @@ public class AlignTubeWithTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    limeLightValues = RobotContainer.getLimeLightValues();
-    double yPosition = limeLightValues[2];
-    double setPosition = (-1.619075925 * yPosition) + 135.4030406;
-    this.tube.setPosition(setPosition);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    limeLightValues = RobotContainer.getLimeLightValues();
+    boolean valid = (limeLightValues[0] == 1);
+    if(valid) {
+      double yPosition = limeLightValues[2];
+      double setPosition = (-1.619075925 * yPosition) + 135.4030406;
+      this.tube.setPosition(setPosition);
+      done = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -48,6 +50,6 @@ public class AlignTubeWithTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return done;
   }
 }

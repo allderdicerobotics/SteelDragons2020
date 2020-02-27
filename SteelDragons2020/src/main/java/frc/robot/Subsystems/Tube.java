@@ -85,7 +85,7 @@ public class Tube extends SubsystemBase {
   }
 
   public void bottomPosition() {
-    setPosition(163.0);
+    setPosition(Constants.TUBE_BOTTOM_POSITION);
   }
 
   public void topPosition() {
@@ -93,12 +93,12 @@ public class Tube extends SubsystemBase {
   }
 
   public void colorWheelHeight() {
-    setPosition(117.0);
+    setPosition(Constants.TUBE_COLOR_WHEEL_HEIGHT);
   }
 
   public void setPosition(double position){
     double setPosition = position;
-    if(setPosition > 163) { setPosition = 163; }
+    if(setPosition > Constants.TUBE_BOTTOM_POSITION) { setPosition = Constants.TUBE_BOTTOM_POSITION; }
     if(setPosition < 0) { setPosition = 0; }
     tubeMotorPIDController.setReference(setPosition, ControlType.kSmartMotion);
     currentTubePosition = setPosition;
