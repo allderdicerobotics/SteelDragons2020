@@ -10,6 +10,7 @@ package frc.robot.Commands.Shooting;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -24,11 +25,11 @@ public class TriangleAutoShoot extends SequentialCommandGroup {
     addCommands(
       new ParallelCommandGroup(
         new TubeTop(),
-        new BeltDownForTime()
+        new BeltDownForTime(false)
       ),
       new ParallelRaceGroup(
-        new BeltUp(false),
-        new Shoot(false)
+        new BeltUp(false, Constants.kButtonB),
+        new Shoot(false, Constants.kButtonB)
       )
     );
 

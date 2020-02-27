@@ -10,6 +10,7 @@ package frc.robot.Commands.Shooting;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.Commands.Shooting.BeltUp;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -29,12 +30,12 @@ public class AutoShoot extends SequentialCommandGroup {
     addCommands(
       new ParallelCommandGroup(
         new AlignDriveTrainWithTarget(this.isAuto),
-        new AlignTubeWithTarget(),
-        new BeltDownForTime()
+        new AlignTubeWithTarget(this.isAuto),
+        new BeltDownForTime(this.isAuto)
       ),
       new ParallelCommandGroup(
-        new BeltUp(this.isAuto),
-        new Shoot(this.isAuto)
+        new BeltUp(this.isAuto, Constants.kButtonA),
+        new Shoot(this.isAuto, Constants.kButtonA)
       )
     );
   }

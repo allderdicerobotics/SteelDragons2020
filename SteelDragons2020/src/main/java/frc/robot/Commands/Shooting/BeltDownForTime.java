@@ -21,10 +21,12 @@ public class BeltDownForTime extends CommandBase {
   TubeBelts tubeBelts;
   private double startTime = -1.0;
   private Shooter shooter;
+  private boolean isAuto;
 
-  public BeltDownForTime() {
+  public BeltDownForTime(boolean isAuto) {
     this.tubeBelts = RobotContainer.tubeBelts;
     this.shooter = RobotContainer.shooter;
+    this.isAuto = isAuto;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tubeBelts);
   }
@@ -46,12 +48,17 @@ public class BeltDownForTime extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     this.tubeBelts.stop();
-    this.shooter.normalSpeed();
+    //this.shooter.normalSpeed();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(!isAuto) {
+      if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
+        return true;
+      }
+    }
     return (Timer.getFPGATimestamp() >= Constants.AUTO_TUBE_BELTS_DOWN_WAIT_TIME + startTime);
   }
 }

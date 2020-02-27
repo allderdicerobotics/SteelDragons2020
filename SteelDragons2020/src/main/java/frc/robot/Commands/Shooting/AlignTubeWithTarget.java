@@ -9,6 +9,7 @@ package frc.robot.Commands.Shooting;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Tube;
 
@@ -20,9 +21,11 @@ public class AlignTubeWithTarget extends CommandBase {
 
   private double startTime = -1.0;
   private boolean didStartTime = false;
+  private boolean isAuto;
 
-  public AlignTubeWithTarget() {
+  public AlignTubeWithTarget(boolean isAuto) {
     this.tube = RobotContainer.tube;
+    this.isAuto = isAuto;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tube);
   }
@@ -55,6 +58,11 @@ public class AlignTubeWithTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(!isAuto) {
+      if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
+        return true;
+      }
+    }
     if(done && !didStartTime) {
       startTime = Timer.getFPGATimestamp();
       didStartTime = true;

@@ -20,11 +20,13 @@ public class Shoot extends CommandBase {
   private Shooter shooter;
   private Tube tube;
   private boolean isAuto;
+  private int buttonID;
 
-  public Shoot(boolean isAuto) {
+  public Shoot(boolean isAuto, int buttonID) {
     this.shooter = RobotContainer.shooter;
     this.tube = RobotContainer.tube;
     this.isAuto = isAuto;
+    this.buttonID = buttonID;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.shooter, this.tube);
   }
@@ -53,8 +55,8 @@ public class Shoot extends CommandBase {
   @Override
   public boolean isFinished() {
     if (!isAuto) {
-      System.out.println("isauto" + isAuto);
-      if (!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
+      //System.out.println("isauto" + isAuto);
+      if (!RobotContainer.driver.getRawButton(this.buttonID)) {
         return true;
       }
     }

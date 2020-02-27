@@ -93,7 +93,7 @@ public class AlignDriveTrainWithTarget extends CommandBase {
       if(startTime == -1.0) {
         startTime = Timer.getFPGATimestamp();
       }
-      if(startTime != -1.0 && Timer.getFPGATimestamp() >= 0.2 + startTime) {
+      if(startTime != -1.0 && Timer.getFPGATimestamp() >= 0.2 + startTime && valid) {
         return true;
       }
     }
