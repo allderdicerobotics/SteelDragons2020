@@ -8,6 +8,7 @@
 package frc.robot.Commands.Shooting;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Shooter;
 import frc.robot.Subsystems.Tube;
@@ -18,9 +19,12 @@ public class Shoot extends CommandBase {
    */
   private Shooter shooter;
   private Tube tube;
-  public Shoot() {
+  private boolean isAuto;
+
+  public Shoot(boolean isAuto) {
     this.shooter = RobotContainer.shooter;
     this.tube = RobotContainer.tube;
+    this.isAuto = isAuto;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.shooter, this.tube);
   }
@@ -48,6 +52,12 @@ public class Shoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (!isAuto) {
+      System.out.println("isauto" + isAuto);
+      if (!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
+        return true;
+      }
+    }
     return false;
   }
 }

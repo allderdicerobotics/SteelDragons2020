@@ -32,9 +32,9 @@ public class AutoShoot extends SequentialCommandGroup {
         new AlignTubeWithTarget(),
         new BeltDownForTime()
       ),
-      new ParallelRaceGroup(
+      new ParallelCommandGroup(
         new BeltUp(this.isAuto),
-        new Shoot()
+        new Shoot(this.isAuto)
       )
     );
   }

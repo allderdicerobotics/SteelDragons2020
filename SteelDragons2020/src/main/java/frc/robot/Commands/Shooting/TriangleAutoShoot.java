@@ -28,7 +28,7 @@ public class TriangleAutoShoot extends SequentialCommandGroup {
       ),
       new ParallelRaceGroup(
         new BeltUp(false),
-        new Shoot()
+        new Shoot(false)
       )
     );
 

@@ -49,7 +49,7 @@ public class Shooter extends SubsystemBase {
     shooterMotorRight.setIdleMode(IdleMode.kCoast);
 
     kP = 0.0002;
-    kFF = 0.0002;
+    kFF = 0.00023;
 
     kI = 0.0;
     kD = 0.0;
@@ -59,8 +59,19 @@ public class Shooter extends SubsystemBase {
     speed = 0.0;
     maxAccel = 0.0;
 
-    motorPIDSetup(shooterMotorRightPIDController);
-    motorPIDSetup(shooterMotorLeftPIDController);
+    shooterMotorRightPIDController.setP(kP);
+    shooterMotorRightPIDController.setI(kI);
+    shooterMotorRightPIDController.setD(kD);
+    shooterMotorRightPIDController.setFF(kFF);
+
+    shooterMotorLeftPIDController.setP(kP);
+    shooterMotorLeftPIDController.setI(kI);
+    shooterMotorLeftPIDController.setD(kD);
+    shooterMotorLeftPIDController.setFF(kFF);
+
+
+    // motorPIDSetup(shooterMotorRightPIDController);
+    // motorPIDSetup(shooterMotorLeftPIDController);
 
     // SmartDashboard.putNumber("Speed", speed);
 
@@ -98,8 +109,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setSpeed(double leftSpeed, double rightSpeed){
-    shooterMotorLeftPIDController.setReference(speed, ControlType.kVelocity);
-    shooterMotorRightPIDController.setReference(-speed, ControlType.kVelocity);
+    shooterMotorLeftPIDController.setReference(leftSpeed, ControlType.kVelocity);
+    shooterMotorRightPIDController.setReference(rightSpeed, ControlType.kVelocity);
   }
 
   public void setColorWheelFastSpeed() {
@@ -153,6 +164,9 @@ public class Shooter extends SubsystemBase {
     //  SmartDashboard.putNumber("Current Shooter Velocity Left: ", shooterMotorLeftCANEncoder.getVelocity());
     //  SmartDashboard.putNumber("Current Shooter Velocity Right: ", shooterMotorRightCANEncoder.getVelocity());
     //  PIDSetup();
+      
+    SmartDashboard.putNumber("Current Shooter Velocity Left: ", shooterMotorLeftCANEncoder.getVelocity());
+    SmartDashboard.putNumber("Current Shooter Velocity Right: ", shooterMotorRightCANEncoder.getVelocity());
   }
 }
 
