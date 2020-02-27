@@ -20,6 +20,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.Commands.TeleopDrive;
 import frc.robot.Commands.Autonomous.DoNothing;
+import frc.robot.Commands.Autonomous.DriveOffLine;
+import frc.robot.Commands.Autonomous.SixBall;
+import frc.robot.Commands.Autonomous.ThreeBallandDrive;
 import frc.robot.Commands.Intaking.IntakeAndStore;
 import frc.robot.Commands.Shooting.AutoShoot;
 import frc.robot.Commands.Shooting.TriangleAutoShoot;
@@ -46,9 +49,9 @@ public class RobotContainer {
     public static final Joystick climber = new Joystick(2);
 
     private static final String kDefaultAuto = "Do Nothing";
-    private static final String kPositionLeft = "PositionLeft";
-    private static final String kPositionMiddle = "PositionMiddle";
-    private static final String kPositionRight = "PositionRight";
+    private static final String kDriveOffLine = "Drive Off The Line";
+    private static final String kThreeBallAndDrive = "Three Ball Auto";
+    private static final String kSixBall = "Six Ball Auto";
 
     public static int currentBallCount = 3;
     public static DigitalInput beamBreakSensor = new DigitalInput(Constants.BEAM_BREAK_DIO_PORT);
@@ -62,6 +65,18 @@ public class RobotContainer {
         System.out.println("Auto selected: " + autoSelected);
         Command returnCommand;
         switch(autoSelected) {
+            case "Do Nothing":
+                returnCommand = (new DoNothing());
+                break;
+            case "Drive Off The Line":
+                returnCommand = (new DriveOffLine());
+                break;
+            case "Three Ball Auto":
+                returnCommand = (new ThreeBallandDrive());
+                break;
+            case "Six Ball Auto":
+                returnCommand = (new SixBall());
+                break;
             default:
                 returnCommand = (new DoNothing());
                 break;
@@ -75,9 +90,9 @@ public class RobotContainer {
         driveTrain.setDefaultCommand(new TeleopDrive(driveTrain));
 
         autoChooser.setDefaultOption("Do Nothing", kDefaultAuto);
-        autoChooser.addOption("PositionLeft", kPositionLeft);
-        autoChooser.addOption("PositionMiddle", kPositionMiddle);
-        autoChooser.addOption("PositionRight", kPositionRight);
+        autoChooser.addOption("Drive Off The Line", kDriveOffLine);
+        autoChooser.addOption("Three Ball Auto", kThreeBallAndDrive);
+        autoChooser.addOption("Six Ball Auto", kSixBall);
         SmartDashboard.putData("Auto Chooser", autoChooser);
 
         SmartDashboard.putNumber("", currentBallCount);
