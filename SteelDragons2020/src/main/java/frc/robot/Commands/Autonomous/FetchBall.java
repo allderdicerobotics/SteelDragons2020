@@ -26,7 +26,7 @@ public class FetchBall extends SequentialCommandGroup {
       new GoToBall(),
       new ParallelRaceGroup(
         new IntakeAndStore(true),
-        new AutoDrive()
+        new AutoDrive(4.0)
       )
     );
 

@@ -12,7 +12,6 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,6 +21,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.TeleopDrive;
 import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.DriveOffLine;
+import frc.robot.Commands.Autonomous.FiveBallTimed;
+import frc.robot.Commands.Autonomous.FourBallTimed;
 import frc.robot.Commands.Autonomous.SixBall;
 import frc.robot.Commands.Autonomous.ThreeBallandDrive;
 import frc.robot.Commands.Intaking.IntakeAndStore;
@@ -50,9 +51,11 @@ public class RobotContainer {
     public static final Joystick climber = new Joystick(2);
 
     private static final String kDefaultAuto = "Do Nothing";
-    private static final String kDriveOffLine = "Drive Off The Line";
-    private static final String kThreeBallAndDrive = "Three Ball Auto";
-    private static final String kSixBall = "Six Ball Auto";
+    private static final String kDriveOffLine = "Drive Off the Line";
+    private static final String kThreeBallAndDrive = "Three Ball and Drive";
+    private static final String kSixBallWithVision = "Six Ball with Vision";
+    private static final String kFourBallTimed = "Four Ball Timed";
+    private static final String kFiveBallTimed = "Five Ball Timed";
 
     public static int currentBallCount = 3;
     public static DigitalInput beamBreakSensor = new DigitalInput(Constants.BEAM_BREAK_DIO_PORT);
@@ -69,14 +72,20 @@ public class RobotContainer {
             case "Do Nothing":
                 returnCommand = (new DoNothing());
                 break;
-            case "Drive Off The Line":
+            case "Drive Off the Line":
                 returnCommand = (new DriveOffLine());
                 break;
-            case "Three Ball Auto":
+            case "Three Ball and Drive":
                 returnCommand = (new ThreeBallandDrive());
                 break;
-            case "Six Ball Auto":
+            case "Six Ball with Vision":
                 returnCommand = (new SixBall());
+                break;
+            case "Four Ball Timed":
+                returnCommand = (new FourBallTimed());
+                break;
+            case "Five Ball Timed":
+                returnCommand = (new FiveBallTimed());
                 break;
             default:
                 returnCommand = (new DoNothing());
@@ -91,9 +100,11 @@ public class RobotContainer {
         driveTrain.setDefaultCommand(new TeleopDrive(driveTrain));
 
         autoChooser.setDefaultOption("Do Nothing", kDefaultAuto);
-        autoChooser.addOption("Drive Off The Line", kDriveOffLine);
-        autoChooser.addOption("Three Ball Auto", kThreeBallAndDrive);
-        autoChooser.addOption("Six Ball Auto", kSixBall);
+        autoChooser.addOption("Drive Off the Line", kDriveOffLine);
+        autoChooser.addOption("Three Ball and Drive", kThreeBallAndDrive);
+        autoChooser.addOption("Six Ball with Vision", kSixBallWithVision);
+        autoChooser.addOption("Four Ball Timed", kFourBallTimed);
+        autoChooser.addOption("Five Ball Timed", kFiveBallTimed);
         SmartDashboard.putData("Auto Chooser", autoChooser);
 
         SmartDashboard.putNumber("", currentBallCount);

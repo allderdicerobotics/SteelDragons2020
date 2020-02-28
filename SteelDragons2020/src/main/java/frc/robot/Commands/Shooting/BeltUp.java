@@ -9,7 +9,6 @@ package frc.robot.Commands.Shooting;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.TubeBelts;
 

@@ -5,37 +5,34 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands.Shooting;
+package frc.robot.Commands.Autonomous;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
-import frc.robot.Commands.Shooting.BeltUp;
+import frc.robot.Commands.Intaking.IntakeAndStore;
+import frc.robot.Commands.Shooting.AutoShoot;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoShoot extends SequentialCommandGroup {
+public class FiveBallTimed extends SequentialCommandGroup {
   /**
-   * Creates a new AutoShoot.
+   * Creates a new FiveBallTimed.
    */
-  private boolean isAuto;
-  public AutoShoot(boolean isAuto) {
-    this.isAuto = isAuto;
+  public FiveBallTimed() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    //super();
-
     addCommands(
-      new ParallelCommandGroup(
-        new AlignDriveTrainWithTarget(this.isAuto),
-        new AlignTubeWithTarget(this.isAuto),
-        new BeltDownForTime(this.isAuto)
+      new AutoShoot(true),
+      new ParallelRaceGroup(
+        new IntakeAndStore(true),
+        new AutoDrive(4.0)
       ),
-      new ParallelCommandGroup(
-        new BeltUp(this.isAuto, Constants.kButtonA),
-        new Shoot(this.isAuto, Constants.kButtonA)
-      )
+      new ParallelRaceGroup(
+        new IntakeAndStore(true),
+        new AutoDrive(2.0)
+      ),
+      new AutoShoot(true)
     );
   }
 }
