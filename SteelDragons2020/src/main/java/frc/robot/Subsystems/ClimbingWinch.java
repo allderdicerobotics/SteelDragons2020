@@ -32,11 +32,11 @@ public class ClimbingWinch extends SubsystemBase {
   }
 
   public void winchDown() {
-    setSpeed(-0.4);
+    setSpeed(-1.0);
   }
 
   public void letLoose() {
-    setSpeed(0.4);
+    setSpeed(1.0);
   }
 
   public void stop() {
