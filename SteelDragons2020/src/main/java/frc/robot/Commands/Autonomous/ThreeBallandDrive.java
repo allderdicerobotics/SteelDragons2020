@@ -7,6 +7,7 @@
 
 package frc.robot.Commands.Autonomous;
 
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Commands.Shooting.AutoShoot;
 
@@ -21,7 +22,10 @@ public class ThreeBallandDrive extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoShoot(true),
+      new ParallelRaceGroup(
+        new AutoShoot(true),
+        new WaitTime(10.0)
+      ),
       new DriveOffLine()
     );
   }
