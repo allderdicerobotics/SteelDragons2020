@@ -7,6 +7,7 @@
 
 package frc.robot.Commands.Autonomous;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.DriveTrain;
@@ -16,8 +17,11 @@ public class AutoDrive extends CommandBase {
    * Creates a new AutoDrive.
    */
   DriveTrain driveTrain;
-  public AutoDrive() {
+  private double time;
+  private double startTime;
+  public AutoDrive(double time) {
     this.driveTrain = RobotContainer.driveTrain;
+    this.time = time;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.driveTrain);
   }
@@ -26,6 +30,7 @@ public class AutoDrive extends CommandBase {
   @Override
   public void initialize() {
     this.driveTrain.stop();
+    startTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,6 +48,6 @@ public class AutoDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (Timer.getFPGATimestamp() >= startTime + this.time);
   }
 }

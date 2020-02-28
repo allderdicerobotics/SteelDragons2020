@@ -7,28 +7,32 @@
 
 package frc.robot.Commands.Autonomous;
 
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Commands.GoToBall;
 import frc.robot.Commands.Intaking.IntakeAndStore;
+import frc.robot.Commands.Shooting.AutoShoot;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class FetchBall extends SequentialCommandGroup {
+public class FiveBallTimed extends SequentialCommandGroup {
   /**
-   * Creates a new FetchBall.
+   * Creates a new FiveBallTimed.
    */
-  public FetchBall() {
+  public FiveBallTimed() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     addCommands(
-      new GoToBall(),
-      new ParallelRaceGroup(
+      new AutoShoot(true),
+      new ParallelCommandGroup(
         new IntakeAndStore(true),
         new AutoDrive(4.0)
-      )
+      ),
+      new ParallelCommandGroup(
+        new IntakeAndStore(true),
+        new AutoDrive(2.0)
+      ),
+      new AutoShoot(true)
     );
-
   }
 }
