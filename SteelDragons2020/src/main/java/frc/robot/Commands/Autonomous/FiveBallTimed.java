@@ -7,7 +7,7 @@
 
 package frc.robot.Commands.Autonomous;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Commands.Intaking.IntakeAndStore;
 import frc.robot.Commands.Shooting.AutoShoot;
@@ -24,11 +24,11 @@ public class FiveBallTimed extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     addCommands(
       new AutoShoot(true),
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
         new IntakeAndStore(true),
         new AutoDrive(4.0)
       ),
-      new ParallelCommandGroup(
+      new ParallelRaceGroup(
         new IntakeAndStore(true),
         new AutoDrive(2.0)
       ),

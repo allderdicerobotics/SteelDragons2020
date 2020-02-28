@@ -19,7 +19,7 @@ public class AlignDriveTrainWithTarget extends CommandBase {
    */
   private double startTime = -1.0;
   private double[] limeLightValues;
-  private double accuracyConstant = 0.4;
+  private double accuracyConstant = 0.7;
   private double PIDInitializeConstant = 11;
   private DriveTrain driveTrain;
 
