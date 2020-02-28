@@ -43,7 +43,7 @@ public class AlignTubeWithTarget extends CommandBase {
     if(valid) {
       double yPosition = limeLightValues[2];
       //double setPosition = (-1.619075925 * yPosition) + 132.4030406;
-      double setPosition = (-2.68836 * yPosition) + 123.903;
+      double setPosition = ((-2.68836 * yPosition) + 123.903) - 13.5;
       this.tube.setPosition(setPosition);
       done = true;
     } else {

@@ -44,14 +44,14 @@ public class Constants {
 	//OTHER
 	public static final double TUBE_MANUAL_CHANGE = 0.8;
 	
-	public static final double AUTO_INTAKING_EXTRA_BELT_RUN_TIME = 0.05;
+	public static final double AUTO_INTAKING_EXTRA_BELT_RUN_TIME = 0.1;
 	public static final double AUTO_ALIGN_START_TIME_DELAY = 0.2;
 	public static final double AUTO_TUBE_BELTS_DOWN_WAIT_TIME = 0.2;
 
 	public static final int BEAM_BREAK_DIO_PORT = 5;
 
-	public static final double TUBE_BOTTOM_POSITION = 165.0;
-	public static final double TUBE_COLOR_WHEEL_HEIGHT = 117.5;
+	public static final double TUBE_BOTTOM_POSITION = 152.0;
+	public static final double TUBE_COLOR_WHEEL_HEIGHT = 104.5;
 
     //Logitech f310
 	/* axis mappings */
