@@ -36,7 +36,7 @@ public class AutoDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.driveTrain.arcadeDrive(0.4, 0.0);
+    this.driveTrain.arcadeDrive(-0.4, 0.0);
   }
 
   // Called once the command ends or is interrupted.
