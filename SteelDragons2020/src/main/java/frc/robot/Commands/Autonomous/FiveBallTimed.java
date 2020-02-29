@@ -24,6 +24,7 @@ public class FiveBallTimed extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     addCommands(
       new AutoShoot(true),
+      new AutoTurn(0.5),
       new ParallelRaceGroup(
         new IntakeAndStore(true),
         new AutoDrive(4.0)

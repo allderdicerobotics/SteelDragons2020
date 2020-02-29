@@ -22,12 +22,14 @@ public class Shoot extends CommandBase {
   private boolean isAuto;
   private int buttonID;
   private double startTime;
+  private boolean endTubeBottom;
 
-  public Shoot(boolean isAuto, int buttonID) {
+  public Shoot(boolean isAuto, int buttonID, boolean endTubeBottom) {
     this.shooter = RobotContainer.shooter;
     this.tube = RobotContainer.tube;
     this.isAuto = isAuto;
     this.buttonID = buttonID;
+    this.endTubeBottom = endTubeBottom;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.shooter, this.tube);
   }
@@ -50,7 +52,9 @@ public class Shoot extends CommandBase {
   public void end(boolean interrupted) {
     this.shooter.stop();
     RobotContainer.getRidOfAllBalls();
-    this.tube.bottomPosition();
+    if(this.endTubeBottom){
+      this.tube.bottomPosition();
+    }
   }
 
   // Returns true when the command should end.

@@ -34,7 +34,7 @@ public class AutoShoot extends SequentialCommandGroup {
       ),
       new ParallelCommandGroup(
         new BeltUp(this.isAuto, Constants.kButtonA),
-        new Shoot(this.isAuto, Constants.kButtonA)
+        new Shoot(this.isAuto, Constants.kButtonA, true)
       )
     );
   }

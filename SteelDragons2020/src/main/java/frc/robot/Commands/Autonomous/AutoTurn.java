@@ -5,67 +5,46 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands.Intaking;
+package frc.robot.Commands.Autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.TubeBelts;
+import frc.robot.Subsystems.DriveTrain;
 
-public class StoreBalls extends CommandBase {
-
-  TubeBelts tubeBelts;
-  boolean ball;
-  double startTime = -1.0;
-  boolean isAuto;
-  boolean autoDone = false;
-
-  public StoreBalls(boolean isAuto) {
-    this.tubeBelts = RobotContainer.tubeBelts;
-    this.isAuto = isAuto;
+public class AutoTurn extends CommandBase {
+  /**
+   * Creates a new AutoTurn.
+   */
+  private double waitTime;
+  private double startTime;
+  private DriveTrain driveTrain;
+  public AutoTurn(double time) {
+    this.waitTime = time;
+    this.driveTrain = RobotContainer.driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.tubeBelts);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.tubeBelts.stop();
+    startTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-   public void execute() {
-    if(RobotContainer.getBeamBreak()) {
-      ball = true;
-      this.tubeBelts.up();
-    }
-    else {
-      if(ball) {
-        startTime = Timer.getFPGATimestamp();
-        RobotContainer.addOneBall();
-      }
-      ball = false;
-      if((Timer.getFPGATimestamp() >= Constants.AUTO_INTAKING_EXTRA_BELT_RUN_TIME + startTime) && !RobotContainer.getBeamBreak()) {
-        this.tubeBelts.stop();
-        this.autoDone = true;
-      }
-    }
+  public void execute() {
+    this.driveTrain.arcadeDrive(0.0, -0.3);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.tubeBelts.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(isAuto) {
-      return false;
-    }
-    return (!RobotContainer.operator.getRawButton(Constants.kBottomRight));  
+    return (Timer.getFPGATimestamp() >= this.startTime + this.waitTime);
   }
 }
