@@ -10,13 +10,17 @@ package frc.robot.Commands.Intaking;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Intake;
+import frc.robot.Subsystems.Tube;;
 
 public class IntakeIn extends CommandBase {
 
   Intake intake;
+  Tube tube;
   boolean isAuto = false;
+  
   public IntakeIn(boolean isAuto) {
     this.intake = RobotContainer.intake;
+    this.tube = RobotContainer.tube;
     this.isAuto = isAuto;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.intake);
@@ -44,6 +48,7 @@ public class IntakeIn extends CommandBase {
   public void end(boolean interrupted) {
     this.intake.spinStop();
     this.intake.top();
+    this.tube.bottomPosition();
   }
 
   // Returns true when the command should end.
