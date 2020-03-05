@@ -8,34 +8,21 @@
 package frc.robot.Commands.Shooting;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.Commands.Shooting.BeltUp;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoShoot extends SequentialCommandGroup {
+public class ShootandBelts extends ParallelCommandGroup {
   /**
-   * Creates a new AutoShoot.
+   * Creates a new ShootandBelts.
    */
-  private boolean isAuto;
-  public AutoShoot(boolean isAuto) {
-    this.isAuto = isAuto;
+  public ShootandBelts() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    //super();
-
     addCommands(
-      new ParallelCommandGroup(
-        new AlignDriveTrainWithTarget(this.isAuto),
-        new AlignTubeWithTarget(this.isAuto),
-        new BeltDownForTime(this.isAuto)
-      ),
-      new ParallelCommandGroup(
-        new BeltUp(this.isAuto, Constants.kButtonA, true),
-        new Shoot(this.isAuto, Constants.kButtonA, false, true)
-      )
+      new BeltUp(false, Constants.kBottomMiddleLeft, false),
+      new Shoot(false, Constants.kBottomMiddleLeft, false, false)
     );
   }
 }

@@ -18,11 +18,13 @@ public class BeltUp extends CommandBase {
   private boolean isAuto;
   private double startTime;
   private int buttonID;
+  private boolean isDriver;
 
-  public BeltUp(boolean isAuto, int buttonID) {
+  public BeltUp(boolean isAuto, int buttonID, boolean isDriver) {
     this.tubeBelts = RobotContainer.tubeBelts;
     this.isAuto = isAuto;
     this.buttonID = buttonID;
+    this.isDriver = isDriver;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tubeBelts);
   }
@@ -52,11 +54,16 @@ public class BeltUp extends CommandBase {
   @Override
   public boolean isFinished() {
     if(!isAuto) {
-      if(!RobotContainer.driver.getRawButton(this.buttonID)) {
-        return true;
+      if(isDriver) {
+        if(!RobotContainer.driver.getRawButton(this.buttonID)) {
+          return true;
+        }
+      } else {
+        if (!RobotContainer.operator.getRawButton(this.buttonID)) {
+          return true;
+        }
       }
-    }
-    if(isAuto) {
+    } else {
       return (Timer.getFPGATimestamp() >= startTime + 3.5);
     }
     return false;

@@ -27,6 +27,7 @@ import frc.robot.Commands.Autonomous.SixBall;
 import frc.robot.Commands.Autonomous.ThreeBallandDrive;
 import frc.robot.Commands.Intaking.IntakeAndStore;
 import frc.robot.Commands.Shooting.AutoShoot;
+import frc.robot.Commands.Shooting.ShootandBelts;
 import frc.robot.Commands.Shooting.TriangleAutoShoot;
 import frc.robot.Subsystems.ClimbingElevators;
 import frc.robot.Subsystems.ClimbingWinch;
@@ -135,8 +136,7 @@ public class RobotContainer {
 
         //SHOOTER
         new JoystickButton(operator, Constants.kBottomMiddleLeft)
-            .whenPressed(() -> shooter.normalSpeed())
-            .whenReleased(() -> shooter.stop());
+            .whenPressed(new ShootandBelts());
 
         //INTAKE SPIN
         new JoystickButton(operator, Constants.kBottomRight)

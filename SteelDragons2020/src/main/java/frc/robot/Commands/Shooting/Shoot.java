@@ -23,13 +23,15 @@ public class Shoot extends CommandBase {
   private int buttonID;
   private double startTime;
   private boolean endTubeBottom;
+  private boolean isDriver;
 
-  public Shoot(boolean isAuto, int buttonID, boolean endTubeBottom) {
+  public Shoot(boolean isAuto, int buttonID, boolean endTubeBottom, boolean isDriver) {
     this.shooter = RobotContainer.shooter;
     this.tube = RobotContainer.tube;
     this.isAuto = isAuto;
     this.buttonID = buttonID;
     this.endTubeBottom = endTubeBottom;
+    this.isDriver = isDriver;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.shooter, this.tube);
   }
@@ -60,13 +62,17 @@ public class Shoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (!isAuto) {
-      //System.out.println("isauto" + isAuto);
-      if (!RobotContainer.driver.getRawButton(this.buttonID)) {
-        return true;
+    if(!isAuto) {
+      if(isDriver) {
+        if(!RobotContainer.driver.getRawButton(this.buttonID)) {
+          return true;
+        }
+      } else {
+        if (!RobotContainer.operator.getRawButton(this.buttonID)) {
+          return true;
+        }
       }
-    }
-    if(isAuto) {
+    } else {
       return (Timer.getFPGATimestamp() >= startTime + 3.50);
     }
     return false;

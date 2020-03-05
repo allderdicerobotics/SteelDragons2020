@@ -43,6 +43,7 @@ public class IntakeIn extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     this.intake.spinStop();
+    this.intake.top();
   }
 
   // Returns true when the command should end.
