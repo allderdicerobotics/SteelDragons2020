@@ -94,7 +94,11 @@ public class Intake extends SubsystemBase {
   }
 
   public void spinOnDriveSpeed() {
-      setSpinSpeed(-0.5 - (0.5 * Math.abs(RobotContainer.driver.getRawAxis(Constants.kLeftStickY))));
+    if(RobotContainer.driver.getRawAxis(Constants.kLeftStickY) >= 0.07) {
+      setSpinSpeed(1.0);
+    } else {
+      setSpinSpeed(0.5);
+    }
   }
 
   public void setSpinSpeed(double speed) {
