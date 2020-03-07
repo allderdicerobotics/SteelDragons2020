@@ -17,22 +17,24 @@ import frc.robot.Commands.Shooting.AutoShoot;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class FiveBallTimed extends SequentialCommandGroup {
+public class EightBallTimed extends SequentialCommandGroup {
   /**
    * Creates a new FiveBallTimed.
    */
   private double startXValue;
-  public FiveBallTimed() {
+  public EightBallTimed() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     startXValue = RobotContainer.getLimeLightValues()[1];
     addCommands(
       new AutoShoot(true),
       new SetDriveTraintoXValue(this.startXValue),
+      new TubeBottom(),
       new ParallelRaceGroup(
         new IntakeAndStore(true),
-        new AutoDrive(3.5, 0.6, true)
+        new AutoDrive(4.2, 0.6, true)
       ),
+      new AutoDrive(0.9, 1.0, false),
       new AutoShoot(true)
     );
   }

@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.TeleopDrive;
 import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.DriveOffLine;
+import frc.robot.Commands.Autonomous.EightBallTimed;
 import frc.robot.Commands.Autonomous.FiveBallOtherSide;
 import frc.robot.Commands.Autonomous.FiveBallTimed;
 import frc.robot.Commands.Autonomous.FourBallTimed;
@@ -59,6 +60,7 @@ public class RobotContainer {
     private static final String kSixBallWithVision = "Six Ball with Vision";
     private static final String kFourBallTimed = "Four Ball Timed";
     private static final String kFiveBallTimed = "Five Ball Timed";
+    private static final String kEightBallTimed = "Eight Ball Timed";
     private static final String kFiveBallOtherSide = "Five Ball Other Side";
 
 
@@ -92,6 +94,9 @@ public class RobotContainer {
             case "Five Ball Timed":
                 returnCommand = (new FiveBallTimed());
                 break;
+            case "Eight Ball Timed":
+                returnCommand = (new EightBallTimed());
+                break;
             case "Five Ball Other Side":
                 returnCommand = (new FiveBallOtherSide());
                 break;
@@ -113,6 +118,7 @@ public class RobotContainer {
         autoChooser.addOption("Six Ball with Vision", kSixBallWithVision);
         autoChooser.addOption("Four Ball Timed", kFourBallTimed);
         autoChooser.addOption("Five Ball Timed", kFiveBallTimed);
+        autoChooser.addOption("Eight Ball Timed", kEightBallTimed);
         autoChooser.addOption("Five Ball Other Side", kFiveBallOtherSide);
         SmartDashboard.putData("Auto Chooser", autoChooser);
 
