@@ -29,7 +29,7 @@ public class TriangleAutoShoot extends SequentialCommandGroup {
       ),
       new ParallelRaceGroup(
         new BeltUp(false, Constants.kButtonB, true),
-        new Shoot(false, Constants.kButtonB, false, true)
+        new Shoot(false, Constants.kButtonB, true)
       )
     );
 

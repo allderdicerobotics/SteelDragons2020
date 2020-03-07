@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -34,6 +35,8 @@ public class Intake extends SubsystemBase {
     intakeFoldMotorCANEncoder = intakeFoldMotor.getEncoder();
 
     intakeSpinMotor = new CANSparkMax(Constants.CAN_SPIN_INTAKE, MotorType.kBrushless);
+
+    intakeSpinMotor.setSmartCurrentLimit(30);
 
     kP = 0.00005;
     kI = 0.0;
@@ -80,6 +83,10 @@ public class Intake extends SubsystemBase {
     // SmartDashboard.putBoolean("IntakeFold Mode", true);
   }
 
+  public double getCurrent() {
+    return (intakeSpinMotor.getOutputCurrent());
+  }
+
   //INTAKE SPIN
   public void spinIn() {
     setSpinSpeed(1.0);
@@ -97,7 +104,7 @@ public class Intake extends SubsystemBase {
     if(RobotContainer.driver.getRawAxis(Constants.kLeftStickY) <= -0.07) {
       setSpinSpeed(1.0);
     } else {
-      setSpinSpeed(0.5);
+      setSpinSpeed(0.6);
     }
     // setSpinSpeed(1.0);
   }
@@ -172,6 +179,7 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Current", getCurrent());
     // This method will be called once per scheduler run
   }
 }

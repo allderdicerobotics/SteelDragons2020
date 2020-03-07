@@ -48,6 +48,8 @@ public class Shooter extends SubsystemBase {
     shooterMotorLeft.setIdleMode(IdleMode.kCoast);
     shooterMotorRight.setIdleMode(IdleMode.kCoast);
 
+    // SmartDashboard.putNumber("Speed", speed);
+
     kP = 0.0002;
     kFF = 0.00023;
 
@@ -106,6 +108,8 @@ public class Shooter extends SubsystemBase {
 
   public void normalSpeed() {
     setSpeed(Constants.SHOOTER_NORMAL_SPEED, -Constants.SHOOTER_NORMAL_SPEED);
+    // setSpeed(this.speed, -this.speed);
+
   }
 
   public void setSpeed(double leftSpeed, double rightSpeed){
@@ -157,8 +161,8 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     //  double newSpeed = SmartDashboard.getNumber("Speed", 0);
-    //  if(newSpeed != speed) {
-    //    speed = newSpeed;
+    //  if(newSpeed != this.speed) {
+    //    this.speed = newSpeed;
     //  }
 
     //  SmartDashboard.putNumber("Current Shooter Velocity Left: ", shooterMotorLeftCANEncoder.getVelocity());

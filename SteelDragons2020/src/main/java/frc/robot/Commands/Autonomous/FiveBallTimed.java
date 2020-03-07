@@ -9,6 +9,8 @@ package frc.robot.Commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.RobotContainer;
+import frc.robot.Commands.SetDriveTraintoXValue;
 import frc.robot.Commands.Intaking.IntakeAndStore;
 import frc.robot.Commands.Shooting.AutoShoot;
 
@@ -19,19 +21,17 @@ public class FiveBallTimed extends SequentialCommandGroup {
   /**
    * Creates a new FiveBallTimed.
    */
+  private double startXValue;
   public FiveBallTimed() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
+    startXValue = RobotContainer.getLimeLightValues()[1];
     addCommands(
       new AutoShoot(true),
-      new AutoTurn(0.5, 0.3,  true),
+      new SetDriveTraintoXValue(this.startXValue),
       new ParallelRaceGroup(
         new IntakeAndStore(true),
-        new AutoDrive(4.0, 0.4, true)
-      ),
-      new ParallelRaceGroup(
-        new IntakeAndStore(true),
-        new AutoDrive(2.0, 0.4, true)
+        new AutoDrive(3.0, 0.6, true)
       ),
       new AutoShoot(true)
     );

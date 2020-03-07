@@ -27,6 +27,7 @@ import frc.robot.Commands.Autonomous.FourBallTimed;
 import frc.robot.Commands.Autonomous.SixBall;
 import frc.robot.Commands.Autonomous.ThreeBallandDrive;
 import frc.robot.Commands.Intaking.IntakeAndStore;
+import frc.robot.Commands.Intaking.IntakeOut;
 import frc.robot.Commands.Shooting.AutoShoot;
 import frc.robot.Commands.Shooting.ShootandBelts;
 import frc.robot.Commands.Shooting.TriangleAutoShoot;
@@ -149,8 +150,7 @@ public class RobotContainer {
         new JoystickButton(operator, Constants.kBottomRight)
             .whenPressed(new IntakeAndStore(false));
         new JoystickButton(operator, Constants.kBottomMiddleRight)
-            .whenPressed(() -> intake.spinOut())
-            .whenReleased(() -> intake.spinStop());
+            .whileActiveContinuous(new IntakeOut());
 
         //INTAKE POSITION
         new JoystickButton(operator, Constants.kMiddleMiddleLeft)

@@ -13,10 +13,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
-
 
 public class DriveTrain extends SubsystemBase {
   private final CANSparkMax frontLeft;
@@ -36,12 +36,14 @@ public class DriveTrain extends SubsystemBase {
 
 
   public DriveTrain() {
-    kPLL = 0.06;
-    kILL = 0.08;
-    kDLL = 0.006;
-    // SmartDashboard.putNumber("DriveTrain P", p);
-    // SmartDashboard.putNumber("DriveTrain I", i);
-    // SmartDashboard.putNumber("DriveTrain D", d);
+    kPLL = 0.02;
+    kILL = 0.00;
+    kDLL = 0.000;
+    //kFFLL = 0.0;
+    // SmartDashboard.putNumber("DriveTrain P", kPLL);
+    // SmartDashboard.putNumber("DriveTrain I", kILL);
+    // SmartDashboard.putNumber("DriveTrain D", kDLL);
+    //SmartDashboard.putNumber("DriveTrain FF", kFFLL);
 
     frontLeft = new CANSparkMax(Constants.CAN_DRIVETRAIN_FRONTLEFT, MotorType.kBrushless);
     backLeft = new CANSparkMax(Constants.CAN_DRIVETRAIN_BACKLEFT, MotorType.kBrushless);
@@ -75,11 +77,13 @@ public class DriveTrain extends SubsystemBase {
     // double newP = SmartDashboard.getNumber("DriveTrain P", 0);
     // double newI = SmartDashboard.getNumber("DriveTrain I", 0);
     // double newD = SmartDashboard.getNumber("DriveTrain D", 0);
+    // //double newFF = SmartDashboard.getNumber("DriveTrain FF", 0);
 
-    // if(newP != p) { p = newP; }
-    // if(newI != i) { i = newI; }
-    // if(newD != d) { d = newD; }
-    // alignDT.setPID(p, i, d);
+    // if(newP != kPLL) { kPLL = newP; }
+    // if(newI != kILL) { kILL = newI; }
+    // if(newD != kDLL) { kDLL = newD; }
+    // //if(newD != kFFLL) { kFFLL = newFF; }
+    // alignDT.setPID(kPLL, kILL, kDLL);
 
     // This method will be called once per scheduler run
   }

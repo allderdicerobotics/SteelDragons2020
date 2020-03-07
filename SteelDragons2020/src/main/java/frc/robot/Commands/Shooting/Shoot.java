@@ -11,29 +11,24 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Shooter;
-import frc.robot.Subsystems.Tube;
 
 public class Shoot extends CommandBase {
   /**
    * Creates a new Shoot.
    */
   private Shooter shooter;
-  private Tube tube;
   private boolean isAuto;
   private int buttonID;
   private double startTime;
-  private boolean endTubeBottom;
   private boolean isDriver;
 
-  public Shoot(boolean isAuto, int buttonID, boolean endTubeBottom, boolean isDriver) {
+  public Shoot(boolean isAuto, int buttonID, boolean isDriver) {
     this.shooter = RobotContainer.shooter;
-    this.tube = RobotContainer.tube;
     this.isAuto = isAuto;
     this.buttonID = buttonID;
-    this.endTubeBottom = endTubeBottom;
     this.isDriver = isDriver;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.shooter, this.tube);
+    addRequirements(this.shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -54,9 +49,6 @@ public class Shoot extends CommandBase {
   public void end(boolean interrupted) {
     this.shooter.stop();
     RobotContainer.getRidOfAllBalls();
-    if(this.endTubeBottom){
-      this.tube.bottomPosition();
-    }
   }
 
   // Returns true when the command should end.

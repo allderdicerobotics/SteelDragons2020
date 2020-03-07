@@ -5,47 +5,40 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands;
+package frc.robot.Commands.Intaking;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.DriveTrain;
+import frc.robot.Subsystems.Intake;
+import frc.robot.Subsystems.Tube;;
 
+public class IntakeOut extends CommandBase {
 
-public class TeleopDrive extends CommandBase {
-
-   private DriveTrain driveTrain;
-
-  public TeleopDrive(DriveTrain driveTrain) {
-    this.driveTrain = driveTrain;
-
+  Intake intake;
+  
+  public IntakeOut() {
+    this.intake = RobotContainer.intake;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.driveTrain);
+    addRequirements(this.intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    this.intake.spinStop();
+    this.intake.bottom();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double throttle = Constants.DRIVETRAIN_THROTTLE_SCALE * RobotContainer.driver.getRawAxis(Constants.kLeftStickY);
-    double steer = Constants.DRIVETRAIN_STEER_SCALE * RobotContainer.driver.getRawAxis(Constants.kRightStickX);
-    if(RobotContainer.driver.getRawButton(Constants.kButtonLeftBumper)) {
-      throttle *= 0.6;
-      steer *= 0.8;
-    }
-    driveTrain.arcadeDrive(throttle, steer);
-    SmartDashboard.putNumber("joystick", RobotContainer.driver.getRawAxis(Constants.kRightStickX));
+    this.intake.spinOut();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    this.intake.spinStop();
   }
 
   // Returns true when the command should end.
