@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.TeleopDrive;
 import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.DriveOffLine;
+import frc.robot.Commands.Autonomous.FiveBallOtherSide;
 import frc.robot.Commands.Autonomous.FiveBallTimed;
 import frc.robot.Commands.Autonomous.FourBallTimed;
 import frc.robot.Commands.Autonomous.SixBall;
@@ -57,6 +58,8 @@ public class RobotContainer {
     private static final String kSixBallWithVision = "Six Ball with Vision";
     private static final String kFourBallTimed = "Four Ball Timed";
     private static final String kFiveBallTimed = "Five Ball Timed";
+    private static final String kFiveBallOtherSide = "Five Ball Other Side";
+
 
     public static int currentBallCount = 3;
     public static DigitalInput beamBreakSensor = new DigitalInput(Constants.BEAM_BREAK_DIO_PORT);
@@ -88,6 +91,9 @@ public class RobotContainer {
             case "Five Ball Timed":
                 returnCommand = (new FiveBallTimed());
                 break;
+            case "Five Ball Other Side":
+                returnCommand = (new FiveBallOtherSide());
+                break;
             default:
                 returnCommand = (new DoNothing());
                 break;
@@ -106,6 +112,7 @@ public class RobotContainer {
         autoChooser.addOption("Six Ball with Vision", kSixBallWithVision);
         autoChooser.addOption("Four Ball Timed", kFourBallTimed);
         autoChooser.addOption("Five Ball Timed", kFiveBallTimed);
+        autoChooser.addOption("Five Ball Other Side", kFiveBallOtherSide);
         SmartDashboard.putData("Auto Chooser", autoChooser);
 
         SmartDashboard.putNumber("", currentBallCount);

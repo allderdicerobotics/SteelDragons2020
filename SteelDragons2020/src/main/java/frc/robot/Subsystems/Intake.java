@@ -82,11 +82,11 @@ public class Intake extends SubsystemBase {
 
   //INTAKE SPIN
   public void spinIn() {
-    setSpinSpeed(-Constants.INTAKE_SPEED_IN);
+    setSpinSpeed(1.0);
   }
 
   public void spinOut() {
-    setSpinSpeed(Constants.INTAKE_SPEED_OUT);
+    setSpinSpeed(-Constants.INTAKE_SPEED_OUT);
   }
 
   public void spinStop() {
@@ -94,15 +94,16 @@ public class Intake extends SubsystemBase {
   }
 
   public void spinOnDriveSpeed() {
-    if(RobotContainer.driver.getRawAxis(Constants.kLeftStickY) >= 0.07) {
+    if(RobotContainer.driver.getRawAxis(Constants.kLeftStickY) <= -0.07) {
       setSpinSpeed(1.0);
     } else {
       setSpinSpeed(0.5);
     }
+    // setSpinSpeed(1.0);
   }
 
   public void setSpinSpeed(double speed) {
-    intakeSpinMotor.set(speed);
+    intakeSpinMotor.set(-speed);
   }
 
   //INTAKE POSITION

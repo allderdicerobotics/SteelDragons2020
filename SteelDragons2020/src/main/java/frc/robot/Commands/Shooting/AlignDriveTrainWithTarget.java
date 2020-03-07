@@ -63,7 +63,7 @@ public class AlignDriveTrainWithTarget extends CommandBase {
           if(currentXValue > 0.0) {  this.driveTrain.arcadeDrive(0.0, 0.3); }
         }
       } else {
-        this.driveTrain.arcadeDrive(0.0, 0.5);
+        this.driveTrain.arcadeDrive(0.0, 0.0);
       }
     }
   }
@@ -90,14 +90,14 @@ public class AlignDriveTrainWithTarget extends CommandBase {
     //if we're accurate enough and a timer hasn't been started, start a timer.
     //if we're accurate enough and a timer has been started, we're done if 10 ms has passed
     if((currentXValue <= accuracyConstant && currentXValue >= -accuracyConstant) && valid){
-      if(startTime == -1.0) {
-        startTime = Timer.getFPGATimestamp();
+      if(this.startTime == -1.0) {
+        this.startTime = Timer.getFPGATimestamp();
       }
-      if(startTime != -1.0 && Timer.getFPGATimestamp() >= 0.2 + startTime && valid) {
+      if(this.startTime != -1.0 && Timer.getFPGATimestamp() >= 0.2 + this.startTime) {
         return true;
       }
     }
-    if(!(currentXValue <= accuracyConstant && currentXValue >= -accuracyConstant)) {
+    if((!(currentXValue <= accuracyConstant && currentXValue >= -accuracyConstant)) || !valid) {
       startTime = -1.0;
     }
     return false;

@@ -24,14 +24,14 @@ public class FiveBallTimed extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     addCommands(
       new AutoShoot(true),
-      new AutoTurn(0.5),
+      new AutoTurn(0.5, 0.3,  true),
       new ParallelRaceGroup(
         new IntakeAndStore(true),
-        new AutoDrive(4.0)
+        new AutoDrive(4.0, 0.4, true)
       ),
       new ParallelRaceGroup(
         new IntakeAndStore(true),
-        new AutoDrive(2.0)
+        new AutoDrive(2.0, 0.4, true)
       ),
       new AutoShoot(true)
     );

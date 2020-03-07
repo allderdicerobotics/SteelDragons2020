@@ -19,7 +19,12 @@ public class AutoDrive extends CommandBase {
   DriveTrain driveTrain;
   private double time;
   private double startTime;
-  public AutoDrive(double time) {
+  private boolean forward;
+  private double speed;
+
+  public AutoDrive(double time, double speed, boolean forward) {
+    this.forward = forward;
+    this.speed = speed;
     this.driveTrain = RobotContainer.driveTrain;
     this.time = time;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -36,7 +41,11 @@ public class AutoDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.driveTrain.arcadeDrive(-0.4, 0.0);
+    if(forward) {
+      this.driveTrain.arcadeDrive(-this.speed, 0.0);
+    } else {
+      this.driveTrain.arcadeDrive(this.speed, 0.0);
+    }
   }
 
   // Called once the command ends or is interrupted.

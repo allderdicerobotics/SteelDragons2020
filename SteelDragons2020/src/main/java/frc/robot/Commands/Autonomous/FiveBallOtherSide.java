@@ -15,20 +15,30 @@ import frc.robot.Commands.Shooting.AutoShoot;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class FourBallTimed extends SequentialCommandGroup {
+public class FiveBallOtherSide extends SequentialCommandGroup {
   /**
-   * Creates a new FourBallTimedd.
+   * Creates a new FiveBallOtherSide.
    */
-  public FourBallTimed() {
+  public FiveBallOtherSide() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoShoot(true),
-      new AutoTurn(0.2, 0.3,  true),
+      new TubeBottom(),
       new ParallelRaceGroup(
-        new IntakeAndStore(true),
-        new AutoDrive(7.0, 0.4, true)
+        new AutoDrive(2.4, 0.55, true),
+        new IntakeAndStore(true)
       ),
+      new ParallelRaceGroup(
+        new WaitTime(1.0),
+        new IntakeAndStore(true)
+      ),
+      new ParallelRaceGroup(
+        new AutoTurn(0.6, 0.45, false),
+        new IntakeAndStore(true)
+      ),
+      new AutoDrive(1.3, 0.9, false),
+      new WaitTime(0.15),
+      new AutoTurn(0.5, 0.45, true),
       new AutoShoot(true)
     );
   }

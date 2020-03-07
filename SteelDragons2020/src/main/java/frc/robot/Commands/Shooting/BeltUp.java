@@ -64,7 +64,7 @@ public class BeltUp extends CommandBase {
         }
       }
     } else {
-      return (Timer.getFPGATimestamp() >= startTime + 3.5);
+      return (Timer.getFPGATimestamp() >= startTime + 4.0);
     }
     return false;
   }

@@ -5,40 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Commands;
+package frc.robot.Commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Subsystems.DriveTrain;
+import frc.robot.Subsystems.Tube;
 
-
-public class TeleopDrive extends CommandBase {
-
-   private DriveTrain driveTrain;
-
-  public TeleopDrive(DriveTrain driveTrain) {
-    this.driveTrain = driveTrain;
-
+public class TubeBottom extends CommandBase {
+  /**
+   * Creates a new TubeBottom.
+   */
+  private Tube tube;
+  public TubeBottom() {
+    this.tube = RobotContainer.tube;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.driveTrain);
+    addRequirements(this.tube);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    this.tube.bottomPosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double throttle = Constants.DRIVETRAIN_THROTTLE_SCALE * RobotContainer.driver.getRawAxis(Constants.kLeftStickY);
-    double steer = Constants.DRIVETRAIN_STEER_SCALE * RobotContainer.driver.getRawAxis(Constants.kRightStickX);
-    if(RobotContainer.driver.getRawButton(Constants.kButtonLeftBumper)) {
-      throttle *= 0.6;
-      steer *= 0.8;
-    }
-    driveTrain.arcadeDrive(throttle, steer);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,6 +41,6 @@ public class TeleopDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

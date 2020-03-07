@@ -19,27 +19,40 @@ public class AutoTurn extends CommandBase {
   private double waitTime;
   private double startTime;
   private DriveTrain driveTrain;
-  public AutoTurn(double time) {
+  private boolean left;
+  private double speed;
+
+  public AutoTurn(double time, double speed, boolean left) {
     this.waitTime = time;
+    this.speed = speed;
+    this.left = left;
     this.driveTrain = RobotContainer.driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(this.driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startTime = Timer.getFPGATimestamp();
+    this.startTime = Timer.getFPGATimestamp();
+    this.driveTrain.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.driveTrain.arcadeDrive(0.0, -0.3);
+    if(left) {
+      this.driveTrain.arcadeDrive(0.0, -this.speed);
+    }
+    if(!left) {
+      this.driveTrain.arcadeDrive(0.0, this.speed);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    this.driveTrain.stop();
   }
 
   // Returns true when the command should end.

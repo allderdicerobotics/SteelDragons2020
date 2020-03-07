@@ -73,7 +73,7 @@ public class Shoot extends CommandBase {
         }
       }
     } else {
-      return (Timer.getFPGATimestamp() >= startTime + 3.50);
+      return (Timer.getFPGATimestamp() >= startTime + 4.0);
     }
     return false;
   }
