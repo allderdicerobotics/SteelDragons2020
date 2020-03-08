@@ -32,8 +32,17 @@ public class EightBallTimed extends SequentialCommandGroup {
       new TubeBottom(),
       new ParallelRaceGroup(
         new IntakeAndStore(true),
-        new AutoDrive(4.2, 0.6, true)
+        new AutoDrive(4.0, 0.6, true)
       ),
+      new TubeBottom(),
+      new ParallelRaceGroup(
+        new IntakeAndStore(true),
+        new AutoDrive(1.5, 0.35, true)
+      ),
+      // new ParallelRaceGroup(
+      //   new IntakeAndStore(true),
+      //   new WaitTime(1.0)
+      // ),
       new AutoDrive(0.9, 1.0, false),
       new AutoShoot(true)
     );
