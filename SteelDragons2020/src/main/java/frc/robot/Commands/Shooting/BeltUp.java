@@ -15,18 +15,21 @@ import frc.robot.Subsystems.TubeBelts;
 public class BeltUp extends CommandBase {
 
   private TubeBelts tubeBelts;
-  private boolean isAuto;
+  
   private double startTime;
   private int buttonID;
   private boolean isDriver;
+  private boolean isAuto;
+  private boolean fast;
 
-  public BeltUp(boolean isAuto, int buttonID, boolean isDriver) {
+  public BeltUp(boolean isAuto, int buttonID, boolean isDriver, boolean fast) {
     this.tubeBelts = RobotContainer.tubeBelts;
+    addRequirements(this.tubeBelts);
+
     this.isAuto = isAuto;
     this.buttonID = buttonID;
     this.isDriver = isDriver;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.tubeBelts);
+    this.fast = fast;
   }
 
   // Called when the command is initially scheduled.
@@ -64,7 +67,11 @@ public class BeltUp extends CommandBase {
         }
       }
     } else {
-      return (Timer.getFPGATimestamp() >= startTime + 4.0);
+      if(this.fast) {
+        return (Timer.getFPGATimestamp() >= startTime + 4.0);
+      } else {
+        return (Timer.getFPGATimestamp() >= startTime + 2.5);
+      }
     }
     return false;
   }

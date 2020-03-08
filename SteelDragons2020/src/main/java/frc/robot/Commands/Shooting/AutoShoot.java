@@ -10,6 +10,7 @@ package frc.robot.Commands.Shooting;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.Commands.SetDriveTraintoXValue;
 import frc.robot.Commands.Shooting.BeltUp;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -20,22 +21,22 @@ public class AutoShoot extends SequentialCommandGroup {
    * Creates a new AutoShoot.
    */
   private boolean isAuto;
-  public AutoShoot(boolean isAuto) {
+  private boolean fast;
+
+  public AutoShoot(boolean isAuto, boolean fast) {
     this.isAuto = isAuto;
-    // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());
-    //super();
+    this.fast = fast;
 
     addCommands(
       new ParallelCommandGroup(
-        new AlignDriveTrainWithTarget(this.isAuto),
+        new SetDriveTraintoXValue(0.0, this.isAuto),
         new AlignTubeWithTarget(this.isAuto),
         new BeltDownForTime(this.isAuto)
       ),
       new ParallelCommandGroup(
         new AlignTubeWithTarget(this.isAuto),
-        new BeltUp(this.isAuto, Constants.kButtonA, true),
-        new Shoot(this.isAuto, Constants.kButtonA, true)
+        new BeltUp(this.isAuto, Constants.kButtonA, true, this.fast),
+        new Shoot(this.isAuto, Constants.kButtonA, true, this.fast)
       )
     );
   }

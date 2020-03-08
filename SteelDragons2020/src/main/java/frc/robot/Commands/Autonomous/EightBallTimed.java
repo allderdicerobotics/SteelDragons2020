@@ -7,11 +7,13 @@
 
 package frc.robot.Commands.Autonomous;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.Commands.SetDriveTraintoXValue;
 import frc.robot.Commands.Intaking.IntakeAndStore;
+import frc.robot.Commands.Shooting.AlignTubeWithTarget;
 import frc.robot.Commands.Shooting.AutoShoot;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -19,22 +21,21 @@ import frc.robot.Commands.Shooting.AutoShoot;
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class EightBallTimed extends SequentialCommandGroup {
   /**
-   * Creates a new FiveBallTimed.
+   * Creates a new EightBallTimed.
    */
   private double startXValue;
+
   public EightBallTimed() {
-    // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());
-    startXValue = RobotContainer.getLimeLightValues()[1];
+    this.startXValue = RobotContainer.getLimeLightValues()[1];
+
     addCommands(
-      new AutoShoot(true),
-      new SetDriveTraintoXValue(this.startXValue),
+      new AutoShoot(true, true),
+      new SetDriveTraintoXValue(this.startXValue, true),
       new TubeBottom(),
       new ParallelRaceGroup(
         new IntakeAndStore(true),
         new AutoDrive(4.0, 0.6, true)
       ),
-      new TubeBottom(),
       new ParallelRaceGroup(
         new IntakeAndStore(true),
         new AutoDrive(1.5, 0.35, true)
@@ -43,8 +44,12 @@ public class EightBallTimed extends SequentialCommandGroup {
       //   new IntakeAndStore(true),
       //   new WaitTime(1.0)
       // ),
-      new AutoDrive(0.9, 1.0, false),
-      new AutoShoot(true)
+      new AutoDrive(0.4, 1.0, false),
+      new ParallelRaceGroup(
+        new AlignTubeWithTarget(true),
+        new AutoDrive(0.5, 1.0, false)
+      ),
+      new AutoShoot(true, false)
     );
   }
 }

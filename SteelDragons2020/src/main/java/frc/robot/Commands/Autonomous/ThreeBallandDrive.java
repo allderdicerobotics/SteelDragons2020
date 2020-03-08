@@ -23,7 +23,7 @@ public class ThreeBallandDrive extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelRaceGroup(
-        new AutoShoot(true),
+        new AutoShoot(true, false),
         new WaitTime(10.0)
       ),
       new DriveOffLine()

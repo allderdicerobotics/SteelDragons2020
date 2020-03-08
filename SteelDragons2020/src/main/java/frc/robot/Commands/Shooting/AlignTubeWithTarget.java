@@ -16,18 +16,18 @@ import frc.robot.Subsystems.Tube;
 public class AlignTubeWithTarget extends CommandBase {
 
   private Tube tube;
-  private double[] limeLightValues;
-  private boolean done = false;
 
+  private double[] limeLightValues;
   private double startTime = -1.0;
+  private boolean done = false;
   private boolean didStartTime = false;
   private boolean isAuto;
 
   public AlignTubeWithTarget(boolean isAuto) {
     this.tube = RobotContainer.tube;
-    this.isAuto = isAuto;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tube);
+
+    this.isAuto = isAuto;
   }
 
   // Called when the command is initially scheduled.
@@ -68,7 +68,7 @@ public class AlignTubeWithTarget extends CommandBase {
       startTime = Timer.getFPGATimestamp();
       didStartTime = true;
     }
-    else if (done && didStartTime && Timer.getFPGATimestamp() >= 0.5 + startTime) {
+    else if (done && didStartTime && Timer.getFPGATimestamp() >= 0.25 + startTime) {
       return true;
     }
     if(!done) {

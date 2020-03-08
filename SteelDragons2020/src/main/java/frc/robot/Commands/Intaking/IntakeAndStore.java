@@ -16,9 +16,12 @@ public class IntakeAndStore extends ParallelRaceGroup {
   /**
    * Creates a new IntakeAndStore.
    */
-  boolean isAuto = false;
+  private boolean isAuto;
+
   public IntakeAndStore(boolean isAuto) {
+
     this.isAuto = isAuto;
+    
     addCommands(
       new IntakeIn(this.isAuto),
       new StoreBalls(this.isAuto)

@@ -18,11 +18,9 @@ public class ShootandBelts extends ParallelCommandGroup {
    * Creates a new ShootandBelts.
    */
   public ShootandBelts() {
-    // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());
     addCommands(
-      new BeltUp(false, Constants.kBottomMiddleLeft, false),
-      new Shoot(false, Constants.kBottomMiddleLeft, false)
+      new BeltUp(false, Constants.kBottomMiddleLeft, false, false),
+      new Shoot(false, Constants.kBottomMiddleLeft, false, false)
     );
   }
 }

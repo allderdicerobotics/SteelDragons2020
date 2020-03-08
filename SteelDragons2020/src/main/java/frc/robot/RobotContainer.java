@@ -23,9 +23,7 @@ import frc.robot.Commands.Autonomous.DoNothing;
 import frc.robot.Commands.Autonomous.DriveOffLine;
 import frc.robot.Commands.Autonomous.EightBallTimed;
 import frc.robot.Commands.Autonomous.FiveBallOtherSide;
-import frc.robot.Commands.Autonomous.FiveBallTimed;
-import frc.robot.Commands.Autonomous.FourBallTimed;
-import frc.robot.Commands.Autonomous.SixBall;
+import frc.robot.Commands.Autonomous.SixBallTimed;
 import frc.robot.Commands.Autonomous.ThreeBallandDrive;
 import frc.robot.Commands.Intaking.IntakeAndStore;
 import frc.robot.Commands.Intaking.IntakeOut;
@@ -54,15 +52,12 @@ public class RobotContainer {
     public static final Joystick operator = new Joystick(1);
     public static final Joystick climber = new Joystick(2);
 
-    private static final String kDefaultAuto = "Do Nothing";
-    private static final String kDriveOffLine = "Drive Off the Line";
     private static final String kThreeBallAndDrive = "Three Ball and Drive";
-    private static final String kSixBallWithVision = "Six Ball with Vision";
-    private static final String kFourBallTimed = "Four Ball Timed";
-    private static final String kFiveBallTimed = "Five Ball Timed";
+    private static final String kSixBallTimed = "Six Ball Timed";
     private static final String kEightBallTimed = "Eight Ball Timed";
     private static final String kFiveBallOtherSide = "Five Ball Other Side";
-
+    private static final String kDefaultAuto = "Do Nothing";
+    private static final String kDriveOffLine = "Drive Off the Line";
 
     public static int currentBallCount = 3;
     public static DigitalInput beamBreakSensor = new DigitalInput(Constants.BEAM_BREAK_DIO_PORT);
@@ -85,14 +80,8 @@ public class RobotContainer {
             case "Three Ball and Drive":
                 returnCommand = (new ThreeBallandDrive());
                 break;
-            case "Six Ball with Vision":
-                returnCommand = (new SixBall());
-                break;
-            case "Four Ball Timed":
-                returnCommand = (new FourBallTimed());
-                break;
-            case "Five Ball Timed":
-                returnCommand = (new FiveBallTimed());
+            case "Six Ball Timed":
+                returnCommand = (new SixBallTimed());
                 break;
             case "Eight Ball Timed":
                 returnCommand = (new EightBallTimed());
@@ -115,9 +104,7 @@ public class RobotContainer {
         autoChooser.setDefaultOption("Do Nothing", kDefaultAuto);
         autoChooser.addOption("Drive Off the Line", kDriveOffLine);
         autoChooser.addOption("Three Ball and Drive", kThreeBallAndDrive);
-        autoChooser.addOption("Six Ball with Vision", kSixBallWithVision);
-        autoChooser.addOption("Four Ball Timed", kFourBallTimed);
-        autoChooser.addOption("Five Ball Timed", kFiveBallTimed);
+        autoChooser.addOption("Six Ball Timed", kSixBallTimed);
         autoChooser.addOption("Eight Ball Timed", kEightBallTimed);
         autoChooser.addOption("Five Ball Other Side", kFiveBallOtherSide);
         SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -127,7 +114,7 @@ public class RobotContainer {
 
     public void configureButtonBindings() {
         new JoystickButton(driver, Constants.kButtonA)
-            .whenPressed(new AutoShoot(false));
+            .whenPressed(new AutoShoot(false, false));
 
         new JoystickButton(driver, Constants.kButtonB)
             .whenPressed(new TriangleAutoShoot());

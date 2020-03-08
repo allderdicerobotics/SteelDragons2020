@@ -39,7 +39,7 @@ public class FiveBallOtherSide extends SequentialCommandGroup {
       new AutoDrive(1.3, 0.9, false),
       new WaitTime(0.15),
       new AutoTurn(0.5, 0.45, true),
-      new AutoShoot(true)
+      new AutoShoot(true, false)
     );
   }
 }

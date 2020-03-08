@@ -20,16 +20,14 @@ public class TriangleAutoShoot extends SequentialCommandGroup {
    * Creates a new TriangleAutoShoot.
    */
   public TriangleAutoShoot() {
-    // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelCommandGroup(
         new TubeTop(),
         new BeltDownForTime(false)
       ),
       new ParallelRaceGroup(
-        new BeltUp(false, Constants.kButtonB, true),
-        new Shoot(false, Constants.kButtonB, true)
+        new BeltUp(false, Constants.kButtonB, true, false),
+        new Shoot(false, Constants.kButtonB, true, false)
       )
     );
 

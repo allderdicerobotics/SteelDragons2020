@@ -23,7 +23,6 @@ public class DriveOffLine extends CommandBase {
 
   public DriveOffLine() {
     this.driveTrain = RobotContainer.driveTrain;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.driveTrain);
   }
 
@@ -37,11 +36,7 @@ public class DriveOffLine extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Timer.getFPGATimestamp() <= startTime + driveTime) {
-      this.driveTrain.arcadeDrive(-0.4, 0.0);
-    } else {
-      done = true;
-    }
+    this.driveTrain.arcadeDrive(-0.4, 0.0);
   }
 
   // Called once the command ends or is interrupted.
@@ -53,6 +48,6 @@ public class DriveOffLine extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return done;
+    return (Timer.getFPGATimestamp() >= this.startTime + this.driveTime);
   }
 }

@@ -10,15 +10,13 @@ package frc.robot.Commands.Intaking;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Intake;
-import frc.robot.Subsystems.Tube;;
 
 public class IntakeOut extends CommandBase {
 
-  Intake intake;
+  private Intake intake;
   
   public IntakeOut() {
     this.intake = RobotContainer.intake;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.intake);
   }
 

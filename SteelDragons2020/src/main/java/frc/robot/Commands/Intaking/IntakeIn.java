@@ -14,16 +14,16 @@ import frc.robot.Subsystems.Tube;;
 
 public class IntakeIn extends CommandBase {
 
-  Intake intake;
-  Tube tube;
-  boolean isAuto = false;
+  private Intake intake;
+  private Tube tube;
+  private boolean isAuto;
   
   public IntakeIn(boolean isAuto) {
     this.intake = RobotContainer.intake;
     this.tube = RobotContainer.tube;
-    this.isAuto = isAuto;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.intake);
+
+    this.isAuto = isAuto;
   }
 
   // Called when the command is initially scheduled.

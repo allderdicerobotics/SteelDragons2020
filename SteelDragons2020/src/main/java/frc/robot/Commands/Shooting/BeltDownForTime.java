@@ -18,14 +18,15 @@ public class BeltDownForTime extends CommandBase {
    * Creates a new BeltDownForTime.
    */
   TubeBelts tubeBelts;
+  
   private double startTime = -1.0;
   private boolean isAuto;
 
   public BeltDownForTime(boolean isAuto) {
     this.tubeBelts = RobotContainer.tubeBelts;
-    this.isAuto = isAuto;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tubeBelts);
+
+    this.isAuto = isAuto;
   }
 
   // Called when the command is initially scheduled.

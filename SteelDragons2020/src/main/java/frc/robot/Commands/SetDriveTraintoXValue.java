@@ -17,27 +17,27 @@ public class SetDriveTraintoXValue extends CommandBase {
   /**
    * Creates a new AlignWithTarget.
    */
+  private DriveTrain driveTrain;
+
   private double startTime = -1.0;
   private double[] limeLightValues;
   private double accuracyConstant = 0.7;
   private double PIDInitializeConstant = 11;
-  private DriveTrain driveTrain;
-
-  private double commandStartTime = -1.0;
   private double xValue;
+  private boolean isAuto;
 
-  public SetDriveTraintoXValue(double xValue) {
-    this.xValue = xValue;
+  public SetDriveTraintoXValue(double xValue, boolean isAuto) {
     driveTrain = RobotContainer.driveTrain;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.driveTrain);
+
+    this.isAuto = isAuto;
+    this.xValue = xValue;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     limeLightValues = RobotContainer.getLimeLightValues();
-    commandStartTime = Timer.getFPGATimestamp();
     this.driveTrain.stop();
   }
 
@@ -51,24 +51,13 @@ public class SetDriveTraintoXValue extends CommandBase {
     if (valid) {
       if ((Math.abs(currentXValue - xValue) <= PIDInitializeConstant)) {
         double steercmd = this.driveTrain.alignDT.calculate(currentXValue - xValue);
-        steercmd += Math.copySign(0.20, steercmd);
-        if (steercmd > 1.0) {
-          steercmd = 1.0;
-        }
-        if (steercmd < -1.0) {
-          steercmd = -1.0;
-        }
+        steercmd += Math.copySign(0.22, steercmd);
+        if (steercmd > 1.0) { steercmd = 1.0; }
+        if (steercmd < -1.0) { steercmd = -1.0; }
         this.driveTrain.arcadeDrive(0.0, -steercmd);
       } else {
-        if (currentXValue < xValue) {
-          this.driveTrain.arcadeDrive(0.0, -0.3);
-        }
-        if (currentXValue > xValue) {
-          this.driveTrain.arcadeDrive(0.0, 0.3);
-        }
-      }
-    } else {
       this.driveTrain.arcadeDrive(0.0, 0.0);
+      }
     }
   }
 
@@ -81,12 +70,17 @@ public class SetDriveTraintoXValue extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(!isAuto) {
+      if(!RobotContainer.driver.getRawButton(Constants.kButtonA)) {
+        return true;
+      }
+    }
     boolean valid = (limeLightValues[0] == 1);
 
     double currentXValue = limeLightValues[1];
 
     // if we're accurate enough and a timer hasn't been started, start a timer.
-    // if we're accurate enough and a timer has been started, we're done if 10 ms
+    // if we're accurate enough and a timer has been started, we're done if 20 ms
     // has passed
     if ((currentXValue - xValue <= accuracyConstant && currentXValue - xValue >= -accuracyConstant) && valid) {
       if (this.startTime == -1.0) {

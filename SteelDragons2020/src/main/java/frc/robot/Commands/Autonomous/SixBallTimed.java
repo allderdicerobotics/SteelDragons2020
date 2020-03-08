@@ -9,27 +9,42 @@ package frc.robot.Commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.RobotContainer;
+import frc.robot.Commands.SetDriveTraintoXValue;
 import frc.robot.Commands.Intaking.IntakeAndStore;
+import frc.robot.Commands.Shooting.AlignTubeWithTarget;
 import frc.robot.Commands.Shooting.AutoShoot;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class FourBallTimed extends SequentialCommandGroup {
+public class SixBallTimed extends SequentialCommandGroup {
   /**
-   * Creates a new FourBallTimedd.
+   * Creates a new SixBallTimed.
    */
-  public FourBallTimed() {
-    // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());
+  private double startXValue;
+
+  public SixBallTimed() {
+    this.startXValue = RobotContainer.getLimeLightValues()[1];
+
     addCommands(
-      new AutoShoot(true),
-      new AutoTurn(0.2, 0.3,  true),
+      new AutoShoot(true, true),
+      new SetDriveTraintoXValue(this.startXValue, true),
+      new TubeBottom(),
       new ParallelRaceGroup(
         new IntakeAndStore(true),
-        new AutoDrive(7.0, 0.4, true)
+        new AutoDrive(2.5, 0.6, true)
       ),
-      new AutoShoot(true)
+      // new ParallelRaceGroup(
+      //   new IntakeAndStore(true),
+      //   new WaitTime(1.0)
+      // ),
+      new AutoDrive(0.2, 1.0, false),
+      new ParallelRaceGroup(
+        new AlignTubeWithTarget(true),
+        new AutoDrive(0.4, 1.0, false)
+      ),
+      new AutoShoot(true, false)
     );
   }
 }

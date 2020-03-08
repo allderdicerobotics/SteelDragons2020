@@ -17,10 +17,11 @@ public class TubeTop extends CommandBase {
    * Creates a new TubeTop.
    */
   Tube tube;
+
   private double startTime = -1.0;
+
   public TubeTop() {
     tube = RobotContainer.tube;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.tube);
   }
 

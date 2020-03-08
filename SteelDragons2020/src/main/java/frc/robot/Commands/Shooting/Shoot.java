@@ -17,18 +17,21 @@ public class Shoot extends CommandBase {
    * Creates a new Shoot.
    */
   private Shooter shooter;
-  private boolean isAuto;
+
   private int buttonID;
   private double startTime;
   private boolean isDriver;
+  private boolean isAuto;
+  private boolean fast;
 
-  public Shoot(boolean isAuto, int buttonID, boolean isDriver) {
+  public Shoot(boolean isAuto, int buttonID, boolean isDriver, boolean fast) {
     this.shooter = RobotContainer.shooter;
+    addRequirements(this.shooter);
+
     this.isAuto = isAuto;
     this.buttonID = buttonID;
     this.isDriver = isDriver;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.shooter);
+    this.fast = fast;
   }
 
   // Called when the command is initially scheduled.
@@ -65,7 +68,11 @@ public class Shoot extends CommandBase {
         }
       }
     } else {
-      return (Timer.getFPGATimestamp() >= startTime + 4.0);
+      if(this.fast) {
+        return (Timer.getFPGATimestamp() >= startTime + 4.0);
+      } else {
+        return (Timer.getFPGATimestamp() >= startTime + 2.5);
+      }
     }
     return false;
   }
