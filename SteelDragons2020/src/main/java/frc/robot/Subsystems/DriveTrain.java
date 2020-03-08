@@ -68,6 +68,10 @@ public class DriveTrain extends SubsystemBase {
     differentialDrive.arcadeDrive(-throttle, steer);
   }
 
+  public void curvatureDrive(double throttle, double steer, boolean isQuickTurn) {
+    differentialDrive.curvatureDrive(throttle, steer, isQuickTurn);
+  }
+
   public void stop() {
     differentialDrive.tankDrive(0.0, 0.0);
   }

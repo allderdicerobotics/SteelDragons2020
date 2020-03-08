@@ -39,8 +39,8 @@ public class TeleopDrive extends CommandBase {
       throttle *= 0.6;
       steer *= 0.8;
     }
-    driveTrain.arcadeDrive(throttle, steer);
-    SmartDashboard.putNumber("joystick", RobotContainer.driver.getRawAxis(Constants.kRightStickX));
+    this.driveTrain.curvatureDrive(throttle, steer, RobotContainer.driver.getRawButton(Constants.kButtonRightBumper));
+    // SmartDashboard.putNumber("joystick", RobotContainer.driver.getRawAxis(Constants.kRightStickX));
   }
 
   // Called once the command ends or is interrupted.
