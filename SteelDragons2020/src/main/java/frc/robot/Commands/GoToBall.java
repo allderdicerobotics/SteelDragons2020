@@ -36,7 +36,7 @@ public class GoToBall extends CommandBase {
     raspberryValues = RobotContainer.getRaspberryValues();
     double currentXValue = raspberryValues[1]-80; //get x coord
     boolean valid = raspberryValues[0] == 1;
-    System.out.println(valid);
+    //System.out.println(valid);
 
     //If targets exist
     if(valid) {

@@ -39,6 +39,7 @@ public class Shoot extends CommandBase {
   public void initialize() {
     this.shooter.stop();
     startTime = Timer.getFPGATimestamp();
+    this.shooter.setPIDFF();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -52,6 +53,7 @@ public class Shoot extends CommandBase {
   public void end(boolean interrupted) {
     this.shooter.stop();
     RobotContainer.getRidOfAllBalls();
+    this.shooter.setPIDToZero();
   }
 
   // Returns true when the command should end.

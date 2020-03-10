@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.Commands.Autonomous.AutoDrive;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -22,8 +23,10 @@ public class TriangleAutoShoot extends SequentialCommandGroup {
   public TriangleAutoShoot() {
     addCommands(
       new ParallelCommandGroup(
+        new AutoDrive(0.4, 0.7, true),
         new TubeTop(),
         new BeltDownForTime(false)
+
       ),
       new ParallelRaceGroup(
         new BeltUp(false, Constants.kButtonB, true, false),

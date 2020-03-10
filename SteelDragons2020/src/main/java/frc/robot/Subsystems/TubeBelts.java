@@ -32,6 +32,10 @@ public class TubeBelts extends SubsystemBase {
     setSpeed(Constants.BELT_SPEED_UP);
   }
 
+  public void slowUp() {
+    setSpeed(0.3);
+  }
+
   public void down() {
     setSpeed(-Constants.BELT_SPEED_UP);
   }

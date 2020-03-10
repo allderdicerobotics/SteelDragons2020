@@ -61,7 +61,7 @@ public class DriveTrain extends SubsystemBase {
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
 
     alignDT = new PIDController(kPLL, kILL, kDLL);
-    alignDTRaspberry = new PIDController(0.006, 0, 0);
+    alignDTRaspberry = new PIDController(0.02, 0, 0);
   }
 
   public void arcadeDrive(double throttle, double steer) {

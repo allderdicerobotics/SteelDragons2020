@@ -43,7 +43,7 @@ public class BeltUp extends CommandBase {
   @Override
   public void execute() {
     if(Timer.getFPGATimestamp() >= 1.0 + startTime) {
-      this.tubeBelts.up();
+      this.tubeBelts.slowUp();
     }
   }
 

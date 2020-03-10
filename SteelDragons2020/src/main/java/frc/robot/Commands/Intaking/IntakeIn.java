@@ -30,7 +30,7 @@ public class IntakeIn extends CommandBase {
   @Override
   public void initialize() {
     this.intake.spinStop();
-    this.intake.bottom();
+    //this.intake.bottom();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,8 +47,8 @@ public class IntakeIn extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     this.intake.spinStop();
-    this.intake.top();
-    this.tube.bottomPosition();
+    //this.intake.top();
+    //this.tube.bottomPosition();
   }
 
   // Returns true when the command should end.

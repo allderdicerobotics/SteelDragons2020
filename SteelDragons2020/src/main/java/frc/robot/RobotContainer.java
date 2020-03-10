@@ -120,12 +120,16 @@ public class RobotContainer {
             .whenPressed(new TriangleAutoShoot());
 
         new JoystickButton(driver, Constants.kButtonBack)
+            .whenPressed(() -> shooter.setPIDFF())
             .whenPressed(() -> shooter.setColorWheelFastSpeed())
-            .whenReleased(() -> shooter.stop());
+            .whenReleased(() -> shooter.stop())
+            .whenReleased(() -> shooter.setPIDToZero());
 
         new JoystickButton(driver, Constants.kButtonStart)
+            .whenPressed(() -> shooter.setPIDFF())
             .whenPressed(() -> shooter.setColorWheelSlowSpeed())
-            .whenReleased(() -> shooter.stop());
+            .whenReleased(() -> shooter.stop())
+            .whenReleased(() -> shooter.setPIDToZero());
 
         //BELTS
         new JoystickButton(operator, Constants.kMiddleRight)

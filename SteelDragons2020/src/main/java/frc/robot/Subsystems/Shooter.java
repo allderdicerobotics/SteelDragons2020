@@ -48,13 +48,17 @@ public class Shooter extends SubsystemBase {
     shooterMotorLeft.setIdleMode(IdleMode.kCoast);
     shooterMotorRight.setIdleMode(IdleMode.kCoast);
 
-    // SmartDashboard.putNumber("Speed", speed);
+    SmartDashboard.putNumber("Speed", speed);
+
+    // kP = 0.0009;
+    // kD = 0.02;
+    // kFF = 0.00019;
 
     kP = 0.0002;
     kFF = 0.00023;
+    kD = 0.0;
 
     kI = 0.0;
-    kD = 0.0;
     kMaxOutput = 1.0;
     kMinOutput = -1.0;
     kIz = 0.0;
@@ -75,20 +79,20 @@ public class Shooter extends SubsystemBase {
     // motorPIDSetup(shooterMotorRightPIDController);
     // motorPIDSetup(shooterMotorLeftPIDController);
 
-    // SmartDashboard.putNumber("Speed", speed);
+    SmartDashboard.putNumber("Speed", speed);
 
 
-    // //Use this only for tuning PID values and testing
-    // SmartDashboard.putNumber("Shooter P", kP);
-    // SmartDashboard.putNumber("Shooter I", kI);
-    // SmartDashboard.putNumber("Shooter D" , kD);
-    // SmartDashboard.putNumber("Shooter I Zone", kIz);
-    // SmartDashboard.putNumber("Shooter Feed Forward", kFF);
-    // SmartDashboard.putNumber("Shooter Max Output", kMaxOutput);
-    // SmartDashboard.putNumber("Shooter Min Output", kMinOutput);
+    //Use this only for tuning PID values and testing
+    SmartDashboard.putNumber("Shooter P", kP);
+    SmartDashboard.putNumber("Shooter I", kI);
+    SmartDashboard.putNumber("Shooter D" , kD);
+    SmartDashboard.putNumber("Shooter I Zone", kIz);
+    SmartDashboard.putNumber("Shooter Feed Forward", kFF);
+    SmartDashboard.putNumber("Shooter Max Output", kMaxOutput);
+    SmartDashboard.putNumber("Shooter Min Output", kMinOutput);
 
-    // SmartDashboard.putNumber("Shooter Max Accel", maxAccel);
-    // SmartDashboard.putNumber("Shooter Set Velocity", 0);
+    SmartDashboard.putNumber("Shooter Max Accel", maxAccel);
+    SmartDashboard.putNumber("Shooter Set Velocity", 0);
   }
 
   public void motorPIDSetup(CANPIDController controller) {
@@ -96,6 +100,30 @@ public class Shooter extends SubsystemBase {
     controller.setI(kI);
     controller.setD(kD);
     controller.setFF(kFF);
+  }
+
+  public void setPIDToZero() {
+    shooterMotorRightPIDController.setP(0);
+    shooterMotorRightPIDController.setI(0);
+    shooterMotorRightPIDController.setD(0);
+    shooterMotorRightPIDController.setFF(0);
+
+    shooterMotorLeftPIDController.setP(0);
+    shooterMotorLeftPIDController.setI(0);
+    shooterMotorLeftPIDController.setD(0);
+    shooterMotorLeftPIDController.setFF(0);
+  }
+
+  public void setPIDFF() {
+    shooterMotorRightPIDController.setP(kP);
+    shooterMotorRightPIDController.setI(kI);
+    shooterMotorRightPIDController.setD(kD);
+    shooterMotorRightPIDController.setFF(kFF);
+
+    shooterMotorLeftPIDController.setP(kP);
+    shooterMotorLeftPIDController.setI(kI);
+    shooterMotorLeftPIDController.setD(kD);
+    shooterMotorLeftPIDController.setFF(kFF);
   }
 
   public void stop() {
@@ -107,9 +135,9 @@ public class Shooter extends SubsystemBase {
   }
 
   public void normalSpeed() {
-    setSpeed(Constants.SHOOTER_NORMAL_SPEED, -Constants.SHOOTER_NORMAL_SPEED);
+    // setSpeed(Constants.SHOOTER_NORMAL_SPEED, -Constants.SHOOTER_NORMAL_SPEED);
+    setSpeed(5700, -5700);
     // setSpeed(this.speed, -this.speed);
-
   }
 
   public void setSpeed(double leftSpeed, double rightSpeed){
@@ -160,14 +188,14 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //  double newSpeed = SmartDashboard.getNumber("Speed", 0);
-    //  if(newSpeed != this.speed) {
-    //    this.speed = newSpeed;
-    //  }
+     double newSpeed = SmartDashboard.getNumber("Speed", 0);
+     if(newSpeed != this.speed) {
+       this.speed = newSpeed;
+     }
 
-    //  SmartDashboard.putNumber("Current Shooter Velocity Left: ", shooterMotorLeftCANEncoder.getVelocity());
-    //  SmartDashboard.putNumber("Current Shooter Velocity Right: ", shooterMotorRightCANEncoder.getVelocity());
-    //  PIDSetup();
+     SmartDashboard.putNumber("Current Shooter Velocity Left: ", shooterMotorLeftCANEncoder.getVelocity());
+     SmartDashboard.putNumber("Current Shooter Velocity Right: ", shooterMotorRightCANEncoder.getVelocity());
+    //PIDSetup();
       
     // SmartDashboard.putNumber("Current Shooter Velocity Left: ", shooterMotorLeftCANEncoder.getVelocity());
     // SmartDashboard.putNumber("Current Shooter Velocity Right: ", shooterMotorRightCANEncoder.getVelocity());

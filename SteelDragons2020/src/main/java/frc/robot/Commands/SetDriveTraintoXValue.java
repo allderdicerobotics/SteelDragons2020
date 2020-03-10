@@ -22,7 +22,7 @@ public class SetDriveTraintoXValue extends CommandBase {
   private double startTime = -1.0;
   private double[] limeLightValues;
   private double accuracyConstant = 0.7;
-  private double PIDInitializeConstant = 11;
+  private double PIDInitializeConstant = 30;
   private double xValue;
   private boolean isAuto;
 
@@ -54,9 +54,10 @@ public class SetDriveTraintoXValue extends CommandBase {
         steercmd += Math.copySign(0.22, steercmd);
         if (steercmd > 1.0) { steercmd = 1.0; }
         if (steercmd < -1.0) { steercmd = -1.0; }
+        System.out.println(-steercmd);
         this.driveTrain.arcadeDrive(0.0, -steercmd);
       } else {
-      this.driveTrain.arcadeDrive(0.0, 0.0);
+        this.driveTrain.arcadeDrive(0.0, 0.0);
       }
     }
   }
